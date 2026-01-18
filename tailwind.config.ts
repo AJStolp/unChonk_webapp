@@ -43,6 +43,14 @@ const config = {
           900: "#0a0a0a",
           950: "#000000",
         },
+        colorsDARK: {
+          'text': '#f7f8f7',
+          'background': '#020302',
+          'primary': '#6f8b71',
+          'secondary': '#404e4f',
+          'accent': '#59656e',
+        },
+
         // Success, warning, error states
         success: {
           50: "#f0fdf4",

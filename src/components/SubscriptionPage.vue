@@ -1,56 +1,77 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-charcoal-800 py-8">
-    <div class="max-w-7xl mx-auto px-4">
+  <div class="min-h-screen bg-white">
+    <!-- Navigation Bar (matching LandingPage) -->
+    <nav class="bg-white/95 backdrop-blur-sm border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href="/pages/index.html" class="text-xl font-bold text-gray-900">
+              ttsAudify
+            </a>
+          </div>
+          <div class="flex items-center gap-4">
+            <a
+              href="/extension/pages/login.html"
+              class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
+            >
+              Sign In
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 py-12">
       <!-- Header -->
       <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
           Choose Your Plan
         </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-300 mb-4">
+        <p class="text-xl text-gray-600 mb-6">
           Scale your TTS usage as you grow
         </p>
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-          <span class="text-blue-600 dark:text-blue-400">ℹ️</span>
-          <p class="text-sm font-medium text-blue-700 dark:text-blue-300">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#e8eeee] border border-[#749076]/30 rounded-lg">
+          <span class="text-[#749076]">i</span>
+          <p class="text-sm font-medium text-gray-700">
             All purchases are valid for one year from date of purchase
           </p>
         </div>
       </div>
 
       <!-- Credit Slider Section -->
-      <div v-if="sliderConfig" class="max-w-4xl mx-auto mb-12">
+      <div v-if="sliderConfig" class="max-w-4xl mx-auto mb-16">
         <!-- Credit Display -->
         <div class="text-center mb-6">
-          <div class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          <div class="text-4xl font-bold text-gray-900 mb-2">
             {{ selectedCredits.toLocaleString() }} credits
           </div>
-          <div class="text-lg text-gray-600 dark:text-gray-400">
+          <div class="text-lg text-gray-600">
             {{ (selectedCredits * sliderConfig.characters_per_credit).toLocaleString() }} characters
             <span class="mx-2">•</span>
-            <span class="font-semibold" :class="currentTier === 'Pro' ? 'text-amber-500' : 'text-gray-900 dark:text-white'">
+            <span class="font-semibold text-[#749076]">
               {{ currentTier }} Tier
             </span>
           </div>
         </div>
 
         <!-- Slider -->
-        <div class="mb-6 px-4">
+        <div class="mb-8 px-4">
           <input
             type="range"
             v-model.number="selectedCredits"
             :min="sliderConfig.min"
             :max="sliderConfig.max"
             :step="100"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-gray-800 dark:accent-gray-300"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#749076]"
           />
-          <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <div class="flex justify-between text-sm text-gray-500 mt-2">
             <span>{{ sliderConfig.min.toLocaleString() }}</span>
             <span>{{ sliderConfig.max.toLocaleString() }}</span>
           </div>
         </div>
 
         <!-- Preset Package Buttons -->
-        <div v-if="packages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+        <div v-if="packages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
           <button
             v-for="pkg in packages"
             :key="pkg.credits"
@@ -58,14 +79,14 @@
             :class="[
               'p-3 rounded-lg border-2 transition',
               selectedCredits === pkg.credits
-                ? 'border-gray-800 dark:border-gray-300 bg-gray-100 dark:bg-charcoal-600'
-                : 'border-gray-300 dark:border-gray-600 hover:border-gray-600 dark:hover:border-gray-400'
+                ? 'border-[#749076] bg-[#e8eeee]'
+                : 'border-gray-200 hover:border-[#749076]/50 bg-white'
             ]"
           >
-            <div class="text-sm font-semibold text-gray-900 dark:text-white">
+            <div class="text-sm font-semibold text-gray-900">
               {{ (pkg.credits / 1000).toFixed(0) }}K
             </div>
-            <div class="text-xs text-gray-600 dark:text-gray-400">
+            <div class="text-xs text-gray-600">
               ${{ pkg.price.toFixed(2) }}
             </div>
           </button>
@@ -74,17 +95,17 @@
 
       <!-- Loading State -->
       <div v-if="loading && !sliderConfig" class="text-center py-12">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-800 dark:border-gray-300 mx-auto"></div>
-        <p class="text-gray-600 dark:text-gray-400 mt-4">Loading pricing options...</p>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#749076] mx-auto"></div>
+        <p class="text-gray-600 mt-4">Loading pricing options...</p>
       </div>
 
       <!-- Error State -->
       <div v-if="error && !sliderConfig" class="max-w-md mx-auto text-center py-12">
-        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-          <p class="text-red-600 dark:text-red-400">{{ error }}</p>
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+          <p class="text-red-600">{{ error }}</p>
           <button
             @click="fetchCreditPackages"
-            class="mt-4 px-4 py-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-black rounded-lg hover:bg-gray-900 dark:hover:bg-white"
+            class="mt-4 px-6 py-2 bg-[#749076] text-[#070807] font-semibold rounded-lg hover:bg-[#5f7760] transition"
           >
             Try Again
           </button>
@@ -95,79 +116,79 @@
       <div v-if="sliderConfig" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-12">
 
         <!-- FREE TIER -->
-        <div class="bg-white dark:bg-charcoal-700 rounded-xl shadow-lg p-6 border-2 border-gray-200 dark:border-charcoal-600 flex flex-col h-full">
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300 flex flex-col h-full">
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Free</h3>
-            <div class="text-4xl font-bold text-gray-900 dark:text-white mb-2">$0</div>
-            <p class="text-gray-600 dark:text-gray-400">Forever free</p>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Free</h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">$0</div>
+            <p class="text-gray-600">Forever free</p>
           </div>
 
           <ul class="space-y-3 mb-8 flex-grow">
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Browser TTS
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Basic voices
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Highlighting
             </li>
           </ul>
 
           <button
-            class="w-full p-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg mt-auto cursor-not-allowed"
+            class="w-full p-3 bg-gray-100 text-gray-500 rounded-xl mt-auto cursor-not-allowed"
             disabled
           >
             Current Plan
           </button>
         </div>
 
-        <!-- LIGHT TIER (NEW) -->
+        <!-- LIGHT TIER -->
         <div
-          class="bg-white dark:bg-charcoal-900 rounded-xl shadow-lg p-6 border-2 relative flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-sm p-6 border-2 relative flex flex-col h-full transition duration-300"
           :class="[
-            currentTier === 'Light' ? 'border-gray-800 dark:border-gray-300 transform hover:scale-105 transition' : 'border-gray-300 dark:border-gray-600',
-            isLightDisabled ? 'opacity-60' : ''
+            currentTier === 'Light' ? 'border-[#749076] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
+            isLightDisabled ? 'opacity-50' : ''
           ]"
         >
           <div v-if="currentTier === 'Light'" class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <span class="bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-300 dark:to-gray-100 text-white dark:text-black px-4 py-1 rounded-full text-sm font-medium">
+            <span class="bg-[#749076] text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
               Selected
             </span>
           </div>
 
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Light</h3>
-            <div class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Light</h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
               ${{ lightTierPrice.toFixed(2) }}
             </div>
-            <p class="text-gray-600 dark:text-gray-400">
+            <p class="text-gray-600">
               {{ lightTierCredits.toLocaleString() }} credits
             </p>
           </div>
 
           <ul class="space-y-3 mb-8 flex-grow">
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               {{ (lightTierCredits * (sliderConfig?.characters_per_credit || 1000)).toLocaleString() }} characters
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Approx. {{ Math.round((lightTierCredits * (sliderConfig?.characters_per_credit || 1000)) / 750 / 60) }} hours of audio
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Standard voices
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Word highlighting
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Best for casual use
             </li>
           </ul>
@@ -176,61 +197,61 @@
             v-if="!isLightDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-300 dark:to-gray-100 text-white dark:text-black rounded-lg hover:from-gray-800 hover:to-black dark:hover:from-gray-200 dark:hover:to-white transition shadow-lg mt-auto"
+            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
             <span v-else>Purchase Credits</span>
           </button>
 
-          <div v-else class="w-full p-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg mt-auto text-center text-sm">
+          <div v-else class="w-full p-3 bg-gray-100 text-gray-500 rounded-xl mt-auto text-center text-sm">
             {{ currentTier === 'Premium' ? 'Select 500-1,999 for Light' : 'Use Premium or Pro tier' }}
           </div>
         </div>
 
         <!-- PREMIUM TIER -->
         <div
-          class="bg-white dark:bg-charcoal-900 rounded-xl shadow-lg p-6 border-2 relative flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-sm p-6 border-2 relative flex flex-col h-full transition duration-300"
           :class="[
-            currentTier === 'Premium' ? 'border-gray-800 dark:border-gray-300 transform hover:scale-105 transition' : 'border-gray-300 dark:border-gray-600',
-            isPremiumDisabled ? 'opacity-60' : ''
+            currentTier === 'Premium' ? 'border-[#749076] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
+            isPremiumDisabled ? 'opacity-50' : ''
           ]"
         >
           <div v-if="currentTier === 'Premium'" class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <span class="bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-300 dark:to-gray-100 text-white dark:text-black px-4 py-1 rounded-full text-sm font-medium">
+            <span class="bg-[#749076] text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
               Selected
             </span>
           </div>
 
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Premium</h3>
-            <div class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Premium</h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
               ${{ premiumTierPrice.toFixed(2) }}
             </div>
-            <p class="text-gray-600 dark:text-gray-400">
+            <p class="text-gray-600">
               {{ premiumTierCredits.toLocaleString() }} credits
             </p>
           </div>
 
           <ul class="space-y-3 mb-8 flex-grow">
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               {{ (premiumTierCredits * (sliderConfig?.characters_per_credit || 1000)).toLocaleString() }} characters
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Approx. {{ Math.round((premiumTierCredits * (sliderConfig?.characters_per_credit || 1000)) / 750 / 60) }} hours of audio
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Standard voices
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Word highlighting
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Best for regular use
             </li>
           </ul>
@@ -239,61 +260,61 @@
             v-if="!isPremiumDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-300 dark:to-gray-100 text-white dark:text-black rounded-lg hover:from-gray-800 hover:to-black dark:hover:from-gray-200 dark:hover:to-white transition shadow-lg mt-auto"
+            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
             <span v-else>Purchase Credits</span>
           </button>
 
-          <div v-else class="w-full p-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg mt-auto text-center text-sm">
+          <div v-else class="w-full p-3 bg-gray-100 text-gray-500 rounded-xl mt-auto text-center text-sm">
             {{ currentTier === 'Pro' ? 'Use Pro tier for 10,000+' : 'Select 2,000-9,999 for Premium' }}
           </div>
         </div>
 
         <!-- PRO TIER -->
         <div
-          class="bg-white dark:bg-charcoal-900 rounded-xl shadow-lg p-6 border-2 relative flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-sm p-6 border-2 relative flex flex-col h-full transition duration-300"
           :class="[
-            currentTier === 'Pro' ? 'border-amber-500 transform hover:scale-105 transition' : 'border-gray-300 dark:border-gray-600',
-            isProDisabled ? 'opacity-60' : ''
+            currentTier === 'Pro' ? 'border-[#749076] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
+            isProDisabled ? 'opacity-50' : ''
           ]"
         >
           <div v-if="currentTier === 'Pro'" class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+            <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
               Best Value
             </span>
           </div>
 
           <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Pro</h3>
-            <div class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Pro</h3>
+            <div class="text-4xl font-bold text-gray-900 mb-2">
               ${{ proTierPrice.toFixed(2) }}
             </div>
-            <p class="text-gray-600 dark:text-gray-400">
+            <p class="text-gray-600">
               {{ proTierCredits.toLocaleString() }} credits
             </p>
           </div>
 
           <ul class="space-y-3 mb-8 flex-grow">
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               {{ (proTierCredits * (sliderConfig?.characters_per_credit || 1000)).toLocaleString() }} characters
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Approx. {{ Math.round((proTierCredits * (sliderConfig?.characters_per_credit || 1000)) / 750 / 60) }} hours of audio
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Standard + Neural voices
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Highest credit amounts
             </li>
-            <li class="flex items-center text-sm text-gray-700 dark:text-gray-300">
-              <span class="text-green-500 mr-2">✓</span>
+            <li class="flex items-center text-sm text-gray-700">
+              <span class="text-[#749076] mr-2">✓</span>
               Best for power users
             </li>
           </ul>
@@ -302,14 +323,14 @@
             v-if="!isProDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition shadow-lg mt-auto"
+            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
             <span v-else>Purchase Credits</span>
           </button>
 
-          <div v-else class="w-full p-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg mt-auto text-center text-sm">
+          <div v-else class="w-full p-3 bg-gray-100 text-gray-500 rounded-xl mt-auto text-center text-sm">
             Select 10,000+ credits for Pro
           </div>
         </div>
@@ -317,17 +338,29 @@
 
       <!-- Back Link -->
       <div class="text-center mt-12">
-        <a href="/pages/index.html" class="text-gray-800 dark:text-gray-300 hover:text-black dark:hover:text-white hover:underline">
+        <a href="/pages/index.html" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
           ← Back to Home
         </a>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-12 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-gray-600">
+            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
+import { useAuthStore } from '@shared/stores/authStore'
 
 // API calls use relative URLs - Vite proxy forwards /api to backend
 
@@ -351,12 +384,17 @@ interface SliderConfig {
   characters_per_credit: number
 }
 
+// Auth
+const authStore = useAuthStore()
+
 // State
 const selectedCredits = ref(500) // Updated default to new minimum
 const packages = ref<CreditPackage[]>([])
 const sliderConfig = ref<SliderConfig | null>(null)
 const loading = ref(false)
 const error = ref<string | null>(null)
+
+const currentYear = computed(() => new Date().getFullYear())
 
 // Computed properties
 const calculatedPrice = computed(() => {
@@ -534,11 +572,20 @@ const handlePurchase = async () => {
   })
 
   try {
+    // Build headers with auth token if available
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    }
+
+    // Try authStore first, fallback to localStorage
+    const token = authStore.authToken || localStorage.getItem('auth_token')
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
+
     const response = await fetch('/api/create-credit-checkout', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         credits: selectedCredits.value
       })
@@ -573,10 +620,6 @@ const handlePurchase = async () => {
   }
 }
 
-const handleUpgrade = async (tier: 'premium' | 'pro', cycle: 'monthly' | 'yearly') => {
-  alert(`Legacy upgrade flow - please use the credit slider above`)
-}
-
 // Track tier changes when user adjusts slider
 watch(currentTier, (newTier, oldTier) => {
   if (oldTier && newTier !== oldTier) {
@@ -589,7 +632,10 @@ watch(currentTier, (newTier, oldTier) => {
 })
 
 // Initialize on mount
-onMounted(() => {
+onMounted(async () => {
+  // Initialize auth (loads tokens from storage)
+  await authStore.initializeAuth()
+
   // Track subscription page view
   trackEvent(ANALYTICS_EVENTS.SUBSCRIPTION_VIEW)
 

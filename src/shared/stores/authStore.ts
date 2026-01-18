@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
-import { ref, computed, watch } from "vue";
-import { syncStateAcrossContexts } from ".";
+import { ref, computed } from "vue";
 import { useAuthStorage } from "../composables/useStorage";
 import { getApiUrl } from "../config/environment";
 import { TIER_LIMITS } from "../constants";
@@ -411,25 +410,6 @@ export const useAuthStore = defineStore("auth", () => {
       return null;
     }
   };
-
-  // ===== CROSS-CONTEXT SYNC =====
-  watch(
-    [isAuthenticated, user, preferences],
-    () => {
-      syncStateAcrossContexts("auth", {
-        isAuthenticated: isAuthenticated.value,
-        user: user.value,
-        preferences: preferences.value,
-        isPremium: isPremium.value,
-        isPro: isPro.value,
-        isLight: isLight.value,
-        isPaidTier: isPaidTier.value,
-        charactersRemaining: charactersRemaining.value,
-        usagePercentage: usagePercentage.value,
-      });
-    },
-    { deep: true }
-  );
 
   return {
     // ===== STATE =====
