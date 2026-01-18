@@ -12,12 +12,12 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        // Web app entries
-        'landing': resolve(__dirname, "src/vue-entries/landing.ts"),
-        'subscription': resolve(__dirname, "src/vue-entries/subscription.ts"),
-        'email-verification': resolve(__dirname, "src/vue-entries/email-verification.ts"),
-        'success': resolve(__dirname, "src/vue-entries/success.ts"),
-        'demo': resolve(__dirname, "src/vue-entries/demo.ts"),
+        // HTML pages
+        'index': resolve(__dirname, "src/pages/index.html"),
+        'subscription': resolve(__dirname, "src/pages/subscription.html"),
+        'email-verification': resolve(__dirname, "src/pages/email-verification.html"),
+        'success': resolve(__dirname, "src/pages/success.html"),
+        'demo': resolve(__dirname, "src/pages/demo.html"),
       },
       output: {
         entryFileNames: '[name].js',

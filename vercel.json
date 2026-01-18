@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/", "destination": "/pages/index.html" },
+    { "source": "/subscription", "destination": "/pages/subscription.html" },
+    { "source": "/success", "destination": "/pages/success.html" },
+    { "source": "/demo", "destination": "/pages/demo.html" },
+    { "source": "/email-verification", "destination": "/pages/email-verification.html" }
+  ]
+}
