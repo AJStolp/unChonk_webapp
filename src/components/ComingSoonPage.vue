@@ -33,13 +33,17 @@
             />
             <button
               type="submit"
-              class="px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
+              :disabled="loading"
+              class="px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Notify Me
+              {{ loading ? 'Saving...' : 'Notify Me' }}
             </button>
           </form>
           <p v-if="submitted" class="mt-4 text-[#749076] font-medium">
             Thanks! We'll let you know when we launch.
+          </p>
+          <p v-if="error" class="mt-4 text-red-500 font-medium">
+            {{ error }}
           </p>
         </div>
       </div>
@@ -58,15 +62,34 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { supabase } from '@shared/utils/supabase'
 
 const email = ref('')
 const submitted = ref(false)
+const loading = ref(false)
+const error = ref('')
 const currentYear = computed(() => new Date().getFullYear())
 
-const handleSubmit = () => {
-  // For now, just show success message
-  // You can integrate with a service like Mailchimp, ConvertKit, etc.
-  console.log('Email submitted:', email.value)
+const handleSubmit = async () => {
+  loading.value = true
+  error.value = ''
+
+  const { error: insertError } = await supabase
+    .from('email_signups')
+    .insert({ email: email.value })
+
+  loading.value = false
+
+  if (insertError) {
+    if (insertError.code === '23505') {
+      // Duplicate email
+      error.value = "You're already on the list!"
+    } else {
+      error.value = 'Something went wrong. Please try again.'
+    }
+    return
+  }
+
   submitted.value = true
   email.value = ''
 }
