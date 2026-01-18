@@ -1,11 +1,11 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "bun run build",
   "outputDirectory": "dist",
-  "rewrites": [
-    { "source": "/", "destination": "/pages/index.html" },
-    { "source": "/subscription", "destination": "/pages/subscription.html" },
-    { "source": "/success", "destination": "/pages/success.html" },
-    { "source": "/demo", "destination": "/pages/demo.html" },
-    { "source": "/email-verification", "destination": "/pages/email-verification.html" }
+  "routes": [
+    { "src": "^/$", "dest": "/pages/index.html" },
+    { "src": "^/subscription$", "dest": "/pages/subscription.html" },
+    { "src": "^/success$", "dest": "/pages/success.html" },
+    { "src": "^/demo$", "dest": "/pages/demo.html" },
+    { "src": "^/email-verification$", "dest": "/pages/email-verification.html" }
   ]
 }
