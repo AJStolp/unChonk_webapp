@@ -19,6 +19,7 @@ export default defineConfig({
         'email-verification': resolve(__dirname, "src/pages/email-verification.html"),
         'success': resolve(__dirname, "src/pages/success.html"),
         'demo': resolve(__dirname, "src/pages/demo.html"),
+        'privacy': resolve(__dirname, "src/pages/privacy.html"),
       },
       output: {
         entryFileNames: '[name].js',
