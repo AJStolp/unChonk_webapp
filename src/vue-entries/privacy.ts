@@ -6,7 +6,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import PrivacyPage from '../components/PrivacyPage.vue'
+import { loadUmamiScript } from '../shared/utils/analytics'
 import '../styles/globals.css'
+
+// Load analytics
+loadUmamiScript()
 
 // Create Pinia store
 const pinia = createPinia()

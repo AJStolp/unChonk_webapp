@@ -3,6 +3,22 @@
  * Self-hosted analytics tracking for TTS Audify
  */
 
+const UMAMI_SCRIPT_URL = 'https://analytics.logantaylorandkitties.com/script.js'
+const UMAMI_WEBSITE_ID = '867ccb2f-0c4a-4389-8082-8f8daa4b6ef0'
+
+/**
+ * Dynamically load the Umami analytics script
+ */
+export const loadUmamiScript = () => {
+  if (typeof window === 'undefined') return
+
+  const script = document.createElement('script')
+  script.defer = true
+  script.src = UMAMI_SCRIPT_URL
+  script.setAttribute('data-website-id', UMAMI_WEBSITE_ID)
+  document.head.appendChild(script)
+}
+
 export interface UmamiEventData {
   [key: string]: string | number | boolean;
 }
