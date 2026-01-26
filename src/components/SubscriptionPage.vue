@@ -11,7 +11,9 @@
           </div>
           <div class="flex items-center gap-4">
             <a
-              href="/extension/pages/login.html"
+              href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+              target="_blank"
+              rel="noopener noreferrer"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
             >
               Sign In
@@ -361,6 +363,7 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
 import { useAuthStore } from '@shared/stores/authStore'
+import { getApiUrl } from '@shared/config/environment'
 
 // API calls use relative URLs - Vite proxy forwards /api to backend
 
@@ -536,7 +539,7 @@ const fetchCreditPackages = async () => {
   error.value = null
 
   try {
-    const response = await fetch('/api/credit-packages')
+    const response = await fetch(getApiUrl('/api/credit-packages'))
 
     if (!response.ok) {
       throw new Error(`Failed to fetch credit packages: ${response.statusText}`)
@@ -583,7 +586,7 @@ const handlePurchase = async () => {
       headers['Authorization'] = `Bearer ${token}`
     }
 
-    const response = await fetch('/api/create-credit-checkout', {
+    const response = await fetch(getApiUrl('/api/create-credit-checkout'), {
       method: 'POST',
       headers,
       body: JSON.stringify({

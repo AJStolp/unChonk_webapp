@@ -1,0 +1,1 @@
+const n={};function a(){return typeof import.meta<"u"&&n?"https://wnmkkmiuopuavyqoswzd.supabase.co/functions/v1":"http://localhost:5000"}const o={apiBaseUrl:a()};function r(t){const e=o.apiBaseUrl,s=t.startsWith("/")?t:`/${t}`;return`${e}${s}`}export{r as g};

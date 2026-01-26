@@ -1,1 +1,0 @@
-const o={};function n(){return typeof import.meta<"u"&&o?"https://your-production-api-url.com":"http://localhost:5000"}const a={apiBaseUrl:n()};function i(t){const r=a.apiBaseUrl,e=t.startsWith("/")?t:`/${t}`;return`${r}${e}`}export{i as g};

@@ -17,7 +17,9 @@
               Pricing
             </a>
             <a
-              href="/extension/pages/login.html"
+              href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+              target="_blank"
+              rel="noopener noreferrer"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
             >
               Sign In

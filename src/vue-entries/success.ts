@@ -7,7 +7,11 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import SuccessPage from '../components/SuccessPage.vue'
 import { initializeExtensionAuthSync } from '../shared/composables/useExtensionAuthSync'
+import { loadUmamiScript } from '../shared/utils/analytics'
 import '../styles/globals.css'
+
+// Load analytics
+loadUmamiScript()
 
 // Create Pinia store
 const pinia = createPinia()
