@@ -3,8 +3,30 @@ import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 
+// Clean URL rewrites for dev server (matches vercel.json routes)
+function cleanUrlPlugin() {
+  return {
+    name: 'clean-url-rewrite',
+    configureServer(server: any) {
+      server.middlewares.use((req: any, _res: any, next: any) => {
+        const rewrites: Record<string, string> = {
+          '/subscription': '/pages/subscription.html',
+          '/demo': '/pages/demo.html',
+          '/privacy': '/pages/privacy.html',
+          '/success': '/pages/success.html',
+          '/email-verification': '/pages/email-verification.html',
+        }
+        if (req.url && rewrites[req.url]) {
+          req.url = rewrites[req.url]
+        }
+        next()
+      })
+    }
+  }
+}
+
 export default defineConfig({
-  plugins: [vue(), tailwindcss()],
+  plugins: [vue(), tailwindcss(), cleanUrlPlugin()],
   root: "src",
   envDir: resolve(__dirname, "."),  // Load .env files from project root
 
@@ -49,7 +71,7 @@ export default defineConfig({
   server: {
     port: 3000,
     host: "localhost",
-    open: "/pages/index.html",
+    open: "/",
     hmr: true,
     proxy: {
       "/api": "http://localhost:5000",

@@ -1,5 +1,44 @@
 <template>
-  <div>
+  <div class="min-h-screen bg-white">
+    <!-- Navigation Bar -->
+    <nav class="bg-white/95 backdrop-blur-sm border-b border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a href="/" class="text-xl font-bold text-gray-900">
+              ttsAudify
+            </a>
+          </div>
+          <div class="flex items-center gap-4">
+            <a
+              href="/subscription"
+              class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
+            >
+              Pricing
+            </a>
+            <a
+              href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
+            >
+              Sign In
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Header -->
+      <div class="max-w-4xl mx-auto px-4 pt-12 pb-6 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          Text to Speech Online
+        </h1>
+        <p class="text-xl text-gray-600">
+          See how ttsAudify helps real people read any webpage aloud
+        </p>
+      </div>
 
       <!-- Practical Applications Section -->
       <section class="mb-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 border border-gray-200 dark:border-gray-700 my-20 m-auto max-w-4xl">
@@ -44,13 +83,30 @@
           </div>
         </div>
       </section>
+    </main>
 
-     
+    <!-- Footer -->
+    <footer class="py-6 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <nav class="flex justify-center gap-6 mb-4">
+            <a href="/" class="text-gray-500 hover:text-gray-700 transition duration-300">Home</a>
+            <a href="/subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">Pricing</a>
+            <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
+          </nav>
+          <p class="text-gray-600">
+            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script setup lang="ts">
-// Demo page component - showcasing ttsAudify with engaging copy
+import { computed } from 'vue'
+
+const currentYear = computed(() => new Date().getFullYear())
 </script>
 
 <style scoped>

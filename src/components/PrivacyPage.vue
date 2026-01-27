@@ -5,13 +5,13 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
-            <a href="/pages/index.html" class="text-xl font-bold text-gray-900">
+            <a href="/" class="text-xl font-bold text-gray-900">
               ttsAudify
             </a>
           </div>
           <div class="flex items-center gap-4">
             <a
-              href="/pages/subscription.html"
+              href="/subscription"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
             >
               Pricing
@@ -30,7 +30,7 @@
     </nav>
 
     <!-- Privacy Policy Content -->
-    <div class="max-w-4xl mx-auto px-4 py-12">
+    <main class="max-w-4xl mx-auto px-4 py-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
       <p class="text-gray-600 mb-8">Last updated: January 19, 2026</p>
 
@@ -255,16 +255,20 @@
 
       <!-- Back Link -->
       <div class="text-center mt-12">
-        <a href="/pages/index.html" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
+        <a href="/" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
           &larr; Back to Home
         </a>
       </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="py-6 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
+          <nav class="flex justify-center gap-6 mb-4">
+            <a href="/" class="text-gray-500 hover:text-gray-700 transition duration-300">Home</a>
+            <a href="/subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">Pricing</a>
+          </nav>
           <p class="text-gray-600">
             &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
           </p>

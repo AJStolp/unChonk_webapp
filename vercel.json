@@ -6,6 +6,7 @@
     { "src": "^/subscription$", "dest": "/pages/subscription.html" },
     { "src": "^/success$", "dest": "/pages/success.html" },
     { "src": "^/demo$", "dest": "/pages/demo.html" },
-    { "src": "^/email-verification$", "dest": "/pages/email-verification.html" }
+    { "src": "^/email-verification$", "dest": "/pages/email-verification.html" },
+    { "src": "^/privacy$", "dest": "/pages/privacy.html" }
   ]
 }

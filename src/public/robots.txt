@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /success
+Disallow: /email-verification
+
+Sitemap: https://ttsaudify.com/sitemap.xml

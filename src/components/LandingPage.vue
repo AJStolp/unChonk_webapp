@@ -5,9 +5,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
-            <h1 class="text-xl font-bold text-gray-900">
+            <span class="text-xl font-bold text-gray-900">
               ttsAudify
-            </h1>
+            </span>
           </div>
           <div class="flex items-center gap-4">
             <a
@@ -19,7 +19,7 @@
               Sign In
             </a>
             <a
-              href="/pages/subscription.html"
+              href="/subscription"
               class="px-6 py-2 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
             >
               View Plans
@@ -29,6 +29,7 @@
       </div>
     </nav>
 
+    <main>
     <!-- Hero Section -->
     <div class="relative bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
@@ -36,19 +37,19 @@
           <!-- Left Side -->
           <div class="text-left">
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Transform Your Text
+              Text to Speech App for Your Browser
             </h1>
             <p class="text-xl md:text-2xl text-gray-700 mb-8">
               Natural-Sounding Text-to-Speech
             </p>
             <p class="text-lg text-gray-600 mb-12 leading-relaxed">
-              Convert automatically text content into natural-sounding audio and publish to the biggest podcast databases or on your website directly.
+              Read any webpage aloud with premium voices. Real-time word highlighting, customizable playback, and natural-sounding speech right in your browser.
             </p>
 
             <!-- CTA Buttons -->
             <div class="flex gap-4">
               <a
-                href="/pages/subscription.html"
+                href="/subscription"
                 class="px-8 py-4 bg-[#749076] text-[#070807] text-lg font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-lg hover:shadow-xl"
               >
                 Get Started
@@ -78,10 +79,10 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Powerful Features
+            Text-to-Speech Features
           </h2>
           <p class="text-lg text-gray-600">
-            Everything you need for professional text-to-speech
+            Everything you need to read aloud any webpage
           </p>
         </div>
 
@@ -170,10 +171,10 @@
             </svg>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-2">
-            Browser Extension
+            Chrome Extension
           </h3>
           <p class="text-gray-600">
-            Seamlessly integrated Chrome extension for text-to-speech and summarization on any webpage
+            Read aloud any webpage with our Chrome extension. No copying and pasting needed
           </p>
         </div>
       </div>
@@ -191,7 +192,7 @@
             Join users who are transforming their reading experience with ttsAudify
           </p>
           <a
-            href="/pages/subscription.html"
+            href="/subscription"
             class="inline-block px-8 py-4 bg-[#749076] text-[#070807] text-lg font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-lg hover:shadow-xl"
           >
             Get Started Now
@@ -200,11 +201,16 @@
       </div>
 
     </div>
+    </main>
 
     <!-- Footer -->
     <footer class="relative z-10 bg-gray-50 py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
+          <nav class="flex justify-center gap-6 mb-4">
+            <a href="/subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">Pricing</a>
+            <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
+          </nav>
           <p class="text-gray-600">
             &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
           </p>

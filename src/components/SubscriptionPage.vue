@@ -1,11 +1,11 @@
 <template>
   <div class="min-h-screen bg-white">
-    <!-- Navigation Bar (matching LandingPage) -->
+    <!-- Navigation Bar -->
     <nav class="bg-white/95 backdrop-blur-sm border-b border-gray-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
-            <a href="/pages/index.html" class="text-xl font-bold text-gray-900">
+            <a href="/" class="text-xl font-bold text-gray-900">
               ttsAudify
             </a>
           </div>
@@ -23,14 +23,14 @@
       </div>
     </nav>
 
-    <div class="max-w-7xl mx-auto px-4 py-12">
+    <main class="max-w-7xl mx-auto px-4 py-12">
       <!-- Header -->
       <div class="text-center mb-12">
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Choose Your Plan
+          Text to Speech Pricing
         </h1>
         <p class="text-xl text-gray-600 mb-6">
-          Scale your TTS usage as you grow
+          Pay as you go. Scale your usage as you grow.
         </p>
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#e8eeee] border border-[#749076]/30 rounded-lg">
           <span class="text-[#749076]">i</span>
@@ -41,6 +41,7 @@
       </div>
 
       <!-- Credit Slider Section -->
+      <h2 class="sr-only">Credit Packages</h2>
       <div v-if="sliderConfig" class="max-w-4xl mx-auto mb-16">
         <!-- Credit Display -->
         <div class="text-center mb-6">
@@ -340,16 +341,20 @@
 
       <!-- Back Link -->
       <div class="text-center mt-12">
-        <a href="/pages/index.html" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
+        <a href="/" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
           ← Back to Home
         </a>
       </div>
-    </div>
+    </main>
 
     <!-- Footer -->
     <footer class="py-6 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
+          <nav class="flex justify-center gap-6 mb-4">
+            <a href="/" class="text-gray-500 hover:text-gray-700 transition duration-300">Home</a>
+            <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
+          </nav>
           <p class="text-gray-600">
             &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
           </p>
