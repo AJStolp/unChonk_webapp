@@ -39,7 +39,7 @@
               Transform Your Text
             </h1>
             <p class="text-xl md:text-2xl text-gray-700 mb-8">
-              Text-to-Speech with AWS Polly
+              Natural-Sounding Text-to-Speech
             </p>
             <p class="text-lg text-gray-600 mb-12 leading-relaxed">
               Convert automatically text content into natural-sounding audio and publish to the biggest podcast databases or on your website directly.
@@ -98,7 +98,7 @@
             Premium Voices
           </h3>
           <p class="text-gray-600">
-            Access to AWS Polly's standard and neural voices for natural-sounding speech
+            Access to premium natural-sounding voices for lifelike speech
           </p>
         </div>
 
@@ -173,7 +173,7 @@
             Browser Extension
           </h3>
           <p class="text-gray-600">
-            Seamlessly integrated Chrome extension for text-to-speech on any webpage
+            Seamlessly integrated Chrome extension for text-to-speech and summarization on any webpage
           </p>
         </div>
       </div>

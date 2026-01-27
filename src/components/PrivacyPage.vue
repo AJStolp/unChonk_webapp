@@ -77,7 +77,7 @@
         <section class="mb-10">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">How We Use Your Information</h2>
           <ul class="list-disc list-inside text-gray-700 space-y-2">
-            <li><strong>Provide our service:</strong> Convert text to speech using AWS Polly</li>
+            <li><strong>Provide our service:</strong> Convert text to natural-sounding speech</li>
             <li><strong>Track usage:</strong> Monitor character limits based on your subscription plan</li>
             <li><strong>Manage your account:</strong> Process authentication and subscription status</li>
             <li><strong>Improve our service:</strong> Analyze aggregate usage patterns</li>
@@ -100,7 +100,7 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="border border-gray-200 px-4 py-2 text-gray-700">AWS Polly</td>
+                  <td class="border border-gray-200 px-4 py-2 text-gray-700">Text-to-Speech Engine</td>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Text-to-speech synthesis</td>
                   <td class="border border-gray-200 px-4 py-2">
                     <a href="https://aws.amazon.com/privacy/" target="_blank" rel="noopener noreferrer" class="text-[#749076] hover:underline">aws.amazon.com/privacy</a>
