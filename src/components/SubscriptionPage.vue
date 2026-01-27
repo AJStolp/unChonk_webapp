@@ -347,6 +347,32 @@
       </div>
     </main>
 
+    <!-- Auth Prompt Modal -->
+    <div v-if="showAuthPrompt" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" @click.self="showAuthPrompt = false">
+      <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
+        <h3 class="text-2xl font-bold text-gray-900 mb-3">Account Required</h3>
+        <p class="text-gray-600 mb-6">
+          To purchase credits, you need to create an account through the ttsAudify Chrome extension. Install the extension, sign up, and then return here to complete your purchase.
+        </p>
+        <div class="flex flex-col gap-3">
+          <a
+            href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition text-center shadow-md"
+          >
+            Get the Chrome Extension
+          </a>
+          <button
+            @click="showAuthPrompt = false"
+            class="w-full p-3 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-6 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -401,6 +427,7 @@ const packages = ref<CreditPackage[]>([])
 const sliderConfig = ref<SliderConfig | null>(null)
 const loading = ref(false)
 const error = ref<string | null>(null)
+const showAuthPrompt = ref(false)
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -567,8 +594,19 @@ const fetchCreditPackages = async () => {
   }
 }
 
+// Check if user is authenticated
+const isAuthenticated = computed(() => {
+  return !!(authStore.authToken || localStorage.getItem('auth_token'))
+})
+
 // Handle credit purchase
 const handlePurchase = async () => {
+  // Check auth before attempting checkout
+  if (!isAuthenticated.value) {
+    showAuthPrompt.value = true
+    return
+  }
+
   loading.value = true
   error.value = null
 
@@ -580,20 +618,13 @@ const handlePurchase = async () => {
   })
 
   try {
-    // Build headers with auth token if available
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    }
-
-    // Try authStore first, fallback to localStorage
     const token = authStore.authToken || localStorage.getItem('auth_token')
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`
-    }
-
     const response = await fetch(getApiUrl('/api/create-credit-checkout'), {
       method: 'POST',
-      headers,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
       body: JSON.stringify({
         credits: selectedCredits.value
       })
@@ -621,8 +652,6 @@ const handlePurchase = async () => {
       tier: currentTier.value,
       error: error.value,
     })
-
-    alert(`Error: ${error.value}`)
   } finally {
     loading.value = false
   }
