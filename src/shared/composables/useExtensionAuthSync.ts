@@ -1,6 +1,6 @@
 /**
  * Extension Auth Sync Composable
- * Receives auth tokens from the TTS Audify browser extension via postMessage
+ * Receives auth tokens from the ttsAudify browser extension via postMessage
  */
 
 import { ref, onMounted, onUnmounted } from 'vue'
