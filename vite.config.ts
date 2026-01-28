@@ -15,6 +15,7 @@ function cleanUrlPlugin() {
           '/privacy': '/pages/privacy.html',
           '/success': '/pages/success.html',
           '/email-verification': '/pages/email-verification.html',
+          '/report': '/pages/report.html',
         }
         if (req.url && rewrites[req.url]) {
           req.url = rewrites[req.url]
@@ -42,6 +43,7 @@ export default defineConfig({
         'success': resolve(__dirname, "src/pages/success.html"),
         'demo': resolve(__dirname, "src/pages/demo.html"),
         'privacy': resolve(__dirname, "src/pages/privacy.html"),
+        'report': resolve(__dirname, "src/pages/report.html"),
       },
       output: {
         entryFileNames: '[name].js',
