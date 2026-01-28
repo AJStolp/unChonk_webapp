@@ -248,7 +248,6 @@
           <p class="text-gray-700 mb-2">If you have any questions about this Privacy Policy, please contact us:</p>
           <ul class="list-none text-gray-700 space-y-1">
             <li>Email: <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a></li>
-            <li>Website: <a href="https://ttsaudify.com" class="text-[#749076] hover:underline">https://ttsaudify.com</a></li>
           </ul>
         </section>
       </div>
