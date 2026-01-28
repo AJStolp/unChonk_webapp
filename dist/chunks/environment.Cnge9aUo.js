@@ -1,0 +1,1 @@
+const a={};function s(){return typeof import.meta<"u"&&a?"https://api.ttsaudify.com":"http://localhost:5000"}const i={apiBaseUrl:s()};function n(t){const e=i.apiBaseUrl,r=t.startsWith("/")?t:`/${t}`;return`${e}${r}`}export{n as g};

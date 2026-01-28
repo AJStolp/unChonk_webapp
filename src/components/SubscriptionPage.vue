@@ -380,6 +380,7 @@
           <nav class="flex justify-center gap-6 mb-4">
             <a href="/" class="text-gray-500 hover:text-gray-700 transition duration-300">Home</a>
             <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
+            <a href="/report" class="text-gray-500 hover:text-gray-700 transition duration-300">Report a Bug</a>
           </nav>
           <p class="text-gray-600">
             &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
