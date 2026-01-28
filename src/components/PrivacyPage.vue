@@ -179,7 +179,7 @@
             <li>Opt-out of marketing communications</li>
           </ul>
           <p class="text-gray-700 mt-4">
-            To exercise these rights, contact us at <a href="mailto:support@ttsaudify.com" class="text-[#749076] hover:underline">support@ttsaudify.com</a>.
+            To exercise these rights, contact us at <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a>.
           </p>
         </section>
 
@@ -196,7 +196,7 @@
             <li>The right to non-discrimination for exercising your privacy rights</li>
           </ul>
           <p class="text-gray-700 mt-3">
-            We do not sell or share personal information as defined under California law. To exercise your rights, contact us at <a href="mailto:support@ttsaudify.com" class="text-[#749076] hover:underline">support@ttsaudify.com</a>.
+            We do not sell or share personal information as defined under California law. To exercise your rights, contact us at <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a>.
           </p>
         </section>
 
@@ -247,7 +247,7 @@
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
           <p class="text-gray-700 mb-2">If you have any questions about this Privacy Policy, please contact us:</p>
           <ul class="list-none text-gray-700 space-y-1">
-            <li>Email: <a href="mailto:support@ttsaudify.com" class="text-[#749076] hover:underline">support@ttsaudify.com</a></li>
+            <li>Email: <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a></li>
             <li>Website: <a href="https://ttsaudify.com" class="text-[#749076] hover:underline">https://ttsaudify.com</a></li>
           </ul>
         </section>
