@@ -10,7 +10,18 @@
             </a>
           </div>
           <div class="flex items-center gap-4">
+            <!-- Show user info when authenticated -->
+            <div v-if="isAuthenticated" class="flex items-center gap-3">
+              <span class="text-sm text-gray-600">
+                Signed in as <span class="font-medium text-gray-900">{{ userDisplayName }}</span>
+              </span>
+              <div class="w-8 h-8 rounded-full bg-[#749076] flex items-center justify-center">
+                <span class="text-white text-sm font-medium">{{ userInitial }}</span>
+              </div>
+            </div>
+            <!-- Show sign in link when not authenticated -->
             <a
+              v-else
               href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
               target="_blank"
               rel="noopener noreferrer"
@@ -598,6 +609,23 @@ const fetchCreditPackages = async () => {
 // Check if user is authenticated
 const isAuthenticated = computed(() => {
   return !!(authStore.authToken || localStorage.getItem('auth_token'))
+})
+
+// Get user display name from auth store or token
+const userDisplayName = computed(() => {
+  if (authStore.user?.email) {
+    return authStore.user.email
+  }
+  if (authStore.user?.username) {
+    return authStore.user.username
+  }
+  return 'User'
+})
+
+// Get user initial for avatar
+const userInitial = computed(() => {
+  const name = userDisplayName.value
+  return name ? name.charAt(0).toUpperCase() : 'U'
 })
 
 // Handle credit purchase
