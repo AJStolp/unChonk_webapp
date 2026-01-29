@@ -38,22 +38,29 @@
           </h1>
 
           <p class="text-gray-600 mb-8">
-            Your purchase has been processed successfully. Your credits are now available.
+            Your purchase has been processed successfully. Your credits are now available in your dashboard.
           </p>
         </div>
 
         <!-- Action Buttons -->
         <div class="space-y-4">
+          <button
+            @click="openExtensionDashboard"
+            class="w-full px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 text-center shadow-md hover:shadow-lg"
+          >
+            Open Dashboard
+          </button>
+
+          <p class="text-sm text-gray-500 mt-4">
+            Click the ttsAudify extension icon in your browser toolbar to view your updated credits.
+          </p>
+
           <a
             href="/"
-            class="w-full inline-block px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 text-center shadow-md hover:shadow-lg"
+            class="w-full inline-block px-4 py-2 text-gray-600 hover:text-gray-900 font-medium transition duration-300 text-center"
           >
             Back to Home
           </a>
-
-          <p class="text-sm text-gray-500 mt-6">
-            You can now use the Audify Extension in your Chrome browser.
-          </p>
         </div>
       </div>
     </div>
@@ -78,6 +85,24 @@ import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
 const currentYear = computed(() => new Date().getFullYear())
 
 const token = localStorage.getItem('access_token')
+
+// Extension ID for ttsAudify
+const EXTENSION_ID = 'mbblkelaeinpifdgjcbnojnhdmmpjfdd'
+
+// Try to open the extension dashboard
+const openExtensionDashboard = () => {
+  // Try to open the extension's dashboard page
+  const extensionUrl = `chrome-extension://${EXTENSION_ID}/pages/dashboard.html`
+
+  // Attempt to open - this may be blocked by Chrome security
+  const newWindow = window.open(extensionUrl, '_blank')
+
+  // If blocked or extension not installed, the window will be null
+  if (!newWindow) {
+    // Fallback: alert user to click extension icon
+    alert('Please click the ttsAudify extension icon in your browser toolbar to view your dashboard.')
+  }
+}
 
 const handlePostSubscriptionTasks = async () => {
   if (!token) {
