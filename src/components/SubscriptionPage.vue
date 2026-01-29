@@ -632,6 +632,15 @@ const handlePurchase = async () => {
     })
 
     if (!response.ok) {
+      // Show auth prompt for unauthorized (invalid/expired token)
+      if (response.status === 401) {
+        // Clear stale token
+        localStorage.removeItem('auth_token')
+        authStore.logout()
+        showAuthPrompt.value = true
+        loading.value = false
+        return
+      }
       throw new Error(`Failed to create checkout: ${response.statusText}`)
     }
 
