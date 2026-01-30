@@ -1,15 +1,13 @@
 {
   "buildCommand": "bun run build",
   "outputDirectory": "dist",
-  "redirects": [
-    {
-      "source": "/:path(.*)",
-      "has": [{ "type": "host", "value": "ttsaudify.com" }],
-      "destination": "https://www.ttsaudify.com/:path",
-      "permanent": true
-    }
-  ],
   "routes": [
+    {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "ttsaudify.com" }],
+      "dest": "https://www.ttsaudify.com/$1",
+      "status": 301
+    },
     { "src": "^/$", "dest": "/pages/index.html" },
     { "src": "^/subscription$", "dest": "/pages/subscription.html" },
     { "src": "^/success$", "dest": "/pages/success.html" },
