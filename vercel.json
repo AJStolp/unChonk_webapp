@@ -2,6 +2,12 @@
   "buildCommand": "bun run build",
   "outputDirectory": "dist",
   "routes": [
+    {
+      "src": "/(.*)",
+      "has": [{ "type": "host", "value": "ttsaudify.com" }],
+      "dest": "https://www.ttsaudify.com/$1",
+      "status": 301
+    },
     { "src": "^/$", "dest": "/pages/index.html" },
     { "src": "^/subscription$", "dest": "/pages/subscription.html" },
     { "src": "^/success$", "dest": "/pages/success.html" },
