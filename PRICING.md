@@ -1,4 +1,4 @@
-# ttsAudify Pricing & Cost Analysis
+# unChonk Pricing & Cost Analysis
 
 **Last Updated:** January 2026
 **Version:** 1.0
@@ -187,7 +187,7 @@ With $0.012/credit and $150/mo scaled infrastructure:
 | Google Cloud TTS | $4.00-16.00 | Standard to WaveNet |
 | ElevenLabs | $22.00+ | Premium AI voices |
 | Play.ht | $15.00-30.00 | AI voices |
-| **ttsAudify** | **$12.00** | Competitive, no throttling |
+| **unChonk** | **$12.00** | Competitive, no throttling |
 
 **Competitive advantage:** At $12/1M, a user would need to use 11.5M+ characters/year to exceed Speechify's $139/year. Most users pay significantly less with pay-as-you-go, and we don't throttle.
 
@@ -213,7 +213,7 @@ With $0.012/credit and $150/mo scaled infrastructure:
 
 ### Frontend (Subscription Page)
 ```
-/tts-audify-webapp/src/components/SubscriptionPage.vue
+/unchonk-webapp/src/components/SubscriptionPage.vue
 ```
 - Fetches from `/api/credit-packages`
 - Displays tiers and pricing

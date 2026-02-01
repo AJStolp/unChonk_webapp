@@ -1,6 +1,6 @@
-# SEO Rules & Implementation Guide — ttsAudify
+# SEO Rules & Implementation Guide — unChonk
 
-This document defines the SEO standards for the ttsAudify webapp. Every page must follow these rules. This is a living document — update it as search engine guidelines evolve.
+This document defines the SEO standards for the unChonk webapp. Every page must follow these rules. This is a living document — update it as search engine guidelines evolve.
 
 ---
 
@@ -34,20 +34,20 @@ This document defines the SEO standards for the ttsAudify webapp. Every page mus
 | **Format** | `Primary Keyword - Secondary Context \| Brand` |
 | **Uniqueness** | Every page MUST have a unique title |
 | **Keyword placement** | Primary keyword within the first 3 words |
-| **Brand suffix** | Always end with `\| ttsAudify` |
+| **Brand suffix** | Always end with `\| unChonk` |
 | **No duplicates** | Never reuse a title across pages |
 | **No keyword stuffing** | Max 1–2 keywords per title |
 
 ### Title Formula
 
 ```
-[Action/Benefit Keyword] [Descriptive Phrase] | ttsAudify
+[Action/Benefit Keyword] [Descriptive Phrase] | unChonk
 ```
 
 **Examples:**
-- `Text to Speech Chrome Extension - AI Voices | ttsAudify`
-- `Pricing & Credits - Affordable TTS Plans | ttsAudify`
-- `TTS Use Cases - Students, Pros & More | ttsAudify`
+- `Text to Speech Chrome Extension - AI Voices | unChonk`
+- `Pricing & Credits - Affordable TTS Plans | unChonk`
+- `TTS Use Cases - Students, Pros & More | unChonk`
 
 ---
 
@@ -69,8 +69,8 @@ This document defines the SEO standards for the ttsAudify webapp. Every page mus
 ```
 
 **Examples:**
-- `Transform any text into natural speech with premium AI voices. Highlight words in real time as they're read. Try ttsAudify free.` (138 chars)
-- `Choose a TTS plan that fits your needs. Pay per credit with no subscriptions. Get started with ttsAudify today.` (112 chars)
+- `Transform any text into natural speech with premium AI voices. Highlight words in real time as they're read. Try unChonk free.` (138 chars)
+- `Choose a TTS plan that fits your needs. Pay per credit with no subscriptions. Get started with unChonk today.` (112 chars)
 
 ---
 
@@ -87,7 +87,7 @@ Every indexable page MUST include these OG tags in `<head>`:
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="[Descriptive alt text for the image]" />
-<meta property="og:site_name" content="ttsAudify" />
+<meta property="og:site_name" content="unChonk" />
 <meta property="og:locale" content="en_US" />
 ```
 
@@ -118,7 +118,7 @@ Every indexable page MUST include:
 
 Optional (if applicable):
 ```html
-<meta name="twitter:site" content="@ttsaudify" />
+<meta name="twitter:site" content="@unchonk" />
 <meta name="twitter:creator" content="@handle" />
 ```
 
@@ -129,7 +129,7 @@ Optional (if applicable):
 Every page MUST include a canonical tag:
 
 ```html
-<link rel="canonical" href="https://ttsaudify.com/[path]" />
+<link rel="canonical" href="https://unchonk.com/[path]" />
 ```
 
 | Rule | Spec |
@@ -151,9 +151,9 @@ Use JSON-LD format exclusively. Place in `<head>` or end of `<body>`.
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "ttsAudify",
-  "url": "https://ttsaudify.com",
-  "logo": "https://ttsaudify.com/logo.png",
+  "name": "unChonk",
+  "url": "https://unchonk.com",
+  "logo": "https://unchonk.com/logo.png",
   "description": "Text-to-speech Chrome extension with premium AI voices.",
   "sameAs": []
 }
@@ -165,8 +165,8 @@ Use JSON-LD format exclusively. Place in `<head>` or end of `<body>`.
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ttsAudify",
-  "url": "https://ttsaudify.com",
+  "name": "unChonk",
+  "url": "https://unchonk.com",
   "applicationCategory": "BrowserApplication",
   "operatingSystem": "Chrome",
   "description": "Transform any text into natural-sounding speech with premium AI voices.",
@@ -191,7 +191,7 @@ If there is FAQ-style content, wrap it:
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What can I use ttsAudify for?",
+      "name": "What can I use unChonk for?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "..."
@@ -227,8 +227,8 @@ If there is FAQ-style content, wrap it:
 | Page | H1 |
 |------|-----|
 | Landing | `Transform Text Into Natural Speech` |
-| Subscription | `Choose Your ttsAudify Plan` |
-| Demo | `See ttsAudify in Action` |
+| Subscription | `Choose Your unChonk Plan` |
+| Demo | `See unChonk in Action` |
 | Privacy | `Privacy Policy` |
 
 ---
@@ -267,7 +267,7 @@ Allow: /
 Disallow: /success
 Disallow: /email-verification
 
-Sitemap: https://ttsaudify.com/sitemap.xml
+Sitemap: https://unchonk.com/sitemap.xml
 ```
 
 | Rule | Spec |
@@ -286,22 +286,22 @@ Place at the public root (`/public/sitemap.xml`):
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ttsaudify.com/</loc>
+    <loc>https://unchonk.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://ttsaudify.com/subscription</loc>
+    <loc>https://unchonk.com/subscription</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ttsaudify.com/demo</loc>
+    <loc>https://unchonk.com/demo</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ttsaudify.com/privacy</loc>
+    <loc>https://unchonk.com/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -376,7 +376,7 @@ Current routes are clean: `/`, `/subscription`, `/demo`, `/privacy` — maintain
 | Keyword | Monthly Volume | Intent | Target Page | Notes |
 |---------|---------------|--------|-------------|-------|
 | `text to speech` | **301,000** | Informational | Landing | Head term — weave naturally into copy but don't try to rank directly. Too competitive. |
-| `free text to speech` | **18,100** | Transactional | Landing | Use if free tier exists. "Try ttsAudify free" in descriptions. |
+| `free text to speech` | **18,100** | Transactional | Landing | Use if free tier exists. "Try unChonk free" in descriptions. |
 | `text to speech app` | **12,100** | Transactional | Landing | Strong target — include in title and H1. |
 | `text to speech online` | **6,600** | Informational | Landing / Demo | Good secondary keyword for landing page. |
 
@@ -429,7 +429,7 @@ These keywords have zero verified search volume. Do not waste title or descripti
 ### Landing Page (`/`)
 
 ```
-Title:       Text to Speech App & Chrome Extension | ttsAudify  (51 chars)
+Title:       Text to Speech App & Chrome Extension | unChonk  (51 chars)
 Description: Transform any text into natural speech with premium AI voices.
              Read aloud any webpage with real-time highlighting. Try free.  (141 chars)
 H1:          Text to Speech App With Premium AI Voices
@@ -450,7 +450,7 @@ feature headings.
 ### Subscription Page (`/subscription`)
 
 ```
-Title:       Text to Speech Pricing - Pay As You Go | ttsAudify  (51 chars)
+Title:       Text to Speech Pricing - Pay As You Go | unChonk  (51 chars)
 Description: Affordable text to speech credits with no subscriptions required.
              Choose a plan that fits your reading needs. Get started today.  (140 chars)
 H1:          Text to Speech Pricing & Plans
@@ -468,8 +468,8 @@ to rank for it directly.
 ### Demo Page (`/demo`)
 
 ```
-Title:       Text to Speech Online - Use Cases & Demo | ttsAudify  (52 chars)
-Description: See how ttsAudify reads any webpage aloud for students,
+Title:       Text to Speech Online - Use Cases & Demo | unChonk  (52 chars)
+Description: See how unChonk reads any webpage aloud for students,
              professionals, and accessibility users. AI voice reader demo.  (140 chars)
 H1:          Text to Speech Online — See It in Action
 Schema:      FAQPage (if FAQ-style content exists)
@@ -487,8 +487,8 @@ webpages, it does not export or convert to audio files.
 ### Privacy Policy (`/privacy`)
 
 ```
-Title:       Privacy Policy | ttsAudify  (27 chars)
-Description: Read how ttsAudify collects, uses, and protects your data.
+Title:       Privacy Policy | unChonk  (27 chars)
+Description: Read how unChonk collects, uses, and protects your data.
              Your privacy matters to us.  (95 chars)
 H1:          Privacy Policy
 Schema:      None required
@@ -533,7 +533,7 @@ These pages must have the `noindex` meta tag AND be excluded from the sitemap:
 Use this checklist for every page before deploying:
 
 ### Required Meta Tags
-- [ ] `<title>` — unique, 50–60 chars, keyword-first, ends with `| ttsAudify`
+- [ ] `<title>` — unique, 50–60 chars, keyword-first, ends with `| unChonk`
 - [ ] `<meta name="description">` — unique, 140–160 chars, includes CTA
 - [ ] `<link rel="canonical">` — self-referencing absolute URL
 - [ ] `<meta name="robots">` — `index, follow` or `noindex, nofollow`

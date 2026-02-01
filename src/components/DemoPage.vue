@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </a>
           </div>
           <div class="flex items-center gap-4">
@@ -36,7 +36,7 @@
           Text to Speech Online
         </h1>
         <p class="text-xl text-gray-600">
-          See how ttsAudify helps real people read any webpage aloud
+          See how unChonk helps real people read any webpage aloud
         </p>
       </div>
 
@@ -95,7 +95,7 @@
             <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>

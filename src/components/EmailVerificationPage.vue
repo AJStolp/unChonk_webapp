@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </a>
           </div>
         </div>
@@ -29,9 +29,9 @@
             </svg>
           </div>
           <h1 class="text-2xl font-bold text-gray-900 mb-4">Email Verified!</h1>
-          <p class="text-gray-600 mb-6">Your email has been successfully verified. Please open the Audify Extension to log in.</p>
+          <p class="text-gray-600 mb-6">Your email has been successfully verified. Please open the unChonk Extension to log in.</p>
           <p class="text-sm text-gray-500">
-            Open your Chrome browser extensions and click on the Audify Extension to continue.
+            Open your Chrome browser extensions and click on the unChonk Extension to continue.
           </p>
         </div>
       </div>
@@ -47,7 +47,7 @@
           <h1 class="text-2xl font-bold text-red-600 mb-4">Verification Failed</h1>
           <p class="text-gray-600 mb-6">{{ errorMessage }}</p>
           <p class="text-sm text-gray-500">
-            Please try registering again using the Audify Extension.
+            Please try registering again using the unChonk Extension.
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>

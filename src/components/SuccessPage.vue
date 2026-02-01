@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </a>
           </div>
         </div>
@@ -52,7 +52,7 @@
           </button>
 
           <p class="text-sm text-gray-500 mt-4">
-            Click the ttsAudify extension icon in your browser toolbar to view your updated credits.
+            Click the unChonk extension icon in your browser toolbar to view your updated credits.
           </p>
 
           <a
@@ -70,7 +70,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>
@@ -86,7 +86,7 @@ const currentYear = computed(() => new Date().getFullYear())
 
 const token = localStorage.getItem('access_token')
 
-// Extension ID for ttsAudify
+// Extension ID for unChonk
 const EXTENSION_ID = 'mbblkelaeinpifdgjcbnojnhdmmpjfdd'
 
 // Try to open the extension dashboard
@@ -100,7 +100,7 @@ const openExtensionDashboard = () => {
   // If blocked or extension not installed, the window will be null
   if (!newWindow) {
     // Fallback: alert user to click extension icon
-    alert('Please click the ttsAudify extension icon in your browser toolbar to view your dashboard.')
+    alert('Please click the unChonk extension icon in your browser toolbar to view your dashboard.')
   }
 }
 

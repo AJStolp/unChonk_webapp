@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </a>
           </div>
           <div class="flex items-center gap-4">
@@ -36,7 +36,7 @@
 
       <div class="prose prose-gray max-w-none">
         <p class="text-gray-700 mb-8">
-          ttsAudify ("we," "our," or "us") operates the ttsAudify browser extension and website (ttsaudify.com). This Privacy Policy explains how we collect, use, and protect your information.
+          unChonk ("we," "our," or "us") operates the unChonk browser extension and website (unchonk.com). This Privacy Policy explains how we collect, use, and protect your information.
         </p>
 
         <!-- Information We Collect -->
@@ -179,7 +179,7 @@
             <li>Opt-out of marketing communications</li>
           </ul>
           <p class="text-gray-700 mt-4">
-            To exercise these rights, contact us at <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a>.
+            To exercise these rights, contact us at <a href="mailto:ttsunchonk@gmail.com" class="text-[#749076] hover:underline">ttsunchonk@gmail.com</a>.
           </p>
         </section>
 
@@ -196,7 +196,7 @@
             <li>The right to non-discrimination for exercising your privacy rights</li>
           </ul>
           <p class="text-gray-700 mt-3">
-            We do not sell or share personal information as defined under California law. To exercise your rights, contact us at <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a>.
+            We do not sell or share personal information as defined under California law. To exercise your rights, contact us at <a href="mailto:ttsunchonk@gmail.com" class="text-[#749076] hover:underline">ttsunchonk@gmail.com</a>.
           </p>
         </section>
 
@@ -222,7 +222,7 @@
         <section class="mb-10">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Children's Privacy</h2>
           <p class="text-gray-700">
-            ttsAudify is not intended for children under 13. We do not knowingly collect personal information from children under 13.
+            unChonk is not intended for children under 13. We do not knowingly collect personal information from children under 13.
           </p>
         </section>
 
@@ -247,7 +247,7 @@
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
           <p class="text-gray-700 mb-2">If you have any questions about this Privacy Policy, please contact us:</p>
           <ul class="list-none text-gray-700 space-y-1">
-            <li>Email: <a href="mailto:ttsaudify@gmail.com" class="text-[#749076] hover:underline">ttsaudify@gmail.com</a></li>
+            <li>Email: <a href="mailto:ttsunchonk@gmail.com" class="text-[#749076] hover:underline">ttsunchonk@gmail.com</a></li>
           </ul>
         </section>
       </div>
@@ -270,7 +270,7 @@
             <a href="/report" class="text-gray-500 hover:text-gray-700 transition duration-300">Report a Bug</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>

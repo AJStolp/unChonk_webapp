@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "tts-audify-webapp",
+  "name": "unchonk-webapp",
   "version": "1.0.0",
   "private": true,
   "scripts": {

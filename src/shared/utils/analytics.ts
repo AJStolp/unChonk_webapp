@@ -1,6 +1,6 @@
 /**
  * Umami Analytics Utility
- * Self-hosted analytics tracking for TTS Audify
+ * Self-hosted analytics tracking for unChonk
  */
 
 const UMAMI_SCRIPT_URL = 'https://analytics.logantaylorandkitties.com/script.js'

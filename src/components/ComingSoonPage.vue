@@ -5,7 +5,7 @@
       <div class="text-center max-w-2xl">
         <!-- Logo/Brand -->
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          ttsAudify
+          unChonk
         </h1>
 
         <!-- Coming Soon Text -->
@@ -53,7 +53,7 @@
     <footer class="py-8">
       <div class="text-center">
         <p class="text-gray-500 text-sm">
-          &copy; {{ currentYear }} ttsAudify by Chonky Heads
+          &copy; {{ currentYear }} unChonk by Chonky Heads
         </p>
       </div>
     </footer>

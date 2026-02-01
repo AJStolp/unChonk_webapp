@@ -1,6 +1,6 @@
 /**
  * Extension Auth Sync Composable
- * Receives auth tokens from the ttsAudify browser extension via postMessage
+ * Receives auth tokens from the unChonk browser extension via postMessage
  */
 
 import { ref, onMounted, onUnmounted } from 'vue'
@@ -9,13 +9,13 @@ import { useAuthStorage } from './useStorage'
 
 // Must match extension's authSyncConfig.ts
 const AUTH_SYNC_MESSAGES = {
-  AUTH_TOKEN_SYNC: 'TTS_AUDIFY_AUTH_SYNC',
-  AUTH_TOKEN_CLEAR: 'TTS_AUDIFY_AUTH_CLEAR',
-  REQUEST_AUTH_TOKEN: 'TTS_AUDIFY_REQUEST_AUTH',
-  AUTH_SYNC_ACK: 'TTS_AUDIFY_AUTH_ACK'
+  AUTH_TOKEN_SYNC: 'UNCHONK_AUTH_SYNC',
+  AUTH_TOKEN_CLEAR: 'UNCHONK_AUTH_CLEAR',
+  REQUEST_AUTH_TOKEN: 'UNCHONK_REQUEST_AUTH',
+  AUTH_SYNC_ACK: 'UNCHONK_AUTH_ACK'
 } as const
 
-const AUTH_SYNC_EXTENSION_ID = 'tts-audify-extension'
+const AUTH_SYNC_EXTENSION_ID = 'unchonk-extension'
 
 interface AuthSyncPayload {
   type: string

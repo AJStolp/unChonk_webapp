@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </a>
           </div>
           <div class="flex items-center gap-4">
@@ -363,7 +363,7 @@
       <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
         <h3 class="text-2xl font-bold text-gray-900 mb-3">Account Required</h3>
         <p class="text-gray-600 mb-6">
-          To purchase credits, you need to create an account through the ttsAudify Chrome extension. Install the extension, sign up, and then return here to complete your purchase.
+          To purchase credits, you need to create an account through the unChonk Chrome extension. Install the extension, sign up, and then return here to complete your purchase.
         </p>
         <div class="flex flex-col gap-3">
           <a
@@ -394,7 +394,7 @@
             <a href="/report" class="text-gray-500 hover:text-gray-700 transition duration-300">Report a Bug</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>

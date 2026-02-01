@@ -4,8 +4,8 @@
   "routes": [
     {
       "src": "/(.*)",
-      "has": [{ "type": "host", "value": "ttsaudify.com" }],
-      "dest": "https://www.ttsaudify.com/$1",
+      "has": [{ "type": "host", "value": "unchonk.com" }],
+      "dest": "https://www.unchonk.com/$1",
       "status": 301
     },
     { "src": "^/$", "dest": "/pages/index.html" },

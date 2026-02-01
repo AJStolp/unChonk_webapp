@@ -1,4 +1,4 @@
-# ttsAudify - Next Release Updates
+# unChonk - Next Release Updates
 
 **Created:** January 19, 2026
 **Target:** v2 (after Chrome Web Store approval)

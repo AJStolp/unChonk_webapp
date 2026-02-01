@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </a>
           </div>
           <div class="flex items-center gap-4">
@@ -32,14 +32,14 @@
     <!-- Report Page Content -->
     <main class="max-w-4xl mx-auto px-4 py-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-2">Report a Bug</h1>
-      <p class="text-gray-600 mb-8">Help us improve ttsAudify by reporting issues or checking known bugs.</p>
+      <p class="text-gray-600 mb-8">Help us improve unChonk by reporting issues or checking known bugs.</p>
 
       <!-- Report Bug Section -->
       <section class="mb-12">
         <div class="bg-gradient-to-br from-[#f0f5f0] to-[#e8eeee] rounded-2xl p-8 border border-gray-100">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Found a Bug?</h2>
           <p class="text-gray-700 mb-6">
-            We appreciate your help in making ttsAudify better! If you've encountered an issue, please let us know by emailing us with the following details:
+            We appreciate your help in making unChonk better! If you've encountered an issue, please let us know by emailing us with the following details:
           </p>
 
           <div class="bg-white rounded-xl p-6 mb-6 border border-gray-200">
@@ -55,7 +55,7 @@
           </div>
 
           <a
-            href="mailto:ttsaudify@gmail.com?subject=Bug Report: [Brief Description]"
+            href="mailto:ttsunchonk@gmail.com?subject=Bug Report: [Brief Description]"
             class="inline-flex items-center px-6 py-3 bg-[#749076] text-white font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300"
           >
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,7 +102,7 @@
             We love hearing your ideas! While this page focuses on bug reports, we also welcome suggestions for new features or improvements.
           </p>
           <a
-            href="mailto:ttsaudify@gmail.com?subject=Feature Request: [Brief Description]"
+            href="mailto:ttsunchonk@gmail.com?subject=Feature Request: [Brief Description]"
             class="inline-flex items-center text-[#749076] hover:text-[#5f7760] font-medium transition duration-300"
           >
             Send a feature request
@@ -131,7 +131,7 @@
             <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>

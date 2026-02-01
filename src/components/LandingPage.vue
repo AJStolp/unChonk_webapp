@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <span class="text-xl font-bold text-gray-900">
-              ttsAudify
+              unChonk
             </span>
           </div>
           <div class="flex items-center gap-4">
@@ -189,7 +189,7 @@
             Ready to get started?
           </h2>
           <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join users who are transforming their reading experience with ttsAudify
+            Join users who are transforming their reading experience with unChonk
           </p>
           <a
             href="/subscription"
@@ -213,7 +213,7 @@
             <a href="/report" class="text-gray-500 hover:text-gray-700 transition duration-300">Report a Bug</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} ttsAudify by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>
