@@ -87,7 +87,7 @@ const currentYear = computed(() => new Date().getFullYear())
 const token = localStorage.getItem('access_token')
 
 // Extension ID for unChonk
-const EXTENSION_ID = 'mbblkelaeinpifdgjcbnojnhdmmpjfdd'
+const EXTENSION_ID = 'ofnbgiiljbejpfnmjjnnbmpoiepkmkao'
 
 // Try to open the extension dashboard
 const openExtensionDashboard = () => {

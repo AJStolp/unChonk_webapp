@@ -14,7 +14,7 @@
           </div>
           <div class="flex items-center gap-4">
             <a
-              href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+              href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"

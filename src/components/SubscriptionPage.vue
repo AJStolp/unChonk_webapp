@@ -22,7 +22,7 @@
             <!-- Show sign in link when not authenticated -->
             <a
               v-else
-              href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+              href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
               target="_blank"
               rel="noopener noreferrer"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
@@ -367,7 +367,7 @@
         </p>
         <div class="flex flex-col gap-3">
           <a
-            href="https://chromewebstore.google.com/detail/tts-audify-enterprise-tex/mbblkelaeinpifdgjcbnojnhdmmpjfdd"
+            href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
             target="_blank"
             rel="noopener noreferrer"
             class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition text-center shadow-md"
