@@ -384,6 +384,47 @@
       </div>
     </div>
 
+    <!-- Email Verification Required Modal -->
+    <div v-if="showEmailVerification" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4" @click.self="showEmailVerification = false">
+      <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-8">
+        <div class="text-center mb-4">
+          <div class="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Verify Your Email</h3>
+        </div>
+        <p class="text-gray-600 mb-6 text-center">
+          Please verify your email address before purchasing credits. Check your inbox for a verification link from unChonk.
+        </p>
+        <div class="flex flex-col gap-3">
+          <button
+            @click="resendVerificationEmail"
+            :disabled="resendingEmail"
+            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg"
+            :class="resendingEmail ? 'opacity-50 cursor-not-allowed' : ''"
+          >
+            <span v-if="resendingEmail">Sending...</span>
+            <span v-else-if="emailResent">Verification Email Sent!</span>
+            <span v-else>Resend Verification Email</span>
+          </button>
+          <button
+            @click="showEmailVerification = false"
+            class="w-full p-3 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition"
+          >
+            Close
+          </button>
+        </div>
+        <p v-if="emailResent" class="text-sm text-green-600 text-center mt-3">
+          Check your inbox and spam folder for the verification email.
+        </p>
+        <p v-if="resendError" class="text-sm text-red-600 text-center mt-3">
+          {{ resendError }}
+        </p>
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer class="py-6 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -440,6 +481,10 @@ const sliderConfig = ref<SliderConfig | null>(null)
 const loading = ref(false)
 const error = ref<string | null>(null)
 const showAuthPrompt = ref(false)
+const showEmailVerification = ref(false)
+const resendingEmail = ref(false)
+const emailResent = ref(false)
+const resendError = ref<string | null>(null)
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -669,6 +714,14 @@ const handlePurchase = async () => {
         loading.value = false
         return
       }
+      // Show email verification prompt for 403 (email not verified)
+      if (response.status === 403) {
+        showEmailVerification.value = true
+        emailResent.value = false
+        resendError.value = null
+        loading.value = false
+        return
+      }
       throw new Error(`Failed to create checkout: ${response.statusText}`)
     }
 
@@ -692,6 +745,56 @@ const handlePurchase = async () => {
     })
   } finally {
     loading.value = false
+  }
+}
+
+// Resend email verification
+const resendVerificationEmail = async () => {
+  resendingEmail.value = true
+  resendError.value = null
+  emailResent.value = false
+
+  try {
+    const token = authStore.authToken || localStorage.getItem('auth_token')
+
+    // First get user email from the token/profile
+    const profileResponse = await fetch(getApiUrl('/api/user'), {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+
+    if (!profileResponse.ok) {
+      throw new Error('Could not retrieve account info')
+    }
+
+    const profile = await profileResponse.json()
+    const email = profile.email
+
+    if (!email) {
+      throw new Error('No email associated with your account')
+    }
+
+    // Request resend
+    const response = await fetch(getApiUrl('/api/resend-verification'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email })
+    })
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}))
+      throw new Error(data.detail || 'Failed to resend verification email')
+    }
+
+    emailResent.value = true
+  } catch (err) {
+    resendError.value = err instanceof Error ? err.message : 'Failed to resend verification email'
+    console.error('[Subscription Page] Error resending verification:', err)
+  } finally {
+    resendingEmail.value = false
   }
 }
 

@@ -7,10 +7,30 @@ const UMAMI_SCRIPT_URL = 'https://analytics.logantaylorandkitties.com/script.js'
 const UMAMI_WEBSITE_ID = '867ccb2f-0c4a-4389-8082-8f8daa4b6ef0'
 
 /**
+ * Console Easter egg
+ */
+const printEasterEgg = () => {
+  console.log(`
+  / \\__
+ (    @\\___
+ /         O
+/   (_____/
+/_____/   U
+
+Chonk Heads | unchonk.it
+We love animals, please report any bugs committing crimes.
+GG's
+  `);
+};
+
+/**
  * Dynamically load the Umami analytics script
  */
 export const loadUmamiScript = () => {
   if (typeof window === 'undefined') return
+
+  // Print Easter egg to console
+  printEasterEgg();
 
   const script = document.createElement('script')
   script.defer = true
