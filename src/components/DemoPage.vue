@@ -17,9 +17,7 @@
               Pricing
             </a>
             <a
-              href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/sign-in"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
             >
               Sign In
@@ -47,28 +45,6 @@
         </h2>
 
         <div class="space-y-10">
-          <!-- For Students -->
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-              <span class="w-1 h-6 bg-purple-500 rounded-full"></span>
-              For Students
-            </h3>
-            <p class="text-gray-600 leading-relaxed pl-4">
-              Turn your textbooks into audiobooks. Study while you walk, exercise, or do chores. Listen to your lecture notes on the bus. Review that research paper while cooking dinner. Education doesn't have to be confined to a desk anymore. Your brain is always ready to learn—now your content can be always ready to teach.
-            </p>
-          </div>
-
-          <!-- For Professionals -->
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-              <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
-              For Professionals
-            </h3>
-            <p class="text-gray-600 leading-relaxed pl-4">
-              Tackle that mountain of industry reports during your commute. Listen to documentation while you code. Keep up with the latest news and blog posts without sacrificing precious screen time. Your inbox might be overflowing, but your ears are wide open. Transform information overload into information opportunity.
-            </p>
-          </div>
-
           <!-- For Accessibility -->
           <div>
             <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
@@ -88,6 +64,28 @@
             </h3>
             <p class="text-gray-600 leading-relaxed pl-4">
               Hear correct pronunciation in multiple languages. Follow along with the highlighting to connect written and spoken words. Adjust the speed to match your comprehension level. Language learning is all about input—and we're providing high-quality, controllable audio input whenever you need it.
+            </p>
+          </div>
+
+          <!-- For Students -->
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
+              <span class="w-1 h-6 bg-purple-500 rounded-full"></span>
+              For Students
+            </h3>
+            <p class="text-gray-600 leading-relaxed pl-4">
+              Turn your textbooks into audiobooks. Study while you walk, exercise, or do chores. Listen to your lecture notes on the bus. Review that research paper while cooking dinner. Education doesn't have to be confined to a desk anymore. Your brain is always ready to learn—now your content can be always ready to teach.
+            </p>
+          </div>
+
+          <!-- For Professionals -->
+          <div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
+              <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
+              For Professionals
+            </h3>
+            <p class="text-gray-600 leading-relaxed pl-4">
+              Tackle that mountain of industry reports during your commute. Listen to documentation while you code. Keep up with the latest news and blog posts without sacrificing precious screen time. Your inbox might be overflowing, but your ears are wide open. Transform information overload into information opportunity.
             </p>
           </div>
         </div>

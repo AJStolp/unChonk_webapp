@@ -17,9 +17,7 @@
               Pricing
             </a>
             <a
-              href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/sign-in"
               class="text-gray-700 hover:text-gray-900 font-medium transition duration-300"
             >
               Sign In
