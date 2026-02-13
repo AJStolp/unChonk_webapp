@@ -89,6 +89,24 @@
               </div>
             </div>
           </div>
+
+          <!-- Bug Item -->
+          <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                    Known Issue
+                  </span>
+                  <span class="text-gray-500 text-sm">Extension</span>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">Text extraction issues on non-semantic pages</h3>
+                <p class="text-gray-600 text-sm">
+                  Some websites that don't use semantic HTML (proper heading tags, paragraph elements, article structures, etc.) may cause text extraction to behave unexpectedly. Content might be read out of order, duplicated, or partially missing. This is because the extension relies on standard HTML structure to identify and extract readable content.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
