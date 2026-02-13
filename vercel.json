@@ -16,6 +16,7 @@
     { "src": "^/privacy$", "dest": "/pages/privacy.html" },
     { "src": "^/report$", "dest": "/pages/report.html" },
     { "src": "^/sign-in$", "dest": "/pages/sign-in.html" },
-    { "src": "^/roadmap$", "dest": "/pages/roadmap.html" }
+    { "src": "^/roadmap$", "dest": "/pages/roadmap.html" },
+    { "src": "^/admin$", "dest": "/pages/admin.html" }
   ]
 }
