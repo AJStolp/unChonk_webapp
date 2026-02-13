@@ -301,7 +301,7 @@ const milestones: RoadmapMilestone[] = [
   {
     id: 7,
     label: 'AI-Powered Features',
-    description: 'Smarter ways to interact with your content',
+    description: 'Improved summarization and smarter content tools',
     status: 'upcoming',
   },
   {
