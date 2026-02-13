@@ -135,7 +135,7 @@
 
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
             <p class="text-sm font-medium text-gray-500 mb-1">Characters Processed</p>
-            <p class="text-3xl font-bold text-gray-900">{{ formatLargeNumber(totalCharacters) }}</p>
+            <p class="text-3xl font-bold text-gray-900">{{ formatLargeNumber((platformStats?.total_characters_synthesized ?? 0) + (platformStats?.total_characters_extracted ?? 0)) }}</p>
             <p class="text-xs text-gray-400 mt-2">Synthesized + Extracted</p>
           </div>
 
@@ -152,8 +152,8 @@
           </div>
         </div>
 
-        <!-- Row 2: 30-Day Activity Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <!-- Row 2: Activity & Engagement Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
             <p class="text-sm font-medium text-gray-500 mb-1">Signups (30d)</p>
             <p class="text-2xl font-bold text-[#749076]">{{ formatNumber(adminData?.signups_last_30_days ?? 0) }}</p>
@@ -165,17 +165,34 @@
           </div>
 
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
-            <p class="text-sm font-medium text-gray-500 mb-1">Total Extractions</p>
-            <p class="text-2xl font-bold text-gray-900">{{ formatNumber(platformStats?.total_extractions ?? 0) }}</p>
+            <p class="text-sm font-medium text-gray-500 mb-1">Avg Revenue / User</p>
+            <p class="text-2xl font-bold text-gray-900">{{ formatCurrency(adminData?.avg_revenue_per_user_cents ?? 0) }}</p>
           </div>
 
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
-            <p class="text-sm font-medium text-gray-500 mb-1">Total Syntheses</p>
-            <p class="text-2xl font-bold text-gray-900">{{ formatNumber(platformStats?.total_syntheses ?? 0) }}</p>
+            <p class="text-sm font-medium text-gray-500 mb-1">Credit Utilization</p>
+            <p class="text-2xl font-bold text-gray-900">{{ adminData?.credit_utilization_pct?.toFixed(1) ?? '0.0' }}%</p>
+          </div>
+
+          <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
+            <p class="text-sm font-medium text-gray-500 mb-1">Repeat Purchase Rate</p>
+            <p class="text-2xl font-bold text-gray-900">{{ adminData?.repeat_purchase_rate_pct?.toFixed(1) ?? '0.0' }}%</p>
+            <p class="text-xs text-gray-400 mt-2">buyers who came back</p>
           </div>
         </div>
 
-        <!-- Row 3: Charts -->
+        <!-- Row 3: Monthly Revenue -->
+        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm mb-8">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4">Revenue Trend</h3>
+          <div v-if="monthlyRevenue.length > 0" style="height: 300px;">
+            <Line :data="revenueChartData" :options="revenueChartOptions" />
+          </div>
+          <div v-else class="flex items-center justify-center h-[300px] text-gray-400">
+            No revenue data yet
+          </div>
+        </div>
+
+        <!-- Row 4: Charts -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <!-- UTM Sources Doughnut Chart -->
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
@@ -188,24 +205,16 @@
             </div>
           </div>
 
-          <!-- Usage Breakdown Bar Chart -->
+          <!-- User Funnel -->
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Usage Breakdown</h3>
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">User Funnel</h3>
             <div class="flex items-center justify-center" style="height: 300px;">
-              <Bar :data="usageChartData" :options="barOptions" />
+              <Bar :data="funnelChartData" :options="horizontalBarOptions" />
             </div>
           </div>
         </div>
 
-        <!-- Row 4: User Funnel -->
-        <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm mb-8">
-          <h3 class="text-lg font-semibold text-gray-900 mb-4">User Funnel</h3>
-          <div class="flex items-center justify-center" style="height: 280px;">
-            <Bar :data="funnelChartData" :options="horizontalBarOptions" />
-          </div>
-        </div>
-
-        <!-- Row 5: UTM Source Table -->
+        <!-- Row 4: UTM Source Table -->
         <div v-if="utmSources.length > 0" class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
           <div class="px-6 py-4 border-b border-gray-100">
             <h3 class="text-lg font-semibold text-gray-900">UTM Source Details</h3>
@@ -230,6 +239,32 @@
           </table>
         </div>
 
+        <!-- Row 5: Top Extraction Domains Table -->
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-100">
+            <h3 class="text-lg font-semibold text-gray-900">Top Extraction Sources</h3>
+          </div>
+          <table v-if="extractionDomains.length > 0" class="w-full">
+            <thead>
+              <tr class="bg-gray-50">
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Domain</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Extractions</th>
+                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">% of Total</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr v-for="d in extractionDomains" :key="d.domain" class="hover:bg-gray-50 transition">
+                <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ d.domain }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-right">{{ formatNumber(d.count) }}</td>
+                <td class="px-6 py-4 text-sm text-gray-600 text-right">{{ d.pct }}%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div v-else class="px-6 py-12 text-center text-gray-400">
+            No extraction data yet
+          </div>
+        </div>
+
         <!-- Back Link -->
         <div class="text-center mt-12 mb-8">
           <a href="/" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
@@ -244,19 +279,22 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { getApiUrl } from '@shared/config/environment'
-import { Bar, Doughnut } from 'vue-chartjs'
+import { Bar, Doughnut, Line } from 'vue-chartjs'
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   BarElement,
   ArcElement,
+  LineElement,
+  PointElement,
+  Filler,
   Tooltip,
   Legend,
 } from 'chart.js'
 
 // Register Chart.js components
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend)
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, LineElement, PointElement, Filler, Tooltip, Legend)
 
 // Types matching backend response models
 interface PlatformStats {
@@ -273,11 +311,14 @@ interface AdminAnalytics {
   verified_users: number
   paying_users: number
   total_revenue_cents: number
-  total_chars_synthesized: number
-  total_chars_extracted: number
+  avg_revenue_per_user_cents: number
+  credit_utilization_pct: number
   signups_last_30_days: number
   purchases_last_30_days: number
+  repeat_purchase_rate_pct: number
+  monthly_revenue: Array<{ month: string; revenue_cents: number }>
   top_utm_sources: Array<{ source: string; count: number }>
+  top_extraction_domains: Array<{ domain: string; count: number; pct: number }>
 }
 
 // Session-based admin auth (doesn't persist across tabs/browser restart)
@@ -358,13 +399,53 @@ function handleLogout() {
   error.value = null
 }
 
-const totalCharacters = computed(() => {
-  const synth = adminData.value?.total_chars_synthesized ?? platformStats.value?.total_characters_synthesized ?? 0
-  const ext = adminData.value?.total_chars_extracted ?? platformStats.value?.total_characters_extracted ?? 0
-  return synth + ext
-})
-
 const utmSources = computed(() => adminData.value?.top_utm_sources ?? [])
+const extractionDomains = computed(() => adminData.value?.top_extraction_domains ?? [])
+const monthlyRevenue = computed(() => adminData.value?.monthly_revenue ?? [])
+
+// Monthly revenue line chart
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+const revenueChartData = computed(() => ({
+  labels: monthlyRevenue.value.map(m => {
+    const [, mo] = m.month.split('-')
+    return MONTH_NAMES[parseInt(mo) - 1]
+  }),
+  datasets: [{
+    label: 'Revenue',
+    data: monthlyRevenue.value.map(m => m.revenue_cents / 100),
+    borderColor: '#749076',
+    backgroundColor: 'rgba(116, 144, 118, 0.1)',
+    fill: true,
+    tension: 0.3,
+    pointBackgroundColor: '#749076',
+    pointBorderColor: '#fff',
+    pointBorderWidth: 2,
+    pointRadius: 5,
+    pointHoverRadius: 7,
+  }]
+}))
+
+const revenueChartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: { display: false },
+    tooltip: {
+      callbacks: {
+        label: (ctx: any) => '$' + ctx.parsed.y.toFixed(2),
+      },
+    },
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      ticks: {
+        callback: (value: number | string) => '$' + Number(value).toFixed(0),
+      },
+    },
+  },
+}
 
 // Chart colors
 const CHART_COLORS = [
@@ -390,36 +471,6 @@ const doughnutOptions = {
     legend: {
       position: 'right' as const,
       labels: { font: { size: 12 }, padding: 16 },
-    },
-  },
-}
-
-// Usage breakdown bar chart (syntheses vs extractions)
-const usageChartData = computed(() => ({
-  labels: ['Characters Synthesized', 'Characters Extracted'],
-  datasets: [{
-    label: 'Characters',
-    data: [
-      adminData.value?.total_chars_synthesized ?? platformStats.value?.total_characters_synthesized ?? 0,
-      adminData.value?.total_chars_extracted ?? platformStats.value?.total_characters_extracted ?? 0,
-    ],
-    backgroundColor: ['#749076', '#a4c6a7'],
-    borderRadius: 6,
-  }]
-}))
-
-const barOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    legend: { display: false },
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      ticks: {
-        callback: (value: number | string) => formatLargeNumber(Number(value)),
-      },
     },
   },
 }
