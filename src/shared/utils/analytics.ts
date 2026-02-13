@@ -17,7 +17,7 @@ const printEasterEgg = () => {
 /   (_____/
 /_____/   U
 
-Chonk Heads | unchonk.it
+Chonky Heads | unchonk.it
 We love animals, please report any bugs committing crimes.
 GG's
   `);

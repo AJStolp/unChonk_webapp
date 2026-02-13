@@ -74,7 +74,7 @@
               For Students
             </h3>
             <p class="text-gray-600 leading-relaxed pl-4">
-              Turn your textbooks into audiobooks. Study while you walk, exercise, or do chores. Listen to your lecture notes on the bus. Review that research paper while cooking dinner. Education doesn't have to be confined to a desk anymore. Your brain is always ready to learn—now your content can be always ready to teach.
+              Long textbooks and research papers can feel impossible when reading is a struggle. Sentence and word highlighting guides your eyes across the page while the reader speaks, keeping you focused and on track. Hearing the words as you see them reinforces comprehension and makes dense material easier to absorb. Stop losing your place or re-reading the same paragraph—let unChonk help you get through it.
             </p>
           </div>
 
@@ -85,7 +85,7 @@
               For Professionals
             </h3>
             <p class="text-gray-600 leading-relaxed pl-4">
-              Tackle that mountain of industry reports during your commute. Listen to documentation while you code. Keep up with the latest news and blog posts without sacrificing precious screen time. Your inbox might be overflowing, but your ears are wide open. Transform information overload into information opportunity.
+              Reports, documentation, and long emails don't get easier when reading feels like a chore. unChonk highlights each sentence as it reads, so you can follow along without losing focus. Get through the material you need to without the fatigue of struggling through walls of text on your own. Reading at work shouldn't be the hardest part of your job.
             </p>
           </div>
         </div>
