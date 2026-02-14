@@ -44,7 +44,7 @@
         <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#e8eeee] border border-[#749076]/30 rounded-lg">
           <span class="text-[#749076]">i</span>
           <p class="text-sm font-medium text-gray-700">
-            All purchases are valid for one year from date of purchase
+            All purchases are valid for 90 days from date of purchase
           </p>
         </div>
       </div>
