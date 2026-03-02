@@ -129,6 +129,16 @@ onMounted(() => {
     payment_intent: paymentIntent || 'unknown',
   })
 
+  // Google Ads "First Purchase" conversion
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', 'conversion', {
+      send_to: 'AW-17950589439/OtLjCOz2q4EcEP-Dwe9C',
+      value: 6.0,
+      currency: 'USD',
+      transaction_id: sessionId || '',
+    })
+  }
+
   if (sessionId) {
     // You could validate the session with your backend here
   }
