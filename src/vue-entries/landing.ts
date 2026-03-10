@@ -7,7 +7,11 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import LandingPage from '../components/LandingPage.vue'
 import { loadUmamiScript } from '../shared/utils/analytics'
+import { captureAttribution } from '../shared/utils/attribution'
 import '../styles/globals.css'
+
+// Capture ad attribution params (gclid, UTMs) from URL
+captureAttribution()
 
 // Load analytics
 loadUmamiScript()

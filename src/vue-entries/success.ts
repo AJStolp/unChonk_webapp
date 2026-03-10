@@ -8,7 +8,11 @@ import { createPinia } from 'pinia'
 import SuccessPage from '../components/SuccessPage.vue'
 import { initializeExtensionAuthSync } from '../shared/composables/useExtensionAuthSync'
 import { loadUmamiScript } from '../shared/utils/analytics'
+import { captureAttribution } from '../shared/utils/attribution'
 import '../styles/globals.css'
+
+// Capture ad attribution params (gclid, UTMs) from URL
+captureAttribution()
 
 // Load analytics
 loadUmamiScript()

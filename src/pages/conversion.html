@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>unChonk</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17950589439"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17950589439');
+
+      // Fire conversion from URL params and close the tab
+      (function() {
+        var params = new URLSearchParams(window.location.search);
+        var label = params.get('label');
+        var value = params.get('value');
+        var currency = params.get('currency');
+        var txnId = params.get('transaction_id');
+
+        if (label) {
+          var conversionParams = {
+            send_to: 'AW-17950589439/' + label,
+          };
+          if (value) conversionParams.value = parseFloat(value);
+          if (currency) conversionParams.currency = currency;
+          if (txnId) conversionParams.transaction_id = txnId;
+
+          gtag('event', 'conversion', conversionParams);
+        }
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
