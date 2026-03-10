@@ -69,6 +69,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { getApiUrl } from '@/shared/config/environment'
+import { fireAttributedConversion, CONVERSION_LABELS } from '@/shared/utils/attribution'
 
 const loading = ref(false)
 const success = ref(false)
@@ -99,6 +100,9 @@ const verifyEmail = async () => {
 
     loading.value = false
     success.value = true
+
+    // Fire Google Ads "Email Verified" conversion (gtag on unchonk.com has the _gcl_aw cookie)
+    fireAttributedConversion(CONVERSION_LABELS.EMAIL_VERIFIED)
   } catch (err) {
     loading.value = false
     error.value = true
