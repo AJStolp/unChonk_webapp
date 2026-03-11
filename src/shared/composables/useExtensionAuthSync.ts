@@ -12,6 +12,7 @@ const AUTH_SYNC_MESSAGES = {
   AUTH_TOKEN_SYNC: 'UNCHONK_AUTH_SYNC',
   AUTH_TOKEN_CLEAR: 'UNCHONK_AUTH_CLEAR',
   REQUEST_AUTH_TOKEN: 'UNCHONK_REQUEST_AUTH',
+  WEBAPP_AUTH_SYNC: 'UNCHONK_WEBAPP_AUTH_SYNC',
   AUTH_SYNC_ACK: 'UNCHONK_AUTH_ACK'
 } as const
 
@@ -200,4 +201,18 @@ export function initializeExtensionAuthSync(): () => void {
   return () => {
     window.removeEventListener('message', handleMessage)
   }
+}
+
+/**
+ * Send auth tokens from webapp to extension (e.g. after Google OAuth)
+ * The extension's content script picks this up and stores in chrome.storage
+ */
+export function sendAuthToExtension(authToken: string, refreshToken: string | null): void {
+  window.postMessage({
+    type: AUTH_SYNC_MESSAGES.WEBAPP_AUTH_SYNC,
+    extensionId: AUTH_SYNC_EXTENSION_ID,
+    authToken,
+    refreshToken,
+    timestamp: Date.now()
+  }, window.location.origin)
 }

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import { useAuthStorage } from "../composables/useStorage";
+import { sendAuthToExtension } from "../composables/useExtensionAuthSync";
 import { getApiUrl } from "../config/environment";
 import { TIER_LIMITS } from "../constants";
 import { trackEvent, ANALYTICS_EVENTS } from "../utils/analytics";
@@ -349,6 +350,9 @@ export const useAuthStore = defineStore("auth", () => {
       isAuthenticated.value = true;
       await storeTokens(data.access_token, data.refresh_token);
       await storeUserData(user.value);
+
+      // Sync tokens to Chrome extension (if installed and content script is active)
+      sendAuthToExtension(data.access_token, data.refresh_token);
 
       trackEvent(ANALYTICS_EVENTS.LOGIN_SUCCESS, {
         method: "google",
