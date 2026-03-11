@@ -4,6 +4,7 @@ import { useAuthStorage } from "../composables/useStorage";
 import { getApiUrl } from "../config/environment";
 import { TIER_LIMITS } from "../constants";
 import { trackEvent, ANALYTICS_EVENTS } from "../utils/analytics";
+import { supabase } from "../utils/supabase";
 
 export interface UserProfile {
   id: string;
@@ -245,6 +246,133 @@ export const useAuthStore = defineStore("auth", () => {
     }
   };
 
+  // Login with Google via Supabase OAuth
+  const loginWithGoogle = async () => {
+    if (!supabase) {
+      console.error("[Auth Store] Supabase not configured");
+      return false;
+    }
+
+    isLoading.value = true;
+
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/sign-in`,
+        },
+      });
+
+      if (error) throw error;
+
+      // This triggers a redirect — the callback is handled by handleOAuthCallback
+      return true;
+    } catch (error) {
+      console.error("[Auth Store] Google login failed:", error);
+      trackEvent(ANALYTICS_EVENTS.LOGIN_FAILED, {
+        method: "google",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+      return false;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
+  // Handle OAuth callback after redirect (called from sign-in page on mount)
+  const handleOAuthCallback = async (): Promise<boolean> => {
+    if (!supabase) return false;
+
+    isLoading.value = true;
+
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+
+      if (error) throw error;
+      if (!session) return false;
+
+      const supabaseUser = session.user;
+      const email = supabaseUser.email || "";
+      const name =
+        supabaseUser.user_metadata?.full_name ||
+        supabaseUser.user_metadata?.name ||
+        "";
+      const googleId =
+        supabaseUser.user_metadata?.provider_id ||
+        supabaseUser.id;
+
+      // Call custom backend to create/find user and get app JWT tokens
+      const response = await fetch(getApiUrl("/api/google-login"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          google_id: googleId,
+          name,
+          supabase_token: session.access_token,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Backend login failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      authToken.value = data.access_token;
+      refreshToken.value = data.refresh_token;
+
+      // Decode user info from backend JWT
+      try {
+        const payload = JSON.parse(atob(data.access_token.split(".")[1]));
+        user.value = {
+          id: payload.sub || payload.user_id || googleId,
+          email,
+          username: payload.username || name,
+          tier: payload.tier || "free",
+          charactersUsed: 0,
+          charactersLimit: TIER_LIMITS.free.characters,
+        };
+      } catch {
+        user.value = {
+          id: googleId,
+          email,
+          username: name,
+          tier: "free",
+          charactersUsed: 0,
+          charactersLimit: TIER_LIMITS.free.characters,
+        };
+      }
+
+      isAuthenticated.value = true;
+      await storeTokens(data.access_token, data.refresh_token);
+      await storeUserData(user.value);
+
+      trackEvent(ANALYTICS_EVENTS.LOGIN_SUCCESS, {
+        method: "google",
+        tier: user.value.tier,
+      });
+
+      // Clean up URL hash from OAuth redirect
+      if (window.location.hash) {
+        history.replaceState(null, "", window.location.pathname);
+      }
+
+      return true;
+    } catch (error) {
+      console.error("[Auth Store] OAuth callback failed:", error);
+      trackEvent(ANALYTICS_EVENTS.LOGIN_FAILED, {
+        method: "google",
+        error: error instanceof Error ? error.message : "Unknown error",
+      });
+      return false;
+    } finally {
+      isLoading.value = false;
+    }
+  };
+
   // Logout and clear state
   const logout = async () => {
     try {
@@ -434,6 +562,8 @@ export const useAuthStore = defineStore("auth", () => {
     // ===== ACTIONS =====
     initializeAuth,
     login,
+    loginWithGoogle,
+    handleOAuthCallback,
     logout,
     refreshAuth,
     updatePreferences,
