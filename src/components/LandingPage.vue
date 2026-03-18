@@ -21,7 +21,7 @@
             </a>
             <a
               href="/subscription"
-              class="px-6 py-2 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
+              class="px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
             >
               View Plans
             </a>
@@ -51,7 +51,7 @@
             <div class="flex gap-4">
               <a
                 href="/subscription"
-                class="px-8 py-4 bg-[#749076] text-[#070807] text-lg font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-lg hover:shadow-xl"
+                class="px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl"
               >
                 Get Started
               </a>
@@ -91,7 +91,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Feature 1 -->
         <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300">
-          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e8eeee] text-[#749076] mb-4">
+          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e0ece3] text-[#2d5a3f] mb-4">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
             </svg>
@@ -106,7 +106,7 @@
 
         <!-- Feature 2 -->
         <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300">
-          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e8eeee] text-[#749076] mb-4">
+          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e0ece3] text-[#2d5a3f] mb-4">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
             </svg>
@@ -121,7 +121,7 @@
 
         <!-- Feature 3 -->
         <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300">
-          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e8eeee] text-[#749076] mb-4">
+          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e0ece3] text-[#2d5a3f] mb-4">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
             </svg>
@@ -136,7 +136,7 @@
 
         <!-- Feature 4 -->
         <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300">
-          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e8eeee] text-[#749076] mb-4">
+          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e0ece3] text-[#2d5a3f] mb-4">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
             </svg>
@@ -151,7 +151,7 @@
 
         <!-- Feature 5 -->
         <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300">
-          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e8eeee] text-[#749076] mb-4">
+          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e0ece3] text-[#2d5a3f] mb-4">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
             </svg>
@@ -166,7 +166,7 @@
 
         <!-- Feature 6 -->
         <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300">
-          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e8eeee] text-[#749076] mb-4">
+          <div class="flex items-center justify-center h-12 w-12 rounded-xl bg-[#e0ece3] text-[#2d5a3f] mb-4">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
@@ -194,7 +194,7 @@
           </p>
           <a
             href="/subscription"
-            class="inline-block px-8 py-4 bg-[#749076] text-[#070807] text-lg font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-lg hover:shadow-xl"
+            class="inline-block px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl"
           >
             Get Started Now
           </a>

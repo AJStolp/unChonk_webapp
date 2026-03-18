@@ -101,21 +101,21 @@
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Text-to-Speech Engine</td>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Text-to-speech synthesis</td>
                   <td class="border border-gray-200 px-4 py-2">
-                    <a href="https://aws.amazon.com/privacy/" target="_blank" rel="noopener noreferrer" class="text-[#749076] hover:underline">aws.amazon.com/privacy</a>
+                    <a href="https://aws.amazon.com/privacy/" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">aws.amazon.com/privacy</a>
                   </td>
                 </tr>
                 <tr>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Stripe</td>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Payment processing</td>
                   <td class="border border-gray-200 px-4 py-2">
-                    <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" class="text-[#749076] hover:underline">stripe.com/privacy</a>
+                    <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">stripe.com/privacy</a>
                   </td>
                 </tr>
                 <tr>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Umami</td>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Privacy-focused website analytics</td>
                   <td class="border border-gray-200 px-4 py-2">
-                    <a href="https://umami.is/privacy" target="_blank" rel="noopener noreferrer" class="text-[#749076] hover:underline">umami.is/privacy</a>
+                    <a href="https://umami.is/privacy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">umami.is/privacy</a>
                   </td>
                 </tr>
               </tbody>
@@ -177,7 +177,7 @@
             <li>Opt-out of marketing communications</li>
           </ul>
           <p class="text-gray-700 mt-4">
-            To exercise these rights, contact us at <a href="mailto:ttsunchonk@gmail.com" class="text-[#749076] hover:underline">ttsunchonk@gmail.com</a>.
+            To exercise these rights, contact us at <a href="mailto:ttsunchonk@gmail.com" class="text-[#2d5a3f] hover:underline">ttsunchonk@gmail.com</a>.
           </p>
         </section>
 
@@ -194,7 +194,7 @@
             <li>The right to non-discrimination for exercising your privacy rights</li>
           </ul>
           <p class="text-gray-700 mt-3">
-            We do not sell or share personal information as defined under California law. To exercise your rights, contact us at <a href="mailto:ttsunchonk@gmail.com" class="text-[#749076] hover:underline">ttsunchonk@gmail.com</a>.
+            We do not sell or share personal information as defined under California law. To exercise your rights, contact us at <a href="mailto:ttsunchonk@gmail.com" class="text-[#2d5a3f] hover:underline">ttsunchonk@gmail.com</a>.
           </p>
         </section>
 
@@ -245,7 +245,7 @@
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Contact Us</h2>
           <p class="text-gray-700 mb-2">If you have any questions about this Privacy Policy, please contact us:</p>
           <ul class="list-none text-gray-700 space-y-1">
-            <li>Email: <a href="mailto:ttsunchonk@gmail.com" class="text-[#749076] hover:underline">ttsunchonk@gmail.com</a></li>
+            <li>Email: <a href="mailto:ttsunchonk@gmail.com" class="text-[#2d5a3f] hover:underline">ttsunchonk@gmail.com</a></li>
           </ul>
         </section>
       </div>

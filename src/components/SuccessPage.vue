@@ -17,9 +17,9 @@
       <div class="max-w-md mx-auto p-8 bg-white rounded-2xl shadow-lg border border-gray-100 text-center">
         <div class="mb-6">
           <!-- Success Icon -->
-          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#e8eeee] mb-6">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#e0ece3] mb-6">
             <svg
-              class="h-8 w-8 text-[#749076]"
+              class="h-8 w-8 text-[#2d5a3f]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -46,7 +46,7 @@
         <div class="space-y-4">
           <button
             @click="openExtensionDashboard"
-            class="w-full px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 text-center shadow-md hover:shadow-lg"
+            class="w-full px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 text-center shadow-md hover:shadow-lg"
           >
             Open Dashboard
           </button>

@@ -9,7 +9,7 @@
         </h1>
 
         <!-- Coming Soon Text -->
-        <h2 class="text-2xl md:text-3xl font-semibold text-[#749076] mb-6">
+        <h2 class="text-2xl md:text-3xl font-semibold text-[#2d5a3f] mb-6">
           Coming Soon
         </h2>
 
@@ -28,18 +28,18 @@
               v-model="email"
               type="email"
               placeholder="Enter your email"
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#749076] focus:border-transparent"
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2d5a3f] focus:border-transparent"
               required
             />
             <button
               type="submit"
               :disabled="loading"
-              class="px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ loading ? 'Saving...' : 'Notify Me' }}
             </button>
           </form>
-          <p v-if="submitted" class="mt-4 text-[#749076] font-medium">
+          <p v-if="submitted" class="mt-4 text-[#2d5a3f] font-medium">
             Thanks! We'll let you know when we launch.
           </p>
           <p v-if="error" class="mt-4 text-red-500 font-medium">

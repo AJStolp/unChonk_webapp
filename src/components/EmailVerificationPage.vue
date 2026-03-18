@@ -16,15 +16,15 @@
     <div class="container mx-auto px-4 py-24">
       <!-- Loading State -->
       <div v-if="loading" class="max-w-md mx-auto p-8 text-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#749076] mx-auto"></div>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2d5a3f] mx-auto"></div>
         <p class="mt-4 text-gray-600">Verifying your email...</p>
       </div>
 
       <!-- Success State -->
       <div v-else-if="success" class="max-w-md mx-auto p-8 bg-white shadow-lg rounded-2xl border border-gray-100">
         <div class="text-center">
-          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#e8eeee] mb-6">
-            <svg class="h-8 w-8 text-[#749076]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-[#e0ece3] mb-6">
+            <svg class="h-8 w-8 text-[#2d5a3f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
           </div>

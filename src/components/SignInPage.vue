@@ -31,7 +31,7 @@
 
       <!-- Loading state during OAuth callback -->
       <div v-if="isProcessingOAuth" class="text-center py-12">
-        <div class="w-8 h-8 border-[3px] border-[#749076] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div class="w-8 h-8 border-[3px] border-[#2d5a3f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         <p class="text-gray-600">Signing you in with Google...</p>
       </div>
 
@@ -49,7 +49,7 @@
           </p>
           <a
             href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/dashboard.html"
-            class="inline-block px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
+            class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
           >
             Open Extension Dashboard
           </a>
@@ -84,9 +84,6 @@
               <span v-if="!isSigningIn">Continue with Google</span>
               <span v-else>Redirecting...</span>
             </button>
-            <p class="text-xs text-gray-400 mt-3">
-              Quick sign in &mdash; no password needed.
-            </p>
           </div>
         </div>
 
@@ -97,48 +94,41 @@
           <div class="flex-1 h-px bg-gray-200"></div>
         </div>
 
-        <!-- Option 1: Already have the extension -->
-        <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+        <!-- Extension detected: open sign-in directly -->
+        <div v-if="extensionInstalled" class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e8eeee] text-[#749076] flex items-center justify-center">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e0ece3] text-[#2d5a3f] flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
             </div>
             <div class="flex-1">
-              <h2 class="text-xl font-bold text-gray-900 mb-2">Already have the extension?</h2>
+              <h2 class="text-xl font-bold text-gray-900 mb-2">Extension detected</h2>
               <p class="text-gray-600 mb-4">
-                Click the unChonk icon in your Chrome toolbar to open the sign-in page. Look for the puzzle piece icon
-                <svg class="inline w-4 h-4 text-gray-500 align-text-bottom" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                </svg>
-                in the top-right of Chrome, then click <strong>unChonk</strong>.
+                Your unChonk extension is installed. Open the sign-in page directly.
               </p>
               <a
                 href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/login.html"
-                class="inline-block px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
+                class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
               >
                 Open Extension Sign In
               </a>
-              <p class="text-xs text-gray-400 mt-2">
-                This link only works if you have the extension installed.
-              </p>
             </div>
           </div>
         </div>
 
-        <!-- Option 2: Need to install -->
-        <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+        <!-- Extension not detected: link to Chrome Web Store -->
+        <div v-else class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e8eeee] text-[#749076] flex items-center justify-center">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e0ece3] text-[#2d5a3f] flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
               </svg>
             </div>
             <div class="flex-1">
-              <h2 class="text-xl font-bold text-gray-900 mb-2">Don't have the extension yet?</h2>
+              <h2 class="text-xl font-bold text-gray-900 mb-2">Get the extension</h2>
               <p class="text-gray-600 mb-4">
-                Install the unChonk Chrome extension first. After installing, the sign-in page will open automatically.
+                Install the unChonk Chrome extension to get started with text-to-speech.
               </p>
               <a
                 href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
@@ -150,13 +140,6 @@
               </a>
             </div>
           </div>
-        </div>
-
-        <!-- Tip -->
-        <div class="bg-[#e8eeee] rounded-xl p-4 text-center">
-          <p class="text-sm text-gray-700">
-            <strong>Tip:</strong> Bookmark the extension sign-in page so you can always find it easily.
-          </p>
         </div>
       </div>
 
@@ -199,9 +182,13 @@ const isProcessingOAuth = ref(false)
 const isSigningIn = ref(false)
 const errorMessage = ref('')
 const supabaseAvailable = computed(() => !!supabase)
+const extensionInstalled = ref(false)
 
 // Check for OAuth callback on mount (Supabase puts tokens in URL hash after Google redirect)
 onMounted(async () => {
+  // Detect if the extension content script is injected
+  extensionInstalled.value = document.documentElement.hasAttribute('data-tts-extension-injected')
+
   const hash = window.location.hash
   if (hash && hash.includes('access_token')) {
     isProcessingOAuth.value = true

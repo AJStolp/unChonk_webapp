@@ -15,7 +15,7 @@
               <span class="text-sm text-gray-600">
                 Signed in as <span class="font-medium text-gray-900">{{ userDisplayName }}</span>
               </span>
-              <div class="w-8 h-8 rounded-full bg-[#749076] flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full bg-[#2d5a3f] flex items-center justify-center">
                 <span class="text-white text-sm font-medium">{{ userInitial }}</span>
               </div>
             </div>
@@ -41,8 +41,8 @@
         <p class="text-xl text-gray-600 mb-6">
           Pay as you go. Scale your usage as you grow.
         </p>
-        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#e8eeee] border border-[#749076]/30 rounded-lg">
-          <span class="text-[#749076]">i</span>
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-[#e0ece3] border border-[#2d5a3f]/30 rounded-lg">
+          <span class="text-[#2d5a3f]">i</span>
           <p class="text-sm font-medium text-gray-700">
             All purchases are valid for 90 days from date of purchase
           </p>
@@ -60,7 +60,7 @@
           <div class="text-lg text-gray-600">
             {{ (selectedCredits * sliderConfig.characters_per_credit).toLocaleString() }} characters
             <span class="mx-2">•</span>
-            <span class="font-semibold text-[#749076]">
+            <span class="font-semibold text-[#2d5a3f]">
               {{ currentTier }} Tier
             </span>
           </div>
@@ -74,7 +74,7 @@
             :min="sliderConfig.min"
             :max="sliderConfig.max"
             :step="100"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#749076]"
+            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f]"
           />
           <div class="flex justify-between text-sm text-gray-500 mt-2">
             <span>{{ sliderConfig.min.toLocaleString() }}</span>
@@ -91,8 +91,8 @@
             :class="[
               'p-3 rounded-lg border-2 transition',
               selectedCredits === pkg.credits
-                ? 'border-[#749076] bg-[#e8eeee]'
-                : 'border-gray-200 hover:border-[#749076]/50 bg-white'
+                ? 'border-[#2d5a3f] bg-[#e0ece3]'
+                : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white'
             ]"
           >
             <div class="text-sm font-semibold text-gray-900">
@@ -107,7 +107,7 @@
 
       <!-- Loading State -->
       <div v-if="loading && !sliderConfig" class="text-center py-12">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#749076] mx-auto"></div>
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2d5a3f] mx-auto"></div>
         <p class="text-gray-600 mt-4">Loading pricing options...</p>
       </div>
 
@@ -117,7 +117,7 @@
           <p class="text-red-600">{{ error }}</p>
           <button
             @click="fetchCreditPackages"
-            class="mt-4 px-6 py-2 bg-[#749076] text-[#070807] font-semibold rounded-lg hover:bg-[#5f7760] transition"
+            class="mt-4 px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded-lg hover:bg-[#1e4530] transition"
           >
             Try Again
           </button>
@@ -137,15 +137,15 @@
 
           <ul class="space-y-3 mb-8 flex-grow">
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Browser TTS
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Basic voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Highlighting
             </li>
           </ul>
@@ -162,12 +162,12 @@
         <div
           class="bg-white rounded-2xl shadow-sm p-6 border-2 relative flex flex-col min-h-[400px] transition duration-300"
           :class="[
-            currentTier === 'Light' ? 'border-[#749076] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
+            currentTier === 'Light' ? 'border-[#2d5a3f] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
             isLightDisabled ? 'opacity-50' : ''
           ]"
         >
           <div v-if="currentTier === 'Light'" class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <span class="bg-[#749076] text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
+            <span class="bg-[#2d5a3f] text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
               Selected
             </span>
           </div>
@@ -184,23 +184,23 @@
 
           <ul class="space-y-3 mb-8 flex-grow">
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               {{ (lightTierCredits * (sliderConfig?.characters_per_credit || 1000)).toLocaleString() }} characters
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Approx. {{ Math.round((lightTierCredits * (sliderConfig?.characters_per_credit || 1000)) / 750 / 60) }} hours of audio
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Standard voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Word highlighting
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Best for casual use
             </li>
           </ul>
@@ -209,7 +209,7 @@
             v-if="!isLightDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg mt-auto"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -225,12 +225,12 @@
         <div
           class="bg-white rounded-2xl shadow-sm p-6 border-2 relative flex flex-col min-h-[400px] transition duration-300"
           :class="[
-            currentTier === 'Premium' ? 'border-[#749076] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
+            currentTier === 'Premium' ? 'border-[#2d5a3f] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
             isPremiumDisabled ? 'opacity-50' : ''
           ]"
         >
           <div v-if="currentTier === 'Premium'" class="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <span class="bg-[#749076] text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
+            <span class="bg-[#2d5a3f] text-white px-4 py-1 rounded-full text-sm font-medium shadow-md">
               Selected
             </span>
           </div>
@@ -247,23 +247,23 @@
 
           <ul class="space-y-3 mb-8 flex-grow">
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               {{ (premiumTierCredits * (sliderConfig?.characters_per_credit || 1000)).toLocaleString() }} characters
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Approx. {{ Math.round((premiumTierCredits * (sliderConfig?.characters_per_credit || 1000)) / 750 / 60) }} hours of audio
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Standard voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Word highlighting
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Best for regular use
             </li>
           </ul>
@@ -272,7 +272,7 @@
             v-if="!isPremiumDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg mt-auto"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -288,7 +288,7 @@
         <div
           class="bg-white rounded-2xl shadow-sm p-6 border-2 relative flex flex-col h-full transition duration-300"
           :class="[
-            currentTier === 'Pro' ? 'border-[#749076] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
+            currentTier === 'Pro' ? 'border-[#2d5a3f] shadow-lg' : 'border-gray-100 hover:shadow-lg hover:border-gray-200',
             isProDisabled ? 'opacity-50' : ''
           ]"
         >
@@ -310,23 +310,23 @@
 
           <ul class="space-y-3 mb-8 flex-grow">
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               {{ (proTierCredits * (sliderConfig?.characters_per_credit || 1000)).toLocaleString() }} characters
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Approx. {{ Math.round((proTierCredits * (sliderConfig?.characters_per_credit || 1000)) / 750 / 60) }} hours of audio
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Standard + Neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Highest credit amounts
             </li>
             <li class="flex items-center text-sm text-gray-700">
-              <span class="text-[#749076] mr-2">✓</span>
+              <span class="text-[#2d5a3f] mr-2">✓</span>
               Best for power users
             </li>
           </ul>
@@ -335,7 +335,7 @@
             v-if="!isProDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg mt-auto"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -368,7 +368,7 @@
             href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
             target="_blank"
             rel="noopener noreferrer"
-            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition text-center shadow-md"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition text-center shadow-md"
           >
             Get the Chrome Extension
           </a>
@@ -400,7 +400,7 @@
           <button
             @click="resendVerificationEmail"
             :disabled="resendingEmail"
-            class="w-full p-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition shadow-md hover:shadow-lg"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg"
             :class="resendingEmail ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="resendingEmail">Sending...</span>
