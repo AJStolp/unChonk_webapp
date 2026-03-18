@@ -31,7 +31,7 @@
 
       <!-- Loading state during OAuth callback -->
       <div v-if="isProcessingOAuth" class="text-center py-12">
-        <div class="w-8 h-8 border-[3px] border-[#749076] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div class="w-8 h-8 border-[3px] border-[#2d5a3f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         <p class="text-gray-600">Signing you in with Google...</p>
       </div>
 
@@ -49,7 +49,7 @@
           </p>
           <a
             href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/dashboard.html"
-            class="inline-block px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
+            class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
           >
             Open Extension Dashboard
           </a>
@@ -97,7 +97,7 @@
         <!-- Extension detected: open sign-in directly -->
         <div v-if="extensionInstalled" class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e8eeee] text-[#749076] flex items-center justify-center">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e0ece3] text-[#2d5a3f] flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
@@ -109,7 +109,7 @@
               </p>
               <a
                 href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/login.html"
-                class="inline-block px-6 py-3 bg-[#749076] text-[#070807] font-semibold rounded-xl hover:bg-[#5f7760] transition duration-300 shadow-md hover:shadow-lg"
+                class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
               >
                 Open Extension Sign In
               </a>
@@ -120,7 +120,7 @@
         <!-- Extension not detected: link to Chrome Web Store -->
         <div v-else class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="flex items-start gap-4">
-            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e8eeee] text-[#749076] flex items-center justify-center">
+            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e0ece3] text-[#2d5a3f] flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
               </svg>

@@ -16,7 +16,7 @@
               <span class="text-sm text-gray-600">
                 <span class="font-medium text-gray-900">{{ userDisplayName }}</span>
               </span>
-              <div class="w-8 h-8 rounded-full bg-[#749076] flex items-center justify-center">
+              <div class="w-8 h-8 rounded-full bg-[#2d5a3f] flex items-center justify-center">
                 <span class="text-white text-sm font-medium">{{ userInitial }}</span>
               </div>
               <button
@@ -51,7 +51,7 @@
                 type="text"
                 required
                 autocomplete="username"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#749076] focus:border-transparent text-sm"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2d5a3f] focus:border-transparent text-sm"
                 placeholder="Enter username"
               />
             </div>
@@ -63,14 +63,14 @@
                 type="password"
                 required
                 autocomplete="current-password"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#749076] focus:border-transparent text-sm"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2d5a3f] focus:border-transparent text-sm"
                 placeholder="Enter password"
               />
             </div>
             <button
               type="submit"
               :disabled="loginLoading"
-              class="w-full py-2.5 bg-[#749076] text-white font-semibold rounded-lg hover:bg-[#5f7760] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+              class="w-full py-2.5 bg-[#2d5a3f] text-white font-semibold rounded-lg hover:bg-[#1e4530] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
             >
               {{ loginLoading ? 'Signing in...' : 'Sign In' }}
             </button>
@@ -85,7 +85,7 @@
       <!-- Loading State -->
       <div v-if="loading" class="flex items-center justify-center py-32">
         <div class="text-center">
-          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#749076] mx-auto"></div>
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#2d5a3f] mx-auto"></div>
           <p class="text-gray-600 mt-4">Loading analytics...</p>
         </div>
       </div>
@@ -156,12 +156,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
             <p class="text-sm font-medium text-gray-500 mb-1">Signups (30d)</p>
-            <p class="text-2xl font-bold text-[#749076]">{{ formatNumber(adminData?.signups_last_30_days ?? 0) }}</p>
+            <p class="text-2xl font-bold text-[#2d5a3f]">{{ formatNumber(adminData?.signups_last_30_days ?? 0) }}</p>
           </div>
 
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
             <p class="text-sm font-medium text-gray-500 mb-1">Purchases (30d)</p>
-            <p class="text-2xl font-bold text-[#749076]">{{ formatNumber(adminData?.purchases_last_30_days ?? 0) }}</p>
+            <p class="text-2xl font-bold text-[#2d5a3f]">{{ formatNumber(adminData?.purchases_last_30_days ?? 0) }}</p>
           </div>
 
           <div class="bg-white rounded-xl border border-gray-100 p-6 shadow-sm">
@@ -414,11 +414,11 @@ const revenueChartData = computed(() => ({
   datasets: [{
     label: 'Revenue',
     data: monthlyRevenue.value.map(m => m.revenue_cents / 100),
-    borderColor: '#749076',
+    borderColor: '#2d5a3f',
     backgroundColor: 'rgba(116, 144, 118, 0.1)',
     fill: true,
     tension: 0.3,
-    pointBackgroundColor: '#749076',
+    pointBackgroundColor: '#2d5a3f',
     pointBorderColor: '#fff',
     pointBorderWidth: 2,
     pointRadius: 5,
@@ -449,7 +449,7 @@ const revenueChartOptions = {
 
 // Chart colors
 const CHART_COLORS = [
-  '#749076', '#5f7760', '#4a5e4c', '#8fb392', '#a4c6a7',
+  '#2d5a3f', '#1e4530', '#4a5e4c', '#8fb392', '#a4c6a7',
   '#b8d9bb', '#6b8a6d', '#557058', '#3f5641', '#c5dfc7',
 ]
 
@@ -485,7 +485,7 @@ const funnelChartData = computed(() => ({
       adminData.value?.verified_users ?? 0,
       adminData.value?.paying_users ?? 0,
     ],
-    backgroundColor: ['#749076', '#8fb392', '#a4c6a7'],
+    backgroundColor: ['#2d5a3f', '#8fb392', '#a4c6a7'],
     borderRadius: 6,
   }]
 }))
