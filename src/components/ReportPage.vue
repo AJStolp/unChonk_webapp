@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              unChonk
+              unChonk™
             </a>
           </div>
           <div class="flex items-center gap-4">
@@ -148,7 +148,7 @@
             <a href="/roadmap" class="text-gray-500 hover:text-gray-700 transition duration-300">Roadmap</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk™ by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>

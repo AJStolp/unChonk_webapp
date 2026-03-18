@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center">
             <a href="/" class="text-xl font-bold text-gray-900">
-              unChonk
+              unChonk™
             </a>
           </div>
         </div>
@@ -70,7 +70,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <p class="text-gray-600">
-            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk™ by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>
