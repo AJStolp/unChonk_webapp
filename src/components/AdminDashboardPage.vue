@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center gap-3">
             <a href="/" class="text-xl font-bold text-gray-900">
-              unChonk
+              unChonk™
             </a>
             <span class="text-sm font-medium text-gray-400">/</span>
             <span class="text-sm font-medium text-gray-600">Admin Dashboard</span>

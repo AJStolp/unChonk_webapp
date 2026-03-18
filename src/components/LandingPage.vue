@@ -6,7 +6,7 @@
         <div class="flex justify-between items-center h-16">
           <div class="flex flex-col">
             <span class="text-xl font-bold text-gray-900">
-              unChonk
+              unChonk™
             </span>
             <span class="text-xs text-gray-500 hidden sm:block">
               Just unChonk.it
@@ -215,7 +215,7 @@
             <a href="/roadmap" class="text-gray-500 hover:text-gray-700 transition duration-300">Roadmap</a>
           </nav>
           <p class="text-gray-600">
-            &copy; {{ currentYear }} unChonk by Chonky Heads. Text-to-Speech Solution.
+            &copy; {{ currentYear }} unChonk™ by Chonky Heads. Text-to-Speech Solution.
           </p>
         </div>
       </div>
