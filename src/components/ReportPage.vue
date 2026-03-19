@@ -146,6 +146,7 @@
             <a href="/subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">Pricing</a>
             <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy</a>
             <a href="/roadmap" class="text-gray-500 hover:text-gray-700 transition duration-300">Roadmap</a>
+            <a href="/status" class="text-gray-500 hover:text-gray-700 transition duration-300">Status</a>
           </nav>
           <p class="text-gray-600">
             &copy; {{ currentYear }} unChonk™ by Chonky Heads. Text-to-Speech Solution.
