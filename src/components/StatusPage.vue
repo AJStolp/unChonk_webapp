@@ -115,7 +115,21 @@
 
       <!-- Changelog -->
       <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Changelog</h2>
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Changelog</h2>
+        <div class="flex items-center gap-5 mb-6">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#2d5a3f]"></span>
+            <span class="text-sm text-gray-500">New feature</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span class="text-sm text-gray-500">Improvement</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-red-400"></span>
+            <span class="text-sm text-gray-500">Bug fix</span>
+          </div>
+        </div>
         <div class="space-y-8">
           <div
             v-for="release in changelog"
