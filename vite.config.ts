@@ -20,6 +20,7 @@ function cleanUrlPlugin() {
           '/roadmap': '/pages/roadmap.html',
           '/admin': '/pages/admin.html',
           '/conversion': '/pages/conversion.html',
+          '/status': '/pages/status.html',
         }
         if (req.url && rewrites[req.url]) {
           req.url = rewrites[req.url]
@@ -52,6 +53,7 @@ export default defineConfig({
         'roadmap': resolve(__dirname, "src/pages/roadmap.html"),
         'admin': resolve(__dirname, "src/pages/admin.html"),
         'conversion': resolve(__dirname, "src/pages/conversion.html"),
+        'status': resolve(__dirname, "src/pages/status.html"),
       },
       output: {
         entryFileNames: '[name].js',
