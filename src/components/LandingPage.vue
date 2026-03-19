@@ -213,6 +213,7 @@
             <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
             <a href="/report" class="text-gray-500 hover:text-gray-700 transition duration-300">Report a Bug</a>
             <a href="/roadmap" class="text-gray-500 hover:text-gray-700 transition duration-300">Roadmap</a>
+            <a href="/status" class="text-gray-500 hover:text-gray-700 transition duration-300">Status</a>
           </nav>
           <p class="text-gray-600">
             &copy; {{ currentYear }} unChonk™ by Chonky Heads. Text-to-Speech Solution.
