@@ -46,9 +46,31 @@
           </div>
           <h1 class="text-2xl font-bold text-red-600 mb-4">Verification Failed</h1>
           <p class="text-gray-600 mb-6">{{ errorMessage }}</p>
-          <p class="text-sm text-gray-500">
-            Please try registering again using the unChonk Extension.
-          </p>
+
+          <!-- Resend verification -->
+          <div v-if="!resendSuccess" class="mt-4">
+            <p class="text-sm text-gray-500 mb-3">Need a new verification email?</p>
+            <div class="flex gap-2 justify-center">
+              <input
+                v-model="resendEmail"
+                type="email"
+                placeholder="Your email address"
+                class="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#2d5a3f]"
+              />
+              <button
+                @click="handleResend"
+                :disabled="resending || !resendEmail"
+                class="px-4 py-2 bg-[#2d5a3f] text-white text-sm font-medium rounded-lg hover:bg-[#1e3d2a] disabled:bg-gray-300 transition-colors"
+              >
+                {{ resending ? 'Sending...' : 'Resend' }}
+              </button>
+            </div>
+            <p v-if="resendError" class="text-sm text-red-500 mt-2">{{ resendError }}</p>
+          </div>
+
+          <div v-else class="mt-4 p-3 bg-[#e0ece3] rounded-lg">
+            <p class="text-sm text-[#2d5a3f] font-medium">Verification email sent! Check your inbox.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -75,6 +97,10 @@ const loading = ref(false)
 const success = ref(false)
 const error = ref(false)
 const errorMessage = ref('')
+const resendEmail = ref('')
+const resending = ref(false)
+const resendSuccess = ref(false)
+const resendError = ref('')
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -107,6 +133,30 @@ const verifyEmail = async () => {
     loading.value = false
     error.value = true
     errorMessage.value = (err as Error).message
+  }
+}
+
+const handleResend = async () => {
+  resending.value = true
+  resendError.value = ''
+
+  try {
+    const response = await fetch(getApiUrl('/api/resend-verification'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: resendEmail.value }),
+    })
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.detail || data.error || 'Failed to resend')
+    }
+
+    resendSuccess.value = true
+  } catch (err) {
+    resendError.value = (err as Error).message
+  } finally {
+    resending.value = false
   }
 }
 
