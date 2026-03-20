@@ -143,6 +143,38 @@
         </div>
       </div>
 
+      <!-- Resend Verification -->
+      <div v-if="!authStore.isAuthenticated && !isProcessingOAuth" class="mt-8">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="flex-1 h-px bg-gray-200"></div>
+          <span class="text-sm text-gray-500">need to verify your email?</span>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
+          <p class="text-sm text-gray-600 mb-3">
+            If your verification email expired or you can't find it, enter your email to get a new one.
+          </p>
+          <div class="flex gap-2">
+            <input
+              v-model="resendEmail"
+              type="email"
+              placeholder="Your email address"
+              class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-[#2d5a3f]"
+            />
+            <button
+              @click="handleResend"
+              :disabled="resending || !resendEmail"
+              class="px-4 py-2 bg-[#2d5a3f] text-white text-sm font-medium rounded-lg hover:bg-[#1e3d2a] disabled:bg-gray-300 transition-colors"
+            >
+              {{ resending ? 'Sending...' : 'Resend' }}
+            </button>
+          </div>
+          <p v-if="resendSuccess" class="text-sm text-[#2d5a3f] mt-2 font-medium">Verification email sent! Check your inbox.</p>
+          <p v-if="resendError" class="text-sm text-red-500 mt-2">{{ resendError }}</p>
+        </div>
+      </div>
+
       <!-- Back Link -->
       <div class="text-center mt-12">
         <a href="/" class="text-gray-700 hover:text-gray-900 hover:underline font-medium">
@@ -175,6 +207,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '../shared/stores/authStore'
 import { supabase } from '../shared/utils/supabase'
+import { getApiUrl } from '../shared/config/environment'
 
 const authStore = useAuthStore()
 const currentYear = computed(() => new Date().getFullYear())
@@ -184,6 +217,10 @@ const isSigningIn = ref(false)
 const errorMessage = ref('')
 const supabaseAvailable = computed(() => !!supabase)
 const extensionInstalled = ref(false)
+const resendEmail = ref('')
+const resending = ref(false)
+const resendSuccess = ref(false)
+const resendError = ref('')
 
 // Check for OAuth callback on mount (Supabase puts tokens in URL hash after Google redirect)
 onMounted(async () => {
@@ -208,6 +245,31 @@ onMounted(async () => {
     }
   }
 })
+
+const handleResend = async () => {
+  resending.value = true
+  resendError.value = ''
+  resendSuccess.value = false
+
+  try {
+    const response = await fetch(getApiUrl('/api/resend-verification'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: resendEmail.value }),
+    })
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.detail || data.error || 'Failed to resend')
+    }
+
+    resendSuccess.value = true
+  } catch (err) {
+    resendError.value = (err as Error).message
+  } finally {
+    resending.value = false
+  }
+}
 
 const handleGoogleSignIn = async () => {
   isSigningIn.value = true
