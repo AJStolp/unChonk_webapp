@@ -99,6 +99,56 @@
         </div>
       </div>
 
+      <!-- Uptime Stats -->
+      <div v-if="uptimeLoaded" class="grid grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 rounded-xl border border-gray-200">
+          <p class="text-2xl font-bold" :class="uptimeColor(uptime['24h'])">{{ uptime['24h'] }}%</p>
+          <p class="text-xs text-gray-500 mt-1">Last 24 hours</p>
+        </div>
+        <div class="text-center p-4 rounded-xl border border-gray-200">
+          <p class="text-2xl font-bold" :class="uptimeColor(uptime['7d'])">{{ uptime['7d'] }}%</p>
+          <p class="text-xs text-gray-500 mt-1">Last 7 days</p>
+        </div>
+        <div class="text-center p-4 rounded-xl border border-gray-200">
+          <p class="text-2xl font-bold" :class="uptimeColor(uptime['30d'])">{{ uptime['30d'] }}%</p>
+          <p class="text-xs text-gray-500 mt-1">Last 30 days</p>
+        </div>
+      </div>
+
+      <!-- Avg Response Time -->
+      <div v-if="uptimeLoaded && avgResponseMs > 0" class="text-center mb-10">
+        <p class="text-sm text-gray-400">
+          Avg response time (24h): <span class="font-medium text-gray-600">{{ avgResponseMs }}ms</span>
+        </p>
+      </div>
+
+      <!-- Incidents -->
+      <div v-if="incidents.length > 0" class="mb-10">
+        <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Incidents</h2>
+        <div class="space-y-3">
+          <div
+            v-for="incident in incidents"
+            :key="incident.id"
+            class="p-4 rounded-xl border"
+            :class="incident.status === 'ongoing' ? 'border-red-200 bg-red-50' : 'border-gray-200 bg-white'"
+          >
+            <div class="flex items-center justify-between mb-1">
+              <span
+                class="text-xs font-medium px-2 py-0.5 rounded-full"
+                :class="incident.status === 'ongoing' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'"
+              >
+                {{ incident.status === 'ongoing' ? 'Ongoing' : 'Resolved' }}
+              </span>
+              <span class="text-xs text-gray-400">{{ formatIncidentDate(incident.started_at) }}</span>
+            </div>
+            <p class="text-sm text-gray-600">{{ incident.description }}</p>
+            <p v-if="incident.resolved_at" class="text-xs text-gray-400 mt-1">
+              Resolved {{ formatIncidentDate(incident.resolved_at) }}
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- Auto-refresh note -->
       <div class="text-center mb-16">
         <p class="text-sm text-gray-400">
@@ -251,8 +301,21 @@ interface Release {
   changes: ChangeEntry[]
 }
 
+interface Incident {
+  id: number
+  started_at: string
+  resolved_at: string | null
+  status: string
+  affected_services: string[]
+  description: string
+}
+
 const isLoading = ref(false)
 const lastChecked = ref<Date | null>(null)
+const uptimeLoaded = ref(false)
+const uptime = ref<Record<string, number>>({ '24h': 100, '7d': 100, '30d': 100 })
+const avgResponseMs = ref(0)
+const incidents = ref<Incident[]>([])
 let refreshInterval: ReturnType<typeof setInterval> | null = null
 
 const services = ref<Service[]>([
@@ -441,6 +504,18 @@ function changeTypeColor(type: ChangeEntry['type']): string {
   }
 }
 
+function uptimeColor(pct: number): string {
+  if (pct >= 99.5) return 'text-green-600'
+  if (pct >= 95) return 'text-amber-600'
+  return 'text-red-600'
+}
+
+function formatIncidentDate(iso: string): string {
+  const d = new Date(iso)
+  return d.toLocaleDateString([], { month: 'short', day: 'numeric' }) +
+    ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+}
+
 function updateService(key: string, status: ServiceStatus) {
   const service = services.value.find(s => s.key === key)
   if (service) service.status = status
@@ -500,9 +575,32 @@ async function checkStatus() {
   isLoading.value = false
 }
 
+async function fetchUptimeHistory() {
+  try {
+    const apiUrl = API_BASE_URL === 'http://localhost:5000'
+      ? 'https://api.unchonk.com'
+      : API_BASE_URL
+
+    const resp = await fetch(`${apiUrl}/api/status/history`)
+    if (resp.ok) {
+      const data = await resp.json()
+      uptime.value = data.uptime
+      avgResponseMs.value = data.avg_response_ms_24h || 0
+      incidents.value = data.incidents || []
+      uptimeLoaded.value = true
+    }
+  } catch {
+    // Silently fail, uptime section just won't show
+  }
+}
+
 onMounted(() => {
   checkStatus()
-  refreshInterval = setInterval(checkStatus, 60000)
+  fetchUptimeHistory()
+  refreshInterval = setInterval(() => {
+    checkStatus()
+    fetchUptimeHistory()
+  }, 60000)
 })
 
 onUnmounted(() => {
