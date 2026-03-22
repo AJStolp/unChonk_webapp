@@ -71,10 +71,10 @@
             <defs>
               <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#22c55e" />
-                <stop offset="45%" stop-color="#22c55e" />
-                <stop offset="55%" stop-color="#f59e0b" />
-                <stop offset="75%" stop-color="#f59e0b" />
-                <stop offset="85%" stop-color="#94a3b8" />
+                <stop offset="72%" stop-color="#22c55e" />
+                <stop offset="78%" stop-color="#f59e0b" />
+                <stop offset="85%" stop-color="#f59e0b" />
+                <stop offset="90%" stop-color="#94a3b8" />
                 <stop offset="100%" stop-color="#94a3b8" />
               </linearGradient>
             </defs>
@@ -185,7 +185,7 @@
           <!-- Gradient line -->
           <div
             class="absolute left-[15px] top-0 bottom-0 w-0.5 rounded-full"
-            style="background: linear-gradient(to bottom, #22c55e 0%, #22c55e 45%, #f59e0b 55%, #f59e0b 75%, #94a3b8 85%, #94a3b8 100%)"
+            style="background: linear-gradient(to bottom, #22c55e 0%, #22c55e 72%, #f59e0b 78%, #f59e0b 85%, #94a3b8 90%, #94a3b8 100%)"
           ></div>
 
           <div
@@ -289,21 +289,21 @@ const milestones: RoadmapMilestone[] = [
   },
   {
     id: 5,
-    label: 'Browser Support',
-    description: 'Bringing unChonk to more browsers',
-    status: 'in-progress',
+    label: 'Reading Experience',
+    description: 'Auto-scroll, Play Here, and smoother playback',
+    status: 'shipped',
   },
   {
     id: 6,
-    label: 'Reading Experience',
-    description: 'Making every session smoother and more natural',
-    status: 'in-progress',
+    label: 'Google Docs',
+    description: 'Read your Google Docs aloud with full highlighting',
+    status: 'shipped',
   },
   {
     id: 7,
-    label: 'AI-Powered Features',
-    description: 'Improved summarization and smarter content tools',
-    status: 'upcoming',
+    label: 'Browser Support',
+    description: 'Bringing unChonk to more browsers',
+    status: 'in-progress',
   },
   {
     id: 8,
