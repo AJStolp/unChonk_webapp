@@ -71,10 +71,10 @@
             <defs>
               <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#22c55e" />
-                <stop offset="72%" stop-color="#22c55e" />
-                <stop offset="78%" stop-color="#f59e0b" />
-                <stop offset="85%" stop-color="#f59e0b" />
-                <stop offset="90%" stop-color="#94a3b8" />
+                <stop offset="78%" stop-color="#22c55e" />
+                <stop offset="83%" stop-color="#f59e0b" />
+                <stop offset="90%" stop-color="#f59e0b" />
+                <stop offset="95%" stop-color="#94a3b8" />
                 <stop offset="100%" stop-color="#94a3b8" />
               </linearGradient>
             </defs>
@@ -185,7 +185,7 @@
           <!-- Gradient line -->
           <div
             class="absolute left-[15px] top-0 bottom-0 w-0.5 rounded-full"
-            style="background: linear-gradient(to bottom, #22c55e 0%, #22c55e 72%, #f59e0b 78%, #f59e0b 85%, #94a3b8 90%, #94a3b8 100%)"
+            style="background: linear-gradient(to bottom, #22c55e 0%, #22c55e 78%, #f59e0b 83%, #f59e0b 90%, #94a3b8 95%, #94a3b8 100%)"
           ></div>
 
           <div
@@ -301,27 +301,34 @@ const milestones: RoadmapMilestone[] = [
   },
   {
     id: 7,
+    label: 'PDF Support',
+    description: 'Read any PDF aloud with text extraction and page navigation',
+    status: 'shipped',
+  },
+  {
+    id: 8,
     label: 'Browser Support',
     description: 'Bringing unChonk to more browsers',
     status: 'in-progress',
   },
   {
-    id: 8,
-    label: 'PDF Support',
-    description: 'Read your PDFs aloud with highlighting',
+    id: 9,
+    label: 'Embeddable Widget',
+    description: 'Drop a TTS player on any website with a single script tag',
     status: 'upcoming',
   },
 ]
 
 const milestonePositions: MilestonePosition[] = [
-  { x: 75,   y: 130, cardSide: 'above' },
-  { x: 225,  y: 270, cardSide: 'below' },
-  { x: 375,  y: 130, cardSide: 'above' },
-  { x: 525,  y: 270, cardSide: 'below' },
-  { x: 675,  y: 130, cardSide: 'above' },
-  { x: 825,  y: 270, cardSide: 'below' },
-  { x: 975,  y: 130, cardSide: 'above' },
-  { x: 1125, y: 270, cardSide: 'below' },
+  { x: 67,   y: 130, cardSide: 'above' },
+  { x: 200,  y: 270, cardSide: 'below' },
+  { x: 333,  y: 130, cardSide: 'above' },
+  { x: 467,  y: 270, cardSide: 'below' },
+  { x: 600,  y: 130, cardSide: 'above' },
+  { x: 733,  y: 270, cardSide: 'below' },
+  { x: 867,  y: 130, cardSide: 'above' },
+  { x: 1000, y: 270, cardSide: 'below' },
+  { x: 1133, y: 130, cardSide: 'above' },
 ]
 
 const statusColors: Record<string, {
