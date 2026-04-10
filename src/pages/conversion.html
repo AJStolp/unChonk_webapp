@@ -5,6 +5,30 @@
     <meta name="robots" content="noindex, nofollow" />
     <title>unChonk</title>
 
+    <!--
+      Conversion relay page.
+
+      Loaded in a hidden 1x1 iframe by the Chrome extension to fire Google
+      Ads conversions with Enhanced Conversions data. The extension cannot
+      execute gtag.js itself (MV3 prohibits remotely-hosted code), so it
+      relays through this page on the unchonk.com origin where gtag.js is
+      allowed.
+
+      URL params:
+        label                 (required) Google Ads conversion label
+        hash                  (optional) SHA-256 of lowercase, trimmed email
+                              for Enhanced Conversions matching. The hex hash
+                              is computed by the extension via Web Crypto API
+                              before navigation — we never receive the raw
+                              email.
+        value, currency,
+        transaction_id        (optional) Standard gtag conversion params for
+                              purchase events.
+
+      The page intentionally has no body content and never navigates anywhere.
+      It exists only to execute gtag in a CSP-permissive context.
+    -->
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17950589439"></script>
     <script>
@@ -13,13 +37,24 @@
       gtag('js', new Date());
       gtag('config', 'AW-17950589439');
 
-      // Fire conversion from URL params and close the tab
+      // Fire conversion from URL params
       (function() {
         var params = new URLSearchParams(window.location.search);
         var label = params.get('label');
+        var hash = params.get('hash');
         var value = params.get('value');
         var currency = params.get('currency');
         var txnId = params.get('transaction_id');
+
+        // Enhanced conversions: provide hashed user data BEFORE the
+        // conversion event so gtag attaches it to the request. Hash MUST be
+        // a lowercase hex SHA-256 of the lowercase trimmed email — Google
+        // expects exactly that format.
+        if (hash && /^[a-f0-9]{64}$/.test(hash)) {
+          gtag('set', 'user_data', {
+            sha256_email_address: hash
+          });
+        }
 
         if (label) {
           var conversionParams = {
