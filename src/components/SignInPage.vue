@@ -29,100 +29,9 @@
         </p>
       </div>
 
-      <!-- Loading state during OAuth callback -->
-      <div v-if="isProcessingOAuth" class="text-center py-12">
-        <div class="w-8 h-8 border-[3px] border-[#2d5a3f] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-        <p class="text-gray-600">Signing you in with Google...</p>
-      </div>
-
-      <!-- Authenticated state -->
-      <div v-else-if="authStore.isAuthenticated" class="space-y-6">
-        <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100 text-center">
-          <div class="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-          </div>
-          <h2 class="text-xl font-bold text-gray-900 mb-2">You're signed in!</h2>
-
-          <!-- Extension installed: open dashboard immediately (auto-redirect) -->
-          <template v-if="extensionInstalled">
-            <p class="text-gray-600 mb-6">
-              {{ isRedirecting ? 'Opening the unChonk dashboard...' : 'Open the unChonk Chrome extension to start using text-to-speech. Your login will sync automatically.' }}
-            </p>
-            <a
-              ref="dashboardLinkRef"
-              :href="extensionDashboardUrl"
-              class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
-            >
-              Open Extension Dashboard
-            </a>
-          </template>
-
-          <!-- Extension NOT installed: prompt to install. We deliberately do
-               NOT auto-redirect here because the chrome-extension:// URL is
-               unreachable on profiles without unChonk installed and would
-               land the user on a chrome-error page. Instead, surface the
-               install CTA so they know what to do next. -->
-          <template v-else>
-            <p class="text-gray-600 mb-6">
-              One more step: install the unChonk Chrome extension to start using text-to-speech with your account. Your login is already saved and will sync automatically once the extension is installed.
-            </p>
-            <a
-              href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
-            >
-              Get the Chrome Extension
-            </a>
-          </template>
-        </div>
-      </div>
-
-      <!-- Sign-in options -->
-      <div v-else class="space-y-6">
-        <!-- Error message -->
-        <div v-if="errorMessage" class="bg-red-50 text-red-800 border border-red-200 rounded-xl p-4 text-sm flex items-center gap-2">
-          <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-          <span>{{ errorMessage }}</span>
-        </div>
-
-        <!-- Google Sign In -->
-        <div v-if="supabaseAvailable" class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-          <div class="text-center">
-            <h2 class="text-xl font-bold text-gray-900 mb-2">Sign in with Google</h2>
-            <p class="text-sm text-gray-500 mb-4">
-              Already have unChonk installed? Sign in to sync your account.
-            </p>
-            <button
-              @click="handleGoogleSignIn"
-              :disabled="isSigningIn"
-              class="inline-flex items-center justify-center gap-3 w-full max-w-sm mx-auto px-6 py-3 bg-white border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 hover:border-gray-300 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <svg class="w-5 h-5" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-              </svg>
-              <span v-if="!isSigningIn">Continue with Google</span>
-              <span v-else>Redirecting...</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Divider -->
-        <div class="flex items-center gap-4">
-          <div class="flex-1 h-px bg-gray-200"></div>
-          <span class="text-sm text-gray-500">or sign in via extension</span>
-          <div class="flex-1 h-px bg-gray-200"></div>
-        </div>
-
-        <!-- Extension detected: open sign-in directly -->
-        <div v-if="extensionInstalled" class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+      <div class="space-y-6">
+        <!-- Already have the extension: sign in directly -->
+        <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e0ece3] text-[#2d5a3f] flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,9 +39,9 @@
               </svg>
             </div>
             <div class="flex-1">
-              <h2 class="text-xl font-bold text-gray-900 mb-2">Extension detected</h2>
+              <h2 class="text-xl font-bold text-gray-900 mb-2">Already have the extension?</h2>
               <p class="text-gray-600 mb-4">
-                Your unChonk extension is installed. Open the sign-in page directly.
+                Sign in directly through the unChonk extension. Supports Google sign in and email login.
               </p>
               <a
                 href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/login.html"
@@ -144,8 +53,15 @@
           </div>
         </div>
 
-        <!-- Extension not detected: link to Chrome Web Store -->
-        <div v-else class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+        <!-- Divider -->
+        <div class="flex items-center gap-4">
+          <div class="flex-1 h-px bg-gray-200"></div>
+          <span class="text-sm text-gray-500">new to unChonk?</span>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <!-- New user: get the extension first -->
+        <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-[#e0ece3] text-[#2d5a3f] flex items-center justify-center">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -199,190 +115,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue'
-import { useAuthStore } from '../shared/stores/authStore'
-import { supabase } from '../shared/utils/supabase'
+import { computed } from 'vue'
 
-const authStore = useAuthStore()
 const currentYear = computed(() => new Date().getFullYear())
-
-const isProcessingOAuth = ref(false)
-const isSigningIn = ref(false)
-const errorMessage = ref('')
-const supabaseAvailable = computed(() => !!supabase)
-const extensionInstalled = ref(false)
-const isRedirecting = ref(false)
-const dashboardLinkRef = ref<HTMLAnchorElement | null>(null)
-
-/**
- * unChonk Chrome Web Store extension ID. This must match the extension's
- * `key` field in `manifest.json`, which freezes the extension ID across
- * local unpacked AND Web Store builds. If we ever rotate the extension ID,
- * update this string here AND every other reference in the webapp:
- *   - SignInPage.vue (this file, multiple places)
- *   - SubscriptionPage.vue
- *   - SuccessPage.vue (EXTENSION_ID constant)
- */
-const EXTENSION_ID = 'ofnbgiiljbejpfnmjjnnbmpoiepkmkao'
-const extensionDashboardUrl = `chrome-extension://${EXTENSION_ID}/pages/dashboard.html`
-
-/**
- * Detect whether the unChonk Chrome extension is installed and enabled
- * on this browser profile.
- *
- * Approach: try to load `styles.css` from the extension's chrome-extension://
- * origin via a `<link rel="preload" as="style">` element. The CSS file is
- * declared in the extension's `web_accessible_resources` with
- * `matches: ["<all_urls>"]`, so unchonk.com is authorized to load it.
- *
- *   - Load succeeds → extension is installed and accessible → resolve(true)
- *   - Load errors  → extension not installed (or disabled) → resolve(false)
- *   - 2 second timeout fallback in case neither event fires (some browsers
- *     silently drop chrome-extension:// load errors)
- *
- * Why preload-as-style instead of `rel="stylesheet"`: preload loads the
- * resource into the browser cache without applying it to the page, so we
- * don't accidentally inject the extension's content-script CSS into the
- * webapp and break our own layout.
- *
- * Why this instead of the data-attribute check (`data-tts-extension-injected`)
- * the file used to use: that attribute is never set anywhere — it's only
- * checked. The extension's content scripts are programmatically injected
- * via `chrome.scripting.executeScript` only when the user clicks the
- * extension icon, which means the attribute is essentially never present
- * on a fresh page load. The CSS preload approach works on first visit.
- *
- * Why this instead of `fetch('chrome-extension://...')`: cross-origin fetch
- * to `chrome-extension://` URLs from a regular web page is inconsistent
- * across browsers and is sometimes blocked outright. The link preload's
- * `load` and `error` events are well-defined and work cross-browser.
- */
-function detectExtensionInstalled(): Promise<boolean> {
-  return new Promise((resolve) => {
-    if (typeof document === 'undefined') {
-      resolve(false)
-      return
-    }
-
-    const link = document.createElement('link')
-    link.rel = 'preload'
-    link.as = 'style'
-    link.href = `chrome-extension://${EXTENSION_ID}/styles.css`
-
-    let resolved = false
-    const cleanup = (result: boolean) => {
-      if (resolved) return
-      resolved = true
-      try {
-        link.remove()
-      } catch {
-        // ignore
-      }
-      resolve(result)
-    }
-
-    link.onload = () => cleanup(true)
-    link.onerror = () => cleanup(false)
-
-    // Fallback timeout — if neither event fires within 2 seconds, treat
-    // the extension as not installed. Real loads typically resolve in
-    // under 100ms when the extension is present.
-    setTimeout(() => cleanup(false), 2000)
-
-    document.head.appendChild(link)
-  })
-}
-
-/**
- * Auto-navigate to the extension dashboard after a successful sign-in.
- *
- * GATED on `extensionInstalled.value === true`. If the extension is NOT
- * installed, this function is never called — the success panel instead
- * shows a "Get the Chrome Extension" CTA via the `v-else` template branch,
- * because attempting to navigate to `chrome-extension://...` when the
- * extension isn't installed lands the user on a chrome-error page.
- *
- * Why setTimeout(1500): gives the user a brief beat to see the green
- * checkmark + "You're signed in!" confirmation before the page changes
- * underneath them. Without the delay, the success state flashes for one
- * frame.
- *
- * Why simulated `link.click()` instead of `window.location.href = ...`:
- * navigation to `chrome-extension://` URLs from a regular web page is
- * inconsistent across browsers when triggered by JS-driven location
- * changes. A simulated click on an `<a>` element is the most reliable
- * approach. Modern Chrome treats it as user-initiated as long as the
- * destination is in the extension's `web_accessible_resources`.
- */
-const REDIRECT_DELAY_MS = 1500
-
-function autoRedirectToExtensionDashboard(): void {
-  isRedirecting.value = true
-  setTimeout(() => {
-    const link = dashboardLinkRef.value
-    if (link) {
-      link.click()
-    } else {
-      // Last-resort fallback if the ref isn't ready (shouldn't happen
-      // after Vue's mounted lifecycle, but handle it anyway).
-      window.location.href = extensionDashboardUrl
-    }
-  }, REDIRECT_DELAY_MS)
-}
-
-// Check for OAuth callback on mount (Supabase puts tokens in URL hash after Google redirect)
-onMounted(async () => {
-  // Kick off extension detection IN PARALLEL with the OAuth callback so
-  // both finish around the same time. Detection typically resolves in
-  // under 100ms; OAuth callback takes a network round-trip.
-  const detectionPromise = detectExtensionInstalled()
-
-  const hash = window.location.hash
-  if (hash && hash.includes('access_token')) {
-    isProcessingOAuth.value = true
-    errorMessage.value = ''
-
-    try {
-      const success = await authStore.handleOAuthCallback()
-      if (success) {
-        // Anyone signing in on unchonk.com already has the extension —
-        // new users install the extension first and sign in via the
-        // extension's own login page. So just redirect to the dashboard
-        // immediately. No detection, no intermediate page.
-        window.location.href = extensionDashboardUrl
-        return
-      } else {
-        errorMessage.value = 'Google sign-in failed. Please try again.'
-      }
-    } catch (error) {
-      console.error('[SignInPage] OAuth callback error:', error)
-      errorMessage.value = 'Something went wrong during sign-in. Please try again.'
-    } finally {
-      isProcessingOAuth.value = false
-    }
-  } else {
-    // No OAuth callback — just record the detection result so the
-    // bottom "Extension detected" / "Get the extension" UI branch can
-    // pick the right one.
-    extensionInstalled.value = await detectionPromise
-  }
-})
-
-const handleGoogleSignIn = async () => {
-  isSigningIn.value = true
-  errorMessage.value = ''
-
-  try {
-    const result = await authStore.loginWithGoogle()
-    if (!result) {
-      errorMessage.value = 'Failed to start Google sign-in. Please try again.'
-      isSigningIn.value = false
-    }
-    // If successful, page will redirect to Google OAuth
-  } catch (error) {
-    console.error('[SignInPage] Google sign-in error:', error)
-    errorMessage.value = 'Failed to start Google sign-in. Please try again.'
-    isSigningIn.value = false
-  }
-}
 </script>
