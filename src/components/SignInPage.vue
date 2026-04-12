@@ -93,7 +93,10 @@
         <!-- Google Sign In -->
         <div v-if="supabaseAvailable" class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
           <div class="text-center">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">Sign in with Google</h2>
+            <h2 class="text-xl font-bold text-gray-900 mb-2">Sign in with Google</h2>
+            <p class="text-sm text-gray-500 mb-4">
+              Already have unChonk installed? Sign in to sync your account.
+            </p>
             <button
               @click="handleGoogleSignIn"
               :disabled="isSigningIn"
