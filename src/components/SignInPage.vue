@@ -44,16 +44,39 @@
             </svg>
           </div>
           <h2 class="text-xl font-bold text-gray-900 mb-2">You're signed in!</h2>
-          <p class="text-gray-600 mb-6">
-            {{ isRedirecting ? 'Opening the unChonk dashboard...' : 'Open the unChonk Chrome extension to start using text-to-speech. Your login will sync automatically.' }}
-          </p>
-          <a
-            ref="dashboardLinkRef"
-            :href="extensionDashboardUrl"
-            class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
-          >
-            Open Extension Dashboard
-          </a>
+
+          <!-- Extension installed: open dashboard immediately (auto-redirect) -->
+          <template v-if="extensionInstalled">
+            <p class="text-gray-600 mb-6">
+              {{ isRedirecting ? 'Opening the unChonk dashboard...' : 'Open the unChonk Chrome extension to start using text-to-speech. Your login will sync automatically.' }}
+            </p>
+            <a
+              ref="dashboardLinkRef"
+              :href="extensionDashboardUrl"
+              class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
+            >
+              Open Extension Dashboard
+            </a>
+          </template>
+
+          <!-- Extension NOT installed: prompt to install. We deliberately do
+               NOT auto-redirect here because the chrome-extension:// URL is
+               unreachable on profiles without unChonk installed and would
+               land the user on a chrome-error page. Instead, surface the
+               install CTA so they know what to do next. -->
+          <template v-else>
+            <p class="text-gray-600 mb-6">
+              One more step: install the unChonk Chrome extension to start using text-to-speech with your account. Your login is already saved and will sync automatically once the extension is installed.
+            </p>
+            <a
+              href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
+            >
+              Get the Chrome Extension
+            </a>
+          </template>
         </div>
       </div>
 
@@ -173,7 +196,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useAuthStore } from '../shared/stores/authStore'
 import { supabase } from '../shared/utils/supabase'
 
@@ -188,30 +211,105 @@ const extensionInstalled = ref(false)
 const isRedirecting = ref(false)
 const dashboardLinkRef = ref<HTMLAnchorElement | null>(null)
 
-// Hardcoded extension ID. This must match the extension's `key` in
-// manifest.json (which freezes the extension ID across local + store builds).
-// If we ever rotate the extension ID we MUST update this string too.
-const extensionDashboardUrl =
-  'chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/dashboard.html'
+/**
+ * unChonk Chrome Web Store extension ID. This must match the extension's
+ * `key` field in `manifest.json`, which freezes the extension ID across
+ * local unpacked AND Web Store builds. If we ever rotate the extension ID,
+ * update this string here AND every other reference in the webapp:
+ *   - SignInPage.vue (this file, multiple places)
+ *   - SubscriptionPage.vue
+ *   - SuccessPage.vue (EXTENSION_ID constant)
+ */
+const EXTENSION_ID = 'ofnbgiiljbejpfnmjjnnbmpoiepkmkao'
+const extensionDashboardUrl = `chrome-extension://${EXTENSION_ID}/pages/dashboard.html`
+
+/**
+ * Detect whether the unChonk Chrome extension is installed and enabled
+ * on this browser profile.
+ *
+ * Approach: try to load `styles.css` from the extension's chrome-extension://
+ * origin via a `<link rel="preload" as="style">` element. The CSS file is
+ * declared in the extension's `web_accessible_resources` with
+ * `matches: ["<all_urls>"]`, so unchonk.com is authorized to load it.
+ *
+ *   - Load succeeds → extension is installed and accessible → resolve(true)
+ *   - Load errors  → extension not installed (or disabled) → resolve(false)
+ *   - 2 second timeout fallback in case neither event fires (some browsers
+ *     silently drop chrome-extension:// load errors)
+ *
+ * Why preload-as-style instead of `rel="stylesheet"`: preload loads the
+ * resource into the browser cache without applying it to the page, so we
+ * don't accidentally inject the extension's content-script CSS into the
+ * webapp and break our own layout.
+ *
+ * Why this instead of the data-attribute check (`data-tts-extension-injected`)
+ * the file used to use: that attribute is never set anywhere — it's only
+ * checked. The extension's content scripts are programmatically injected
+ * via `chrome.scripting.executeScript` only when the user clicks the
+ * extension icon, which means the attribute is essentially never present
+ * on a fresh page load. The CSS preload approach works on first visit.
+ *
+ * Why this instead of `fetch('chrome-extension://...')`: cross-origin fetch
+ * to `chrome-extension://` URLs from a regular web page is inconsistent
+ * across browsers and is sometimes blocked outright. The link preload's
+ * `load` and `error` events are well-defined and work cross-browser.
+ */
+function detectExtensionInstalled(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (typeof document === 'undefined') {
+      resolve(false)
+      return
+    }
+
+    const link = document.createElement('link')
+    link.rel = 'preload'
+    link.as = 'style'
+    link.href = `chrome-extension://${EXTENSION_ID}/styles.css`
+
+    let resolved = false
+    const cleanup = (result: boolean) => {
+      if (resolved) return
+      resolved = true
+      try {
+        link.remove()
+      } catch {
+        // ignore
+      }
+      resolve(result)
+    }
+
+    link.onload = () => cleanup(true)
+    link.onerror = () => cleanup(false)
+
+    // Fallback timeout — if neither event fires within 2 seconds, treat
+    // the extension as not installed. Real loads typically resolve in
+    // under 100ms when the extension is present.
+    setTimeout(() => cleanup(false), 2000)
+
+    document.head.appendChild(link)
+  })
+}
 
 /**
  * Auto-navigate to the extension dashboard after a successful sign-in.
  *
- * Why setTimeout: gives the user a brief beat to see the green checkmark
- * + "You're signed in!" confirmation before the page changes underneath
- * them. Without the delay, the success state flashes for one frame and
- * the user has no idea what just happened if the navigation fails.
+ * GATED on `extensionInstalled.value === true`. If the extension is NOT
+ * installed, this function is never called — the success panel instead
+ * shows a "Get the Chrome Extension" CTA via the `v-else` template branch,
+ * because attempting to navigate to `chrome-extension://...` when the
+ * extension isn't installed lands the user on a chrome-error page.
  *
- * Why simulated link click instead of `window.location.href = ...`:
+ * Why setTimeout(1500): gives the user a brief beat to see the green
+ * checkmark + "You're signed in!" confirmation before the page changes
+ * underneath them. Without the delay, the success state flashes for one
+ * frame.
+ *
+ * Why simulated `link.click()` instead of `window.location.href = ...`:
  * navigation to `chrome-extension://` URLs from a regular web page is
- * inconsistent across browsers when triggered by JS. A user-style click
- * on an `<a>` element is the most reliable way — modern Chrome treats
- * it as user-initiated as long as the destination is in the extension's
- * `web_accessible_resources` (which `pages/dashboard.html` is, with
- * `matches: ["<all_urls>"]`).
- *
- * Even if the auto-click fails for any reason, the manual button stays
- * visible underneath as a fallback.
+ * inconsistent across browsers when triggered by JS-driven location
+ * changes. A simulated click on an `<a>` element is the most reliable
+ * approach. Modern Chrome treats it as user-initiated as long as the
+ * destination is in the extension's `web_accessible_resources`.
  */
 const REDIRECT_DELAY_MS = 1500
 
@@ -220,8 +318,6 @@ function autoRedirectToExtensionDashboard(): void {
   setTimeout(() => {
     const link = dashboardLinkRef.value
     if (link) {
-      // Programmatic click on the same `<a>` the user would otherwise
-      // press manually. Browsers treat this as a navigable click.
       link.click()
     } else {
       // Last-resort fallback if the ref isn't ready (shouldn't happen
@@ -233,8 +329,10 @@ function autoRedirectToExtensionDashboard(): void {
 
 // Check for OAuth callback on mount (Supabase puts tokens in URL hash after Google redirect)
 onMounted(async () => {
-  // Detect if the extension content script is injected
-  extensionInstalled.value = document.documentElement.hasAttribute('data-tts-extension-injected')
+  // Kick off extension detection IN PARALLEL with the OAuth callback so
+  // both finish around the same time. Detection typically resolves in
+  // under 100ms; OAuth callback takes a network round-trip.
+  const detectionPromise = detectExtensionInstalled()
 
   const hash = window.location.hash
   if (hash && hash.includes('access_token')) {
@@ -244,19 +342,33 @@ onMounted(async () => {
     try {
       const success = await authStore.handleOAuthCallback()
       if (success) {
-        // Wait for Vue to render the authenticated state (so dashboardLinkRef
-        // is wired up via the `ref` binding) before scheduling the click.
-        await Promise.resolve()
-        autoRedirectToExtensionDashboard()
+        // Wait for the detection to settle BEFORE deciding which UI
+        // branch to render and whether to auto-redirect.
+        extensionInstalled.value = await detectionPromise
+        // Wait one tick for Vue to render the matching template branch
+        // (the dashboard link only exists when extensionInstalled is true).
+        await nextTick()
+        if (extensionInstalled.value) {
+          autoRedirectToExtensionDashboard()
+        }
+        // If extension is NOT installed, the v-else template branch shows
+        // the "Get the Chrome Extension" CTA and we do NOT auto-redirect.
       } else {
         errorMessage.value = 'Google sign-in failed. Please try again.'
+        extensionInstalled.value = await detectionPromise
       }
     } catch (error) {
       console.error('[SignInPage] OAuth callback error:', error)
       errorMessage.value = 'Something went wrong during sign-in. Please try again.'
+      extensionInstalled.value = await detectionPromise
     } finally {
       isProcessingOAuth.value = false
     }
+  } else {
+    // No OAuth callback — just record the detection result so the
+    // bottom "Extension detected" / "Get the extension" UI branch can
+    // pick the right one.
+    extensionInstalled.value = await detectionPromise
   }
 })
 
