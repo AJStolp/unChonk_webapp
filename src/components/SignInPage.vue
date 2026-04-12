@@ -45,10 +45,11 @@
           </div>
           <h2 class="text-xl font-bold text-gray-900 mb-2">You're signed in!</h2>
           <p class="text-gray-600 mb-6">
-            Open the unChonk Chrome extension to start using text-to-speech. Your login will sync automatically.
+            {{ isRedirecting ? 'Opening the unChonk dashboard...' : 'Open the unChonk Chrome extension to start using text-to-speech. Your login will sync automatically.' }}
           </p>
           <a
-            href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/dashboard.html"
+            ref="dashboardLinkRef"
+            :href="extensionDashboardUrl"
             class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
           >
             Open Extension Dashboard
@@ -184,6 +185,51 @@ const isSigningIn = ref(false)
 const errorMessage = ref('')
 const supabaseAvailable = computed(() => !!supabase)
 const extensionInstalled = ref(false)
+const isRedirecting = ref(false)
+const dashboardLinkRef = ref<HTMLAnchorElement | null>(null)
+
+// Hardcoded extension ID. This must match the extension's `key` in
+// manifest.json (which freezes the extension ID across local + store builds).
+// If we ever rotate the extension ID we MUST update this string too.
+const extensionDashboardUrl =
+  'chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/dashboard.html'
+
+/**
+ * Auto-navigate to the extension dashboard after a successful sign-in.
+ *
+ * Why setTimeout: gives the user a brief beat to see the green checkmark
+ * + "You're signed in!" confirmation before the page changes underneath
+ * them. Without the delay, the success state flashes for one frame and
+ * the user has no idea what just happened if the navigation fails.
+ *
+ * Why simulated link click instead of `window.location.href = ...`:
+ * navigation to `chrome-extension://` URLs from a regular web page is
+ * inconsistent across browsers when triggered by JS. A user-style click
+ * on an `<a>` element is the most reliable way — modern Chrome treats
+ * it as user-initiated as long as the destination is in the extension's
+ * `web_accessible_resources` (which `pages/dashboard.html` is, with
+ * `matches: ["<all_urls>"]`).
+ *
+ * Even if the auto-click fails for any reason, the manual button stays
+ * visible underneath as a fallback.
+ */
+const REDIRECT_DELAY_MS = 1500
+
+function autoRedirectToExtensionDashboard(): void {
+  isRedirecting.value = true
+  setTimeout(() => {
+    const link = dashboardLinkRef.value
+    if (link) {
+      // Programmatic click on the same `<a>` the user would otherwise
+      // press manually. Browsers treat this as a navigable click.
+      link.click()
+    } else {
+      // Last-resort fallback if the ref isn't ready (shouldn't happen
+      // after Vue's mounted lifecycle, but handle it anyway).
+      window.location.href = extensionDashboardUrl
+    }
+  }, REDIRECT_DELAY_MS)
+}
 
 // Check for OAuth callback on mount (Supabase puts tokens in URL hash after Google redirect)
 onMounted(async () => {
@@ -197,7 +243,12 @@ onMounted(async () => {
 
     try {
       const success = await authStore.handleOAuthCallback()
-      if (!success) {
+      if (success) {
+        // Wait for Vue to render the authenticated state (so dashboardLinkRef
+        // is wired up via the `ref` binding) before scheduling the click.
+        await Promise.resolve()
+        autoRedirectToExtensionDashboard()
+      } else {
         errorMessage.value = 'Google sign-in failed. Please try again.'
       }
     } catch (error) {
