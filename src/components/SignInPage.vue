@@ -345,25 +345,18 @@ onMounted(async () => {
     try {
       const success = await authStore.handleOAuthCallback()
       if (success) {
-        // Wait for the detection to settle BEFORE deciding which UI
-        // branch to render and whether to auto-redirect.
-        extensionInstalled.value = await detectionPromise
-        // Wait one tick for Vue to render the matching template branch
-        // (the dashboard link only exists when extensionInstalled is true).
-        await nextTick()
-        if (extensionInstalled.value) {
-          autoRedirectToExtensionDashboard()
-        }
-        // If extension is NOT installed, the v-else template branch shows
-        // the "Get the Chrome Extension" CTA and we do NOT auto-redirect.
+        // Anyone signing in on unchonk.com already has the extension —
+        // new users install the extension first and sign in via the
+        // extension's own login page. So just redirect to the dashboard
+        // immediately. No detection, no intermediate page.
+        window.location.href = extensionDashboardUrl
+        return
       } else {
         errorMessage.value = 'Google sign-in failed. Please try again.'
-        extensionInstalled.value = await detectionPromise
       }
     } catch (error) {
       console.error('[SignInPage] OAuth callback error:', error)
       errorMessage.value = 'Something went wrong during sign-in. Please try again.'
-      extensionInstalled.value = await detectionPromise
     } finally {
       isProcessingOAuth.value = false
     }
