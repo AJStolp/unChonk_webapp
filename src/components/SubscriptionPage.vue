@@ -52,56 +52,198 @@
       <!-- Credit Slider Section -->
       <h2 class="sr-only">Credit Packages</h2>
       <div v-if="sliderConfig" class="max-w-4xl mx-auto mb-16">
-        <!-- Credit Display -->
-        <div class="text-center mb-6">
-          <div class="text-4xl font-bold text-gray-900 mb-2">
-            {{ selectedCredits.toLocaleString() }} credits
+        <!-- TTS-only block: greys out + becomes non-interactive when the
+             user checks "I already have reading credits" below. -->
+        <div
+          :class="[
+            'transition-opacity duration-200',
+            isTtsSkipped ? 'opacity-40 pointer-events-none' : '',
+          ]"
+          :aria-disabled="isTtsSkipped ? 'true' : undefined"
+        >
+          <!-- Credit Display -->
+          <div class="text-center mb-6">
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              {{ selectedCredits.toLocaleString() }} credits
+            </div>
+            <div class="text-lg text-gray-600">
+              {{ (selectedCredits * sliderConfig.characters_per_credit).toLocaleString() }} characters
+              <span class="mx-2">•</span>
+              <span class="font-semibold text-[#2d5a3f]">
+                {{ currentTier }} Tier
+              </span>
+            </div>
+            <p v-if="isTtsSkipped" class="text-xs text-gray-500 mt-2 italic">
+              TTS purchase skipped — only translation credits will be charged.
+            </p>
           </div>
-          <div class="text-lg text-gray-600">
-            {{ (selectedCredits * sliderConfig.characters_per_credit).toLocaleString() }} characters
-            <span class="mx-2">•</span>
-            <span class="font-semibold text-[#2d5a3f]">
-              {{ currentTier }} Tier
+
+          <!-- Slider -->
+          <div class="mb-8 px-4">
+            <input
+              type="range"
+              v-model.number="selectedCredits"
+              :min="sliderConfig.min"
+              :max="sliderConfig.max"
+              :step="100"
+              :disabled="isTtsSkipped"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f] disabled:cursor-not-allowed"
+            />
+            <div class="flex justify-between text-sm text-gray-500 mt-2">
+              <span>{{ sliderConfig.min.toLocaleString() }}</span>
+              <span>{{ sliderConfig.max.toLocaleString() }}</span>
+            </div>
+          </div>
+
+          <!-- Preset Package Buttons -->
+          <div v-if="packages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+            <button
+              v-for="pkg in packages"
+              :key="pkg.credits"
+              @click="selectedCredits = pkg.credits"
+              :disabled="isTtsSkipped"
+              :class="[
+                'p-3 rounded-lg border-2 transition disabled:cursor-not-allowed',
+                selectedCredits === pkg.credits
+                  ? 'border-[#2d5a3f] bg-[#e0ece3]'
+                  : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white'
+              ]"
+            >
+              <div class="text-sm font-semibold text-gray-900">
+                {{ pkg.credits >= 1000 ? (pkg.credits / 1000) + 'K' : pkg.credits }}
+              </div>
+              <div class="text-xs text-gray-600">
+                ${{ pkg.price.toFixed(2) }}
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Cross-language reading add-on -->
+        <div class="border-t border-gray-200 pt-8 mb-2">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 mb-1">
+                Add cross-language reading
+              </h3>
+              <p class="text-sm text-gray-600 max-w-xl">
+                Translate any web page on the fly and read it aloud in 140+ languages.
+                Translation credits are a separate balance from your reading credits.
+              </p>
+            </div>
+            <button
+              type="button"
+              role="switch"
+              :aria-checked="translationToggleEnabled"
+              @click="translationToggleEnabled = !translationToggleEnabled"
+              :class="[
+                'relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#2d5a3f] focus:ring-offset-2',
+                translationToggleEnabled ? 'bg-[#2d5a3f]' : 'bg-gray-300',
+              ]"
+            >
+              <span class="sr-only">Add cross-language reading</span>
+              <span
+                :class="[
+                  'pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                  translationToggleEnabled ? 'translate-x-5' : 'translate-x-0',
+                ]"
+              />
+            </button>
+          </div>
+        </div>
+
+        <!-- Translation slider — only shown when toggle is on -->
+        <div
+          v-if="translationToggleEnabled && translationSliderConfig"
+          class="bg-[#f5f9f6] border border-[#2d5a3f]/20 rounded-xl p-6"
+        >
+          <div class="text-center mb-6">
+            <div class="text-3xl font-bold text-gray-900 mb-1">
+              {{ selectedTranslationCredits.toLocaleString() }} translation credits
+            </div>
+            <div class="text-sm text-gray-600">
+              {{ (selectedTranslationCredits * translationSliderConfig.characters_per_credit).toLocaleString() }}
+              source characters
+              <span class="mx-2">•</span>
+              <span class="font-semibold text-[#2d5a3f]">
+                ${{ translationPrice.toFixed(2) }}
+              </span>
+            </div>
+          </div>
+
+          <div class="mb-4 px-2">
+            <input
+              type="range"
+              v-model.number="selectedTranslationCredits"
+              :min="translationSliderConfig.min"
+              :max="translationSliderConfig.max"
+              :step="100"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f]"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-2">
+              <span>{{ translationSliderConfig.min.toLocaleString() }}</span>
+              <span>{{ translationSliderConfig.max.toLocaleString() }}</span>
+            </div>
+          </div>
+
+          <div v-if="translationPackages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-2">
+            <button
+              v-for="pkg in translationPackages"
+              :key="pkg.credits"
+              @click="selectedTranslationCredits = pkg.credits"
+              :class="[
+                'p-2 rounded-lg border-2 transition text-xs',
+                selectedTranslationCredits === pkg.credits
+                  ? 'border-[#2d5a3f] bg-white'
+                  : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white',
+              ]"
+            >
+              <div class="font-semibold text-gray-900">
+                {{ pkg.credits >= 1000 ? (pkg.credits / 1000) + 'K' : pkg.credits }}
+              </div>
+              <div class="text-gray-600">
+                ${{ pkg.price.toFixed(2) }}
+              </div>
+            </button>
+          </div>
+
+          <!-- Skip TTS purchase: lets users who already have a TTS balance
+               buy translation credits only. Hides the TTS portion from the
+               total and routes checkout to the translation-only endpoint. -->
+          <label class="mt-5 flex items-start gap-2 cursor-pointer text-sm text-gray-700">
+            <input
+              type="checkbox"
+              v-model="skipTtsForTranslation"
+              class="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#2d5a3f] focus:ring-[#2d5a3f] cursor-pointer"
+            />
+            <span>
+              I already have reading credits — only buy translation credits.
+              <span class="block text-xs text-gray-500 mt-0.5">
+                Skips the TTS purchase above and charges you only for translation.
+              </span>
             </span>
-          </div>
+          </label>
         </div>
 
-        <!-- Slider -->
-        <div class="mb-8 px-4">
-          <input
-            type="range"
-            v-model.number="selectedCredits"
-            :min="sliderConfig.min"
-            :max="sliderConfig.max"
-            :step="100"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f]"
-          />
-          <div class="flex justify-between text-sm text-gray-500 mt-2">
-            <span>{{ sliderConfig.min.toLocaleString() }}</span>
-            <span>{{ sliderConfig.max.toLocaleString() }}</span>
-          </div>
-        </div>
-
-        <!-- Preset Package Buttons -->
-        <div v-if="packages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-          <button
-            v-for="pkg in packages"
-            :key="pkg.credits"
-            @click="selectedCredits = pkg.credits"
-            :class="[
-              'p-3 rounded-lg border-2 transition',
-              selectedCredits === pkg.credits
-                ? 'border-[#2d5a3f] bg-[#e0ece3]'
-                : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white'
-            ]"
-          >
-            <div class="text-sm font-semibold text-gray-900">
-              {{ pkg.credits >= 1000 ? (pkg.credits / 1000) + 'K' : pkg.credits }}
-            </div>
-            <div class="text-xs text-gray-600">
-              ${{ pkg.price.toFixed(2) }}
-            </div>
-          </button>
+        <!-- Combined / translation-only total readout -->
+        <div
+          v-if="translationToggleEnabled"
+          class="mt-4 text-center text-sm text-gray-700"
+        >
+          <template v-if="skipTtsForTranslation">
+            Total at checkout:
+            <span class="font-semibold text-gray-900">${{ totalPrice.toFixed(2) }}</span>
+            <span class="text-gray-500">
+              ({{ selectedTranslationCredits.toLocaleString() }} translation credits — TTS skipped)
+            </span>
+          </template>
+          <template v-else>
+            Combined total at checkout:
+            <span class="font-semibold text-gray-900">${{ totalPrice.toFixed(2) }}</span>
+            <span class="text-gray-500">
+              ({{ selectedCredits.toLocaleString() }} TTS + {{ selectedTranslationCredits.toLocaleString() }} translation credits)
+            </span>
+          </template>
         </div>
       </div>
 
@@ -124,8 +266,16 @@
         </div>
       </div>
 
-      <!-- 4-Tier Grid -->
-      <div v-if="sliderConfig" class="tier-grid max-w-7xl mx-auto mb-12 px-4">
+      <!-- 4-Tier Grid (also dimmed in translation-only mode since the
+           tier cards exist to visualise TTS slider tiers). -->
+      <div
+        v-if="sliderConfig"
+        :class="[
+          'tier-grid max-w-7xl mx-auto mb-12 px-4 transition-opacity duration-200',
+          isTtsSkipped ? 'opacity-40 pointer-events-none' : '',
+        ]"
+        :aria-disabled="isTtsSkipped ? 'true' : undefined"
+      >
 
         <!-- FREE TIER -->
         <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300 flex flex-col min-h-[400px]">
@@ -193,7 +343,7 @@
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
-              Standard voices
+              Premium neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
@@ -256,7 +406,7 @@
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
-              Standard voices
+              Premium neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
@@ -319,7 +469,7 @@
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
-              Standard + Neural voices
+              Premium neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
@@ -454,7 +604,7 @@ import { getApiUrl } from '@shared/config/environment'
 // Types
 interface CreditPackage {
   credits: number
-  tier: string
+  tier?: string
   price: number
   characters: number
   rate: number
@@ -468,6 +618,13 @@ interface SliderConfig {
   pro_threshold: number
   premium_rate: number
   pro_rate: number
+  characters_per_credit: number
+}
+
+interface TranslationSliderConfig {
+  min: number
+  max: number
+  rate: number
   characters_per_credit: number
 }
 
@@ -486,6 +643,32 @@ const resendingEmail = ref(false)
 const emailResent = ref(false)
 const resendError = ref<string | null>(null)
 
+// Translation pool state. Defaults are hardcoded so the slider renders
+// immediately even before the backend translation endpoint is deployed —
+// once /api/translation-credit-packages returns config, it overrides these.
+const TRANSLATION_FALLBACK_CONFIG: TranslationSliderConfig = {
+  min: 500,
+  max: 50000,
+  rate: 0.020,
+  characters_per_credit: 1000,
+}
+const TRANSLATION_FALLBACK_PACKAGES: CreditPackage[] = [
+  { credits: 500,   price: 10.00,  characters: 500_000,    rate: 0.020, description: 'Translation starter' },
+  { credits: 1000,  price: 20.00,  characters: 1_000_000,  rate: 0.020, description: 'Casual cross-language' },
+  { credits: 2000,  price: 40.00,  characters: 2_000_000,  rate: 0.020, description: 'Regular usage' },
+  { credits: 5000,  price: 100.00, characters: 5_000_000,  rate: 0.020, description: 'Heavy multilingual' },
+  { credits: 10000, price: 200.00, characters: 10_000_000, rate: 0.020, description: 'Power user pack' },
+]
+
+const translationToggleEnabled = ref(false)
+const selectedTranslationCredits = ref(500)
+const translationPackages = ref<CreditPackage[]>(TRANSLATION_FALLBACK_PACKAGES)
+const translationSliderConfig = ref<TranslationSliderConfig | null>(TRANSLATION_FALLBACK_CONFIG)
+// "I already have TTS credits — only buy translation" — when true, the TTS
+// slider section is dimmed out, the combined total drops the TTS portion,
+// and checkout routes to the translation-only Stripe endpoint.
+const skipTtsForTranslation = ref(false)
+
 const currentYear = computed(() => new Date().getFullYear())
 
 // Computed properties
@@ -495,12 +678,30 @@ const calculatedPrice = computed(() => {
   const credits = selectedCredits.value
   const config = sliderConfig.value
 
-  // All tiers use the same rate: $0.012/credit (no volume discount)
+  // Single rate across tiers — $0.026/credit post-Azure migration.
   if (credits >= 500) {
     return credits * config.premium_rate
   }
   return 0
 })
+
+const translationPrice = computed(() => {
+  if (!translationSliderConfig.value) return 0
+  return selectedTranslationCredits.value * translationSliderConfig.value.rate
+})
+
+const totalPrice = computed(() => {
+  const ttsPart = translationToggleEnabled.value && skipTtsForTranslation.value ? 0 : calculatedPrice.value
+  const translationPart = translationToggleEnabled.value ? translationPrice.value : 0
+  return ttsPart + translationPart
+})
+
+// True when the user opted to buy translation only — drives the dimmed /
+// non-interactive state on every TTS-related UI block (slider, packages,
+// tier cards).
+const isTtsSkipped = computed(
+  () => translationToggleEnabled.value && skipTtsForTranslation.value
+)
 
 const currentTier = computed(() => {
   if (!sliderConfig.value) return 'Free'
@@ -622,26 +823,39 @@ const proTierCredits = computed(() => {
   return 10000 // Show minimum
 })
 
-// Fetch credit packages and slider config
+// Fetch credit packages and slider config (TTS + translation in parallel)
 const fetchCreditPackages = async () => {
   loading.value = true
   error.value = null
 
   try {
-    const response = await fetch(getApiUrl('/api/credit-packages'))
+    const [ttsRes, translationRes] = await Promise.all([
+      fetch(getApiUrl('/api/credit-packages')),
+      fetch(getApiUrl('/api/translation-credit-packages')),
+    ])
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch credit packages: ${response.statusText}`)
+    if (!ttsRes.ok) {
+      throw new Error(`Failed to fetch credit packages: ${ttsRes.statusText}`)
     }
 
-    const data = await response.json()
+    const ttsData = await ttsRes.json()
+    packages.value = ttsData.packages || []
+    sliderConfig.value = ttsData.slider_config || null
 
-    packages.value = data.packages || []
-    sliderConfig.value = data.slider_config || null
-
-    // Set initial selected credits to minimum
     if (sliderConfig.value) {
       selectedCredits.value = sliderConfig.value.min
+    }
+
+    // Translation pool — non-fatal if backend doesn't have it yet.
+    if (translationRes.ok) {
+      const translationData = await translationRes.json()
+      translationPackages.value = translationData.packages || []
+      translationSliderConfig.value = translationData.slider_config || null
+      if (translationSliderConfig.value) {
+        selectedTranslationCredits.value = translationSliderConfig.value.min
+      }
+    } else {
+      console.warn('[Subscription Page] Translation packages endpoint unavailable')
     }
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to load pricing data'
@@ -673,9 +887,10 @@ const userInitial = computed(() => {
   return name ? name.charAt(0).toUpperCase() : 'U'
 })
 
-// Handle credit purchase
+// Handle credit purchase. When the translation toggle is on we hit the
+// combined-checkout endpoint (one Stripe session, two line items, both pools
+// credited in the webhook). When off we keep the existing TTS-only flow.
 const handlePurchase = async () => {
-  // Check auth before attempting checkout
   if (!isAuthenticated.value) {
     showAuthPrompt.value = true
     return
@@ -684,24 +899,44 @@ const handlePurchase = async () => {
   loading.value = true
   error.value = null
 
-  // Track purchase initiation
   trackEvent(ANALYTICS_EVENTS.CREDIT_PURCHASE_INITIATED, {
     credits: selectedCredits.value,
     tier: currentTier.value,
     price: calculatedPrice.value,
+    translationCredits: translationToggleEnabled.value ? selectedTranslationCredits.value : 0,
+    skipTts: translationToggleEnabled.value && skipTtsForTranslation.value,
+    totalPrice: totalPrice.value,
   })
+
+  // Route the checkout based on what the user is buying:
+  //   - translation toggle off → TTS only (existing flow)
+  //   - translation toggle on, skip-TTS unchecked → combined session
+  //   - translation toggle on, skip-TTS checked → translation only
+  const wantsTranslation = translationToggleEnabled.value && selectedTranslationCredits.value > 0
+  const translationOnly = wantsTranslation && skipTtsForTranslation.value
+
+  let endpoint: string
+  let body: Record<string, number>
+  if (translationOnly) {
+    endpoint = '/api/create-translation-credit-checkout'
+    body = { translation_credits: selectedTranslationCredits.value }
+  } else if (wantsTranslation) {
+    endpoint = '/api/create-combined-credit-checkout'
+    body = { tts_credits: selectedCredits.value, translation_credits: selectedTranslationCredits.value }
+  } else {
+    endpoint = '/api/create-credit-checkout'
+    body = { credits: selectedCredits.value }
+  }
 
   try {
     const token = authStore.authToken || localStorage.getItem('auth_token')
-    const response = await fetch(getApiUrl('/api/create-credit-checkout'), {
+    const response = await fetch(getApiUrl(endpoint), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        credits: selectedCredits.value
-      })
+      body: JSON.stringify(body),
     })
 
     if (!response.ok) {
@@ -814,6 +1049,11 @@ onMounted(async () => {
   // Check for token in URL (passed from Chrome extension)
   const urlParams = new URLSearchParams(window.location.search)
   const tokenFromUrl = urlParams.get('token')
+
+  // Pre-flip the translation toggle when arriving from a paywall link.
+  if (urlParams.get('translation') === 'on') {
+    translationToggleEnabled.value = true
+  }
 
   if (tokenFromUrl) {
     // Store the token
