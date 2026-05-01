@@ -52,56 +52,71 @@
       <!-- Credit Slider Section -->
       <h2 class="sr-only">Credit Packages</h2>
       <div v-if="sliderConfig" class="max-w-4xl mx-auto mb-16">
-        <!-- Credit Display -->
-        <div class="text-center mb-6">
-          <div class="text-4xl font-bold text-gray-900 mb-2">
-            {{ selectedCredits.toLocaleString() }} credits
-          </div>
-          <div class="text-lg text-gray-600">
-            {{ (selectedCredits * sliderConfig.characters_per_credit).toLocaleString() }} characters
-            <span class="mx-2">•</span>
-            <span class="font-semibold text-[#2d5a3f]">
-              {{ currentTier }} Tier
-            </span>
-          </div>
-        </div>
-
-        <!-- Slider -->
-        <div class="mb-8 px-4">
-          <input
-            type="range"
-            v-model.number="selectedCredits"
-            :min="sliderConfig.min"
-            :max="sliderConfig.max"
-            :step="100"
-            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f]"
-          />
-          <div class="flex justify-between text-sm text-gray-500 mt-2">
-            <span>{{ sliderConfig.min.toLocaleString() }}</span>
-            <span>{{ sliderConfig.max.toLocaleString() }}</span>
-          </div>
-        </div>
-
-        <!-- Preset Package Buttons -->
-        <div v-if="packages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-          <button
-            v-for="pkg in packages"
-            :key="pkg.credits"
-            @click="selectedCredits = pkg.credits"
-            :class="[
-              'p-3 rounded-lg border-2 transition',
-              selectedCredits === pkg.credits
-                ? 'border-[#2d5a3f] bg-[#e0ece3]'
-                : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white'
-            ]"
-          >
-            <div class="text-sm font-semibold text-gray-900">
-              {{ pkg.credits >= 1000 ? (pkg.credits / 1000) + 'K' : pkg.credits }}
+        <!-- TTS-only block: greys out + becomes non-interactive when the
+             user checks "I already have reading credits" below. -->
+        <div
+          :class="[
+            'transition-opacity duration-200',
+            isTtsSkipped ? 'opacity-40 pointer-events-none' : '',
+          ]"
+          :aria-disabled="isTtsSkipped ? 'true' : undefined"
+        >
+          <!-- Credit Display -->
+          <div class="text-center mb-6">
+            <div class="text-4xl font-bold text-gray-900 mb-2">
+              {{ selectedCredits.toLocaleString() }} credits
             </div>
-            <div class="text-xs text-gray-600">
-              ${{ pkg.price.toFixed(2) }}
+            <div class="text-lg text-gray-600">
+              {{ (selectedCredits * sliderConfig.characters_per_credit).toLocaleString() }} characters
+              <span class="mx-2">•</span>
+              <span class="font-semibold text-[#2d5a3f]">
+                {{ currentTier }} Tier
+              </span>
             </div>
-          </button>
+            <p v-if="isTtsSkipped" class="text-xs text-gray-500 mt-2 italic">
+              TTS purchase skipped — only translation credits will be charged.
+            </p>
+          </div>
+
+          <!-- Slider -->
+          <div class="mb-8 px-4">
+            <input
+              type="range"
+              v-model.number="selectedCredits"
+              :min="sliderConfig.min"
+              :max="sliderConfig.max"
+              :step="100"
+              :disabled="isTtsSkipped"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f] disabled:cursor-not-allowed"
+            />
+            <div class="flex justify-between text-sm text-gray-500 mt-2">
+              <span>{{ sliderConfig.min.toLocaleString() }}</span>
+              <span>{{ sliderConfig.max.toLocaleString() }}</span>
+            </div>
+          </div>
+
+          <!-- Preset Package Buttons -->
+          <div v-if="packages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
+            <button
+              v-for="pkg in packages"
+              :key="pkg.credits"
+              @click="selectedCredits = pkg.credits"
+              :disabled="isTtsSkipped"
+              :class="[
+                'p-3 rounded-lg border-2 transition disabled:cursor-not-allowed',
+                selectedCredits === pkg.credits
+                  ? 'border-[#2d5a3f] bg-[#e0ece3]'
+                  : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white'
+              ]"
+            >
+              <div class="text-sm font-semibold text-gray-900">
+                {{ pkg.credits >= 1000 ? (pkg.credits / 1000) + 'K' : pkg.credits }}
+              </div>
+              <div class="text-xs text-gray-600">
+                ${{ pkg.price.toFixed(2) }}
+              </div>
+            </button>
+          </div>
         </div>
 
         <!-- Cross-language reading add-on -->
@@ -251,8 +266,16 @@
         </div>
       </div>
 
-      <!-- 4-Tier Grid -->
-      <div v-if="sliderConfig" class="tier-grid max-w-7xl mx-auto mb-12 px-4">
+      <!-- 4-Tier Grid (also dimmed in translation-only mode since the
+           tier cards exist to visualise TTS slider tiers). -->
+      <div
+        v-if="sliderConfig"
+        :class="[
+          'tier-grid max-w-7xl mx-auto mb-12 px-4 transition-opacity duration-200',
+          isTtsSkipped ? 'opacity-40 pointer-events-none' : '',
+        ]"
+        :aria-disabled="isTtsSkipped ? 'true' : undefined"
+      >
 
         <!-- FREE TIER -->
         <div class="bg-white rounded-2xl shadow-sm p-6 border border-gray-100 hover:shadow-lg hover:border-gray-200 transition duration-300 flex flex-col min-h-[400px]">
@@ -672,6 +695,13 @@ const totalPrice = computed(() => {
   const translationPart = translationToggleEnabled.value ? translationPrice.value : 0
   return ttsPart + translationPart
 })
+
+// True when the user opted to buy translation only — drives the dimmed /
+// non-interactive state on every TTS-related UI block (slider, packages,
+// tier cards).
+const isTtsSkipped = computed(
+  () => translationToggleEnabled.value && skipTtsForTranslation.value
+)
 
 const currentTier = computed(() => {
   if (!sliderConfig.value) return 'Free'
