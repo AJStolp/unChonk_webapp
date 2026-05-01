@@ -103,6 +103,107 @@
             </div>
           </button>
         </div>
+
+        <!-- Cross-language reading add-on -->
+        <div class="border-t border-gray-200 pt-8 mb-2">
+          <div class="flex items-start justify-between gap-4 mb-2">
+            <div>
+              <h3 class="text-lg font-bold text-gray-900 mb-1">
+                Add cross-language reading
+              </h3>
+              <p class="text-sm text-gray-600 max-w-xl">
+                Translate any web page on the fly and read it aloud in 140+ languages.
+                Translation credits are a separate balance from your reading credits.
+              </p>
+            </div>
+            <button
+              type="button"
+              role="switch"
+              :aria-checked="translationToggleEnabled"
+              @click="translationToggleEnabled = !translationToggleEnabled"
+              :class="[
+                'relative inline-flex h-7 w-12 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-[#2d5a3f] focus:ring-offset-2',
+                translationToggleEnabled ? 'bg-[#2d5a3f]' : 'bg-gray-300',
+              ]"
+            >
+              <span class="sr-only">Add cross-language reading</span>
+              <span
+                :class="[
+                  'pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                  translationToggleEnabled ? 'translate-x-5' : 'translate-x-0',
+                ]"
+              />
+            </button>
+          </div>
+        </div>
+
+        <!-- Translation slider — only shown when toggle is on -->
+        <div
+          v-if="translationToggleEnabled && translationSliderConfig"
+          class="bg-[#f5f9f6] border border-[#2d5a3f]/20 rounded-xl p-6"
+        >
+          <div class="text-center mb-6">
+            <div class="text-3xl font-bold text-gray-900 mb-1">
+              {{ selectedTranslationCredits.toLocaleString() }} translation credits
+            </div>
+            <div class="text-sm text-gray-600">
+              {{ (selectedTranslationCredits * translationSliderConfig.characters_per_credit).toLocaleString() }}
+              source characters
+              <span class="mx-2">•</span>
+              <span class="font-semibold text-[#2d5a3f]">
+                ${{ translationPrice.toFixed(2) }}
+              </span>
+            </div>
+          </div>
+
+          <div class="mb-4 px-2">
+            <input
+              type="range"
+              v-model.number="selectedTranslationCredits"
+              :min="translationSliderConfig.min"
+              :max="translationSliderConfig.max"
+              :step="100"
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#2d5a3f]"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-2">
+              <span>{{ translationSliderConfig.min.toLocaleString() }}</span>
+              <span>{{ translationSliderConfig.max.toLocaleString() }}</span>
+            </div>
+          </div>
+
+          <div v-if="translationPackages.length > 0" class="grid grid-cols-2 md:grid-cols-5 gap-2">
+            <button
+              v-for="pkg in translationPackages"
+              :key="pkg.credits"
+              @click="selectedTranslationCredits = pkg.credits"
+              :class="[
+                'p-2 rounded-lg border-2 transition text-xs',
+                selectedTranslationCredits === pkg.credits
+                  ? 'border-[#2d5a3f] bg-white'
+                  : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white',
+              ]"
+            >
+              <div class="font-semibold text-gray-900">
+                {{ pkg.credits >= 1000 ? (pkg.credits / 1000) + 'K' : pkg.credits }}
+              </div>
+              <div class="text-gray-600">
+                ${{ pkg.price.toFixed(2) }}
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Combined total when both pools are being purchased -->
+        <div
+          v-if="translationToggleEnabled"
+          class="mt-4 text-center text-sm text-gray-700"
+        >
+          Combined total at checkout:
+          <span class="font-semibold text-gray-900">${{ totalPrice.toFixed(2) }}</span>
+          <span class="text-gray-500">
+            ({{ selectedCredits.toLocaleString() }} TTS + {{ selectedTranslationCredits.toLocaleString() }} translation credits)
+          </span>
+        </div>
       </div>
 
       <!-- Loading State -->
@@ -193,7 +294,7 @@
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
-              Standard voices
+              Premium neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
@@ -256,7 +357,7 @@
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
-              Standard voices
+              Premium neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
@@ -319,7 +420,7 @@
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
-              Standard + Neural voices
+              Premium neural voices
             </li>
             <li class="flex items-center text-sm text-gray-700">
               <span class="text-[#2d5a3f] mr-2">✓</span>
@@ -454,7 +555,7 @@ import { getApiUrl } from '@shared/config/environment'
 // Types
 interface CreditPackage {
   credits: number
-  tier: string
+  tier?: string
   price: number
   characters: number
   rate: number
@@ -468,6 +569,13 @@ interface SliderConfig {
   pro_threshold: number
   premium_rate: number
   pro_rate: number
+  characters_per_credit: number
+}
+
+interface TranslationSliderConfig {
+  min: number
+  max: number
+  rate: number
   characters_per_credit: number
 }
 
@@ -486,6 +594,12 @@ const resendingEmail = ref(false)
 const emailResent = ref(false)
 const resendError = ref<string | null>(null)
 
+// Translation pool state
+const translationToggleEnabled = ref(false)
+const selectedTranslationCredits = ref(500)
+const translationPackages = ref<CreditPackage[]>([])
+const translationSliderConfig = ref<TranslationSliderConfig | null>(null)
+
 const currentYear = computed(() => new Date().getFullYear())
 
 // Computed properties
@@ -495,11 +609,20 @@ const calculatedPrice = computed(() => {
   const credits = selectedCredits.value
   const config = sliderConfig.value
 
-  // All tiers use the same rate: $0.012/credit (no volume discount)
+  // Single rate across tiers — $0.026/credit post-Azure migration.
   if (credits >= 500) {
     return credits * config.premium_rate
   }
   return 0
+})
+
+const translationPrice = computed(() => {
+  if (!translationSliderConfig.value) return 0
+  return selectedTranslationCredits.value * translationSliderConfig.value.rate
+})
+
+const totalPrice = computed(() => {
+  return calculatedPrice.value + (translationToggleEnabled.value ? translationPrice.value : 0)
 })
 
 const currentTier = computed(() => {
@@ -622,26 +745,39 @@ const proTierCredits = computed(() => {
   return 10000 // Show minimum
 })
 
-// Fetch credit packages and slider config
+// Fetch credit packages and slider config (TTS + translation in parallel)
 const fetchCreditPackages = async () => {
   loading.value = true
   error.value = null
 
   try {
-    const response = await fetch(getApiUrl('/api/credit-packages'))
+    const [ttsRes, translationRes] = await Promise.all([
+      fetch(getApiUrl('/api/credit-packages')),
+      fetch(getApiUrl('/api/translation-credit-packages')),
+    ])
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch credit packages: ${response.statusText}`)
+    if (!ttsRes.ok) {
+      throw new Error(`Failed to fetch credit packages: ${ttsRes.statusText}`)
     }
 
-    const data = await response.json()
+    const ttsData = await ttsRes.json()
+    packages.value = ttsData.packages || []
+    sliderConfig.value = ttsData.slider_config || null
 
-    packages.value = data.packages || []
-    sliderConfig.value = data.slider_config || null
-
-    // Set initial selected credits to minimum
     if (sliderConfig.value) {
       selectedCredits.value = sliderConfig.value.min
+    }
+
+    // Translation pool — non-fatal if backend doesn't have it yet.
+    if (translationRes.ok) {
+      const translationData = await translationRes.json()
+      translationPackages.value = translationData.packages || []
+      translationSliderConfig.value = translationData.slider_config || null
+      if (translationSliderConfig.value) {
+        selectedTranslationCredits.value = translationSliderConfig.value.min
+      }
+    } else {
+      console.warn('[Subscription Page] Translation packages endpoint unavailable')
     }
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to load pricing data'
@@ -673,9 +809,10 @@ const userInitial = computed(() => {
   return name ? name.charAt(0).toUpperCase() : 'U'
 })
 
-// Handle credit purchase
+// Handle credit purchase. When the translation toggle is on we hit the
+// combined-checkout endpoint (one Stripe session, two line items, both pools
+// credited in the webhook). When off we keep the existing TTS-only flow.
 const handlePurchase = async () => {
-  // Check auth before attempting checkout
   if (!isAuthenticated.value) {
     showAuthPrompt.value = true
     return
@@ -684,24 +821,29 @@ const handlePurchase = async () => {
   loading.value = true
   error.value = null
 
-  // Track purchase initiation
   trackEvent(ANALYTICS_EVENTS.CREDIT_PURCHASE_INITIATED, {
     credits: selectedCredits.value,
     tier: currentTier.value,
     price: calculatedPrice.value,
+    translationCredits: translationToggleEnabled.value ? selectedTranslationCredits.value : 0,
+    totalPrice: totalPrice.value,
   })
+
+  const isCombined = translationToggleEnabled.value && selectedTranslationCredits.value > 0
+  const endpoint = isCombined ? '/api/create-combined-credit-checkout' : '/api/create-credit-checkout'
+  const body = isCombined
+    ? { tts_credits: selectedCredits.value, translation_credits: selectedTranslationCredits.value }
+    : { credits: selectedCredits.value }
 
   try {
     const token = authStore.authToken || localStorage.getItem('auth_token')
-    const response = await fetch(getApiUrl('/api/create-credit-checkout'), {
+    const response = await fetch(getApiUrl(endpoint), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        credits: selectedCredits.value
-      })
+      body: JSON.stringify(body),
     })
 
     if (!response.ok) {
@@ -814,6 +956,11 @@ onMounted(async () => {
   // Check for token in URL (passed from Chrome extension)
   const urlParams = new URLSearchParams(window.location.search)
   const tokenFromUrl = urlParams.get('token')
+
+  // Pre-flip the translation toggle when arriving from a paywall link.
+  if (urlParams.get('translation') === 'on') {
+    translationToggleEnabled.value = true
+  }
 
   if (tokenFromUrl) {
     // Store the token

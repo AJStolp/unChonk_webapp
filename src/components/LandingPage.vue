@@ -182,6 +182,52 @@
       </div>
     </div>
 
+    <!-- Cross-language reading section -->
+    <div class="relative z-10 bg-white py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-gradient-to-br from-[#e0ece3] to-white rounded-3xl shadow-sm p-10 md:p-16 border border-[#2d5a3f]/15">
+          <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <span class="inline-block bg-[#2d5a3f] text-white text-xs font-semibold uppercase tracking-wide px-3 py-1 rounded-full mb-4">
+                New
+              </span>
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Read any page in your language
+              </h2>
+              <p class="text-lg text-gray-700 mb-6">
+                Translate any webpage on the fly and listen in 140+ languages with
+                premium neural voices. Spanish news, Japanese articles, French
+                research papers — read in the language you understand best.
+              </p>
+              <a
+                href="/subscription?translation=on"
+                class="inline-block px-7 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
+              >
+                Add cross-language reading
+              </a>
+            </div>
+            <div class="hidden md:block">
+              <div class="bg-white rounded-2xl shadow-md p-6 border border-gray-100">
+                <div class="text-xs uppercase tracking-wide text-gray-500 mb-3">Supported languages</div>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">English</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">Español</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">Français</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">Deutsch</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">日本語</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">中文</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">한국어</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">Português</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">Italiano</span>
+                  <span class="px-3 py-1 rounded-full bg-[#e0ece3] text-[#2d5a3f] text-sm font-medium">+ 130 more</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- CTA Section -->
     <div class="relative z-10 bg-gray-50 py-24 pb-32">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
