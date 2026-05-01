@@ -594,11 +594,27 @@ const resendingEmail = ref(false)
 const emailResent = ref(false)
 const resendError = ref<string | null>(null)
 
-// Translation pool state
+// Translation pool state. Defaults are hardcoded so the slider renders
+// immediately even before the backend translation endpoint is deployed —
+// once /api/translation-credit-packages returns config, it overrides these.
+const TRANSLATION_FALLBACK_CONFIG: TranslationSliderConfig = {
+  min: 500,
+  max: 50000,
+  rate: 0.020,
+  characters_per_credit: 1000,
+}
+const TRANSLATION_FALLBACK_PACKAGES: CreditPackage[] = [
+  { credits: 500,   price: 10.00,  characters: 500_000,    rate: 0.020, description: 'Translation starter' },
+  { credits: 1000,  price: 20.00,  characters: 1_000_000,  rate: 0.020, description: 'Casual cross-language' },
+  { credits: 2000,  price: 40.00,  characters: 2_000_000,  rate: 0.020, description: 'Regular usage' },
+  { credits: 5000,  price: 100.00, characters: 5_000_000,  rate: 0.020, description: 'Heavy multilingual' },
+  { credits: 10000, price: 200.00, characters: 10_000_000, rate: 0.020, description: 'Power user pack' },
+]
+
 const translationToggleEnabled = ref(false)
 const selectedTranslationCredits = ref(500)
-const translationPackages = ref<CreditPackage[]>([])
-const translationSliderConfig = ref<TranslationSliderConfig | null>(null)
+const translationPackages = ref<CreditPackage[]>(TRANSLATION_FALLBACK_PACKAGES)
+const translationSliderConfig = ref<TranslationSliderConfig | null>(TRANSLATION_FALLBACK_CONFIG)
 
 const currentYear = computed(() => new Date().getFullYear())
 
