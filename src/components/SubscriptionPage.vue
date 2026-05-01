@@ -191,18 +191,44 @@
               </div>
             </button>
           </div>
+
+          <!-- Skip TTS purchase: lets users who already have a TTS balance
+               buy translation credits only. Hides the TTS portion from the
+               total and routes checkout to the translation-only endpoint. -->
+          <label class="mt-5 flex items-start gap-2 cursor-pointer text-sm text-gray-700">
+            <input
+              type="checkbox"
+              v-model="skipTtsForTranslation"
+              class="mt-0.5 h-4 w-4 rounded border-gray-300 text-[#2d5a3f] focus:ring-[#2d5a3f] cursor-pointer"
+            />
+            <span>
+              I already have reading credits — only buy translation credits.
+              <span class="block text-xs text-gray-500 mt-0.5">
+                Skips the TTS purchase above and charges you only for translation.
+              </span>
+            </span>
+          </label>
         </div>
 
-        <!-- Combined total when both pools are being purchased -->
+        <!-- Combined / translation-only total readout -->
         <div
           v-if="translationToggleEnabled"
           class="mt-4 text-center text-sm text-gray-700"
         >
-          Combined total at checkout:
-          <span class="font-semibold text-gray-900">${{ totalPrice.toFixed(2) }}</span>
-          <span class="text-gray-500">
-            ({{ selectedCredits.toLocaleString() }} TTS + {{ selectedTranslationCredits.toLocaleString() }} translation credits)
-          </span>
+          <template v-if="skipTtsForTranslation">
+            Total at checkout:
+            <span class="font-semibold text-gray-900">${{ totalPrice.toFixed(2) }}</span>
+            <span class="text-gray-500">
+              ({{ selectedTranslationCredits.toLocaleString() }} translation credits — TTS skipped)
+            </span>
+          </template>
+          <template v-else>
+            Combined total at checkout:
+            <span class="font-semibold text-gray-900">${{ totalPrice.toFixed(2) }}</span>
+            <span class="text-gray-500">
+              ({{ selectedCredits.toLocaleString() }} TTS + {{ selectedTranslationCredits.toLocaleString() }} translation credits)
+            </span>
+          </template>
         </div>
       </div>
 
@@ -615,6 +641,10 @@ const translationToggleEnabled = ref(false)
 const selectedTranslationCredits = ref(500)
 const translationPackages = ref<CreditPackage[]>(TRANSLATION_FALLBACK_PACKAGES)
 const translationSliderConfig = ref<TranslationSliderConfig | null>(TRANSLATION_FALLBACK_CONFIG)
+// "I already have TTS credits — only buy translation" — when true, the TTS
+// slider section is dimmed out, the combined total drops the TTS portion,
+// and checkout routes to the translation-only Stripe endpoint.
+const skipTtsForTranslation = ref(false)
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -638,7 +668,9 @@ const translationPrice = computed(() => {
 })
 
 const totalPrice = computed(() => {
-  return calculatedPrice.value + (translationToggleEnabled.value ? translationPrice.value : 0)
+  const ttsPart = translationToggleEnabled.value && skipTtsForTranslation.value ? 0 : calculatedPrice.value
+  const translationPart = translationToggleEnabled.value ? translationPrice.value : 0
+  return ttsPart + translationPart
 })
 
 const currentTier = computed(() => {
@@ -842,14 +874,29 @@ const handlePurchase = async () => {
     tier: currentTier.value,
     price: calculatedPrice.value,
     translationCredits: translationToggleEnabled.value ? selectedTranslationCredits.value : 0,
+    skipTts: translationToggleEnabled.value && skipTtsForTranslation.value,
     totalPrice: totalPrice.value,
   })
 
-  const isCombined = translationToggleEnabled.value && selectedTranslationCredits.value > 0
-  const endpoint = isCombined ? '/api/create-combined-credit-checkout' : '/api/create-credit-checkout'
-  const body = isCombined
-    ? { tts_credits: selectedCredits.value, translation_credits: selectedTranslationCredits.value }
-    : { credits: selectedCredits.value }
+  // Route the checkout based on what the user is buying:
+  //   - translation toggle off → TTS only (existing flow)
+  //   - translation toggle on, skip-TTS unchecked → combined session
+  //   - translation toggle on, skip-TTS checked → translation only
+  const wantsTranslation = translationToggleEnabled.value && selectedTranslationCredits.value > 0
+  const translationOnly = wantsTranslation && skipTtsForTranslation.value
+
+  let endpoint: string
+  let body: Record<string, number>
+  if (translationOnly) {
+    endpoint = '/api/create-translation-credit-checkout'
+    body = { translation_credits: selectedTranslationCredits.value }
+  } else if (wantsTranslation) {
+    endpoint = '/api/create-combined-credit-checkout'
+    body = { tts_credits: selectedCredits.value, translation_credits: selectedTranslationCredits.value }
+  } else {
+    endpoint = '/api/create-credit-checkout'
+    body = { credits: selectedCredits.value }
+  }
 
   try {
     const token = authStore.authToken || localStorage.getItem('auth_token')
