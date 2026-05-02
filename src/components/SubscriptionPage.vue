@@ -245,6 +245,24 @@
             </span>
           </template>
         </div>
+
+        <!-- Translation-only purchase CTA. The tier grid below is dimmed
+             when skip-TTS is on, so its tier-bound Purchase buttons aren't
+             clickable; this is the only purchase path in that mode. Mirror
+             the readout's translationToggleEnabled guard so the button can
+             never appear in a state where handlePurchase would fall through
+             to the TTS-only flow. -->
+        <div v-if="translationToggleEnabled && skipTtsForTranslation" class="mt-6 flex justify-center">
+          <button
+            @click="handlePurchase"
+            :disabled="loading"
+            class="px-8 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg"
+            :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
+          >
+            <span v-if="loading">Processing...</span>
+            <span v-else>Purchase Translation Credits</span>
+          </button>
+        </div>
       </div>
 
       <!-- Loading State -->
