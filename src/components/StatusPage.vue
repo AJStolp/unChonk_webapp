@@ -358,6 +358,102 @@ const services = ref<Service[]>([
 
 const changelog = ref<Release[]>([
   {
+    version: '3.1.9',
+    date: 'May 5, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'fix', text: 'Translation audio now auto-plays the moment the side panel opens' },
+      { type: 'fix', text: 'Word and sentence highlighting now track translated playback' },
+      { type: 'feature', text: 'Translation highlight respects the colors picked in the widget' },
+      { type: 'improvement', text: 'Highlight color preferences persist across reloads' },
+      { type: 'fix', text: 'Side panel header now reads TRANSLATION or SUMMARIZE based on mode' },
+      { type: 'fix', text: 'Stale prior translations no longer auto-replay when opening Summarize' },
+    ],
+  },
+  {
+    version: '3.1.8',
+    date: 'May 4, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'feature', text: 'AI page summaries powered by Grok with 4 formats and 5 tones' },
+      { type: 'feature', text: 'Translation credits dashboard with read-time estimate' },
+      { type: 'fix', text: 'Stripe checkout webhook reliability hotfix (silent credit drop bug)' },
+      { type: 'improvement', text: 'Format and tone selection deferred to explicit regenerate so you don\'t double-charge' },
+    ],
+  },
+  {
+    version: '3.1.7',
+    date: 'May 2, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'feature', text: 'Translation credits visible on the dashboard alongside listening time' },
+      { type: 'fix', text: 'Widget timer now counts down from your remaining time, not up from zero' },
+      { type: 'feature', text: 'Translation-only credit purchase flow for users who already have TTS credits' },
+    ],
+  },
+  {
+    version: '3.1.6',
+    date: 'April 30, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'feature', text: 'Translate any web page into your language and listen with word-by-word highlighting' },
+      { type: 'feature', text: '30+ languages supported natively; foreign articles read aloud in your chosen language' },
+      { type: 'feature', text: 'Per-paragraph translate via the Play Here button when translation toggle is on' },
+    ],
+  },
+  {
+    version: '3.1.5',
+    date: 'April 29, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'improvement', text: 'Widget styles fully isolated from host pages via Shadow DOM' },
+      { type: 'feature', text: 'First-run walkthrough introduces the widget on initial install' },
+      { type: 'fix', text: 'Highlighting algo cleanup: scoring-based candidate gate, less drift on complex pages' },
+      { type: 'fix', text: 'Play Here anchor and stuck-pause edge cases resolved' },
+    ],
+  },
+  {
+    version: '3.1.4',
+    date: 'April 26, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'feature', text: 'Migrated to Azure Speech Service for natural-sounding voices across 140+ languages' },
+      { type: 'feature', text: 'Voice picker now shows the full neural voice library; every voice sounds natural from the first word' },
+      { type: 'improvement', text: 'Sentence highlighting via Azure native sentence boundaries' },
+    ],
+  },
+  {
+    version: '3.1.1',
+    date: 'April 16, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'feature', text: 'Sentence-level highlighting toggle' },
+      { type: 'fix', text: 'Conversion tracking pixel reliability fix' },
+      { type: 'improvement', text: 'Sentence highlighting algorithm rewritten for accuracy on complex layouts' },
+    ],
+  },
+  {
+    version: '3.0.7',
+    date: 'April 10, 2026',
+    emailSent: true,
+    emailSummary: 'Notified all users that we\'re back from outage and shipped Google Ads conversion tracking fixes.',
+    changes: [
+      { type: 'fix', text: 'Google Ads conversion tracking rebuild (basic + enhanced conversions)' },
+      { type: 'feature', text: 'New user attribution for first-purchase signal' },
+    ],
+  },
+  {
+    version: '3.0.5',
+    date: 'April 9, 2026',
+    emailSent: false,
+    changes: [
+      { type: 'fix', text: 'Highlighting algorithm overhaul for cleaner sentence boundaries' },
+      { type: 'fix', text: 'Pause / resume / stop reliability fixed' },
+      { type: 'fix', text: 'Offscreen audio race condition that caused fallback to Web Speech is gone' },
+      { type: 'improvement', text: 'CSS bleed onto host pages eliminated' },
+    ],
+  },
+  {
     version: '3.0.2',
     date: 'March 18, 2026',
     emailSent: false,

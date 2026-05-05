@@ -307,12 +307,24 @@ const milestones: RoadmapMilestone[] = [
   },
   {
     id: 8,
+    label: 'Cross-Language Reading',
+    description: 'Translate any page on the fly and listen in your language',
+    status: 'shipped',
+  },
+  {
+    id: 9,
+    label: 'AI Summarization',
+    description: 'Grok-powered summaries with format and tone control',
+    status: 'shipped',
+  },
+  {
+    id: 10,
     label: 'Browser Support',
     description: 'Bringing unChonk to more browsers',
     status: 'in-progress',
   },
   {
-    id: 9,
+    id: 11,
     label: 'Embeddable Widget',
     description: 'Drop a TTS player on any website with a single script tag',
     status: 'upcoming',
@@ -321,13 +333,15 @@ const milestones: RoadmapMilestone[] = [
 
 const milestonePositions: MilestonePosition[] = [
   { x: 67,   y: 130, cardSide: 'above' },
-  { x: 200,  y: 270, cardSide: 'below' },
-  { x: 333,  y: 130, cardSide: 'above' },
-  { x: 467,  y: 270, cardSide: 'below' },
-  { x: 600,  y: 130, cardSide: 'above' },
-  { x: 733,  y: 270, cardSide: 'below' },
-  { x: 867,  y: 130, cardSide: 'above' },
-  { x: 1000, y: 270, cardSide: 'below' },
+  { x: 174,  y: 270, cardSide: 'below' },
+  { x: 280,  y: 130, cardSide: 'above' },
+  { x: 387,  y: 270, cardSide: 'below' },
+  { x: 494,  y: 130, cardSide: 'above' },
+  { x: 600,  y: 270, cardSide: 'below' },
+  { x: 707,  y: 130, cardSide: 'above' },
+  { x: 814,  y: 270, cardSide: 'below' },
+  { x: 920,  y: 130, cardSide: 'above' },
+  { x: 1027, y: 270, cardSide: 'below' },
   { x: 1133, y: 130, cardSide: 'above' },
 ]
 
