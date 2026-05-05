@@ -666,7 +666,7 @@ const resendError = ref<string | null>(null)
 // once /api/translation-credit-packages returns config, it overrides these.
 const TRANSLATION_FALLBACK_CONFIG: TranslationSliderConfig = {
   min: 500,
-  max: 50000,
+  max: 10000,
   rate: 0.020,
   characters_per_credit: 1000,
 }
