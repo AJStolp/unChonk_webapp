@@ -334,11 +334,11 @@ const services = ref<Service[]>([
     key: 'database',
   },
   {
-    name: 'AWS Polly',
-    description: 'Premium text-to-speech voice engine',
+    name: 'Speech API',
+    description: 'Text-to-speech voice engine',
     icon: '🔊',
     status: 'checking',
-    key: 'aws_polly',
+    key: 'azure_speech',
   },
   {
     name: 'Cloud Storage',
@@ -638,7 +638,7 @@ async function checkStatus() {
     if (!response.ok) {
       updateService('api', 'down')
       updateService('database', 'down')
-      updateService('aws_polly', 'down')
+      updateService('azure_speech', 'down')
       updateService('aws_s3', 'down')
     } else {
       const data = await response.json()
@@ -650,10 +650,10 @@ async function checkStatus() {
       else if (dbStatus === 'degraded') updateService('database', 'degraded')
       else updateService('database', 'down')
 
-      const pollyStatus = data.services?.aws_polly
-      if (pollyStatus === 'healthy') updateService('aws_polly', 'operational')
-      else if (pollyStatus === 'degraded') updateService('aws_polly', 'degraded')
-      else updateService('aws_polly', 'down')
+      const speechStatus = data.services?.azure_speech
+      if (speechStatus === 'healthy') updateService('azure_speech', 'operational')
+      else if (speechStatus === 'degraded') updateService('azure_speech', 'degraded')
+      else updateService('azure_speech', 'down')
 
       const s3Status = data.services?.aws_s3
       if (s3Status === 'healthy') updateService('aws_s3', 'operational')
@@ -663,7 +663,7 @@ async function checkStatus() {
   } catch {
     updateService('api', 'down')
     updateService('database', 'down')
-    updateService('aws_polly', 'down')
+    updateService('azure_speech', 'down')
     updateService('aws_s3', 'down')
   }
 
