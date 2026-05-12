@@ -82,6 +82,7 @@
 import { onMounted, computed } from 'vue'
 import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
 import { fireAttributedConversion, CONVERSION_LABELS } from '@shared/utils/attribution'
+import { getApiUrl } from '@shared/config/environment'
 
 const currentYear = computed(() => new Date().getFullYear())
 
@@ -117,6 +118,27 @@ const handlePostSubscriptionTasks = async () => {
   }
 }
 
+// Fetch real purchase amount + currency from backend so the Google Ads
+// conversion fires with accurate values instead of a hardcoded number.
+// The bid optimizer needs real values to bid up high-intent buyers.
+const firePurchaseConversion = async (sessionId: string) => {
+  try {
+    const res = await fetch(getApiUrl(`/api/stripe/checkout-session/${sessionId}`))
+    if (res.ok) {
+      const { amount_total, currency } = await res.json()
+      // Stripe returns amounts in the smallest currency unit (cents for USD).
+      const value = typeof amount_total === 'number' ? amount_total / 100 : undefined
+      const currencyCode = typeof currency === 'string' ? currency.toUpperCase() : undefined
+      fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, value, currencyCode, sessionId)
+      return
+    }
+  } catch (error) {
+    console.error('Failed to fetch checkout session for conversion:', error)
+  }
+  // Fallback: fire without value so attribution still lands. Skipping the
+  // event entirely would silently drop conversion data from Google Ads.
+  fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, undefined, undefined, sessionId)
+}
 
 onMounted(() => {
   // Handle URL parameters (e.g., from Stripe)
@@ -130,14 +152,12 @@ onMounted(() => {
     payment_intent: paymentIntent || 'unknown',
   })
 
-  // Google Ads "First Purchase" conversion (with proper attribution via gtag)
-  fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, 6.0, 'USD', sessionId || '')
-
   if (sessionId) {
-    // You could validate the session with your backend here
-  }
-
-  if (paymentIntent) {
+    firePurchaseConversion(sessionId)
+  } else {
+    // No session_id (shouldn't happen on a real Stripe redirect) — still
+    // fire attribution so the conversion isn't lost entirely.
+    fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, undefined, undefined, '')
   }
 
   handlePostSubscriptionTasks()
