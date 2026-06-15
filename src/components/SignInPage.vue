@@ -77,6 +77,7 @@
                 href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
                 target="_blank"
                 rel="noopener noreferrer"
+                @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)"
                 class="inline-block px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition duration-300"
               >
                 Get the Chrome Extension
@@ -116,6 +117,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { fireAttributedConversion, CONVERSION_LABELS } from '@shared/utils/attribution'
 
 const currentYear = computed(() => new Date().getFullYear())
 </script>

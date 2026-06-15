@@ -536,6 +536,7 @@
             href="https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao"
             target="_blank"
             rel="noopener noreferrer"
+            @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)"
             class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition text-center shadow-md"
           >
             Get the Chrome Extension
@@ -616,6 +617,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
 import { useAuthStore } from '@shared/stores/authStore'
 import { getApiUrl } from '@shared/config/environment'
+import { fireAttributedConversion, CONVERSION_LABELS } from '@shared/utils/attribution'
 
 // API calls use relative URLs - Vite proxy forwards /api to backend
 
