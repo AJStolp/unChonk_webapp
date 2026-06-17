@@ -41,10 +41,10 @@
               Text to Speech App for Your Browser
             </h1>
             <p class="text-xl md:text-2xl text-gray-700 mb-8">
-              Natural-Sounding Text-to-Speech
+              No subscription. Pay only for what you read.
             </p>
             <p class="text-lg text-gray-600 mb-12 leading-relaxed">
-              Read any webpage aloud with premium voices. Real-time word highlighting, customizable playback, and natural-sounding speech right in your browser.
+              Read any webpage aloud with premium voices, real-time word highlighting, and customizable playback — right in your browser. unChonk is pay-as-you-go text to speech, so there's no monthly fee and no plan to cancel.
             </p>
 
             <!-- CTA Buttons -->
@@ -228,6 +228,34 @@
       </div>
     </div>
 
+    <!-- No-subscription wedge section -->
+    <div class="relative z-10 bg-white py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Text to speech without the subscription
+          </h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Most readers charge you every month whether you use them or not. unChonk doesn't. Buy credits once and spend them only when you read.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <a href="/text-to-speech-no-subscription" class="block bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg hover:border-[#2d5a3f]/30 transition duration-300">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">No subscription, ever</h3>
+            <p class="text-gray-600">See how pay-as-you-go credits work and why it beats a monthly plan.</p>
+          </a>
+          <a href="/speechify-alternative" class="block bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg hover:border-[#2d5a3f]/30 transition duration-300">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">A Speechify alternative</h3>
+            <p class="text-gray-600">The same read-aloud experience, without locking you into a recurring plan.</p>
+          </a>
+          <a href="/unchonk-vs-speechify" class="block bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg hover:border-[#2d5a3f]/30 transition duration-300">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">unChonk vs Speechify</h3>
+            <p class="text-gray-600">Compare pricing, voices, and highlighting side by side.</p>
+          </a>
+        </div>
+      </div>
+    </div>
+
     <!-- CTA Section -->
     <div class="relative z-10 bg-gray-50 py-24 pb-32">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -254,10 +282,15 @@
     <footer class="relative z-10 bg-gray-50 py-12">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <nav class="flex justify-center gap-6 mb-4">
+          <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
             <a href="/subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">Pricing</a>
+            <a href="/demo" class="text-gray-500 hover:text-gray-700 transition duration-300">Demo</a>
+            <a href="/speechify-alternative" class="text-gray-500 hover:text-gray-700 transition duration-300">Speechify Alternative</a>
+            <a href="/unchonk-vs-speechify" class="text-gray-500 hover:text-gray-700 transition duration-300">unChonk vs Speechify</a>
+            <a href="/text-to-speech-no-subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">No Subscription</a>
+            <a href="/text-to-speech-for-students" class="text-gray-500 hover:text-gray-700 transition duration-300">For Students</a>
+            <a href="/text-to-speech-for-dyslexia" class="text-gray-500 hover:text-gray-700 transition duration-300">For Dyslexia</a>
             <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy Policy</a>
-            <a href="/report" class="text-gray-500 hover:text-gray-700 transition duration-300">Report a Bug</a>
             <a href="/roadmap" class="text-gray-500 hover:text-gray-700 transition duration-300">Roadmap</a>
             <a href="/status" class="text-gray-500 hover:text-gray-700 transition duration-300">Status</a>
           </nav>

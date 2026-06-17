@@ -19,6 +19,9 @@ const pinia = createPinia()
 function initializePrivacyPage() {
   const container = document.getElementById('app') || document.body
 
+  // Remove the prerendered SEO snapshot before mounting (see scripts/prerender.mjs)
+  document.getElementById('seo-prerender')?.remove()
+
   // Create Vue app
   const app = createApp(PrivacyPage)
   app.use(pinia)

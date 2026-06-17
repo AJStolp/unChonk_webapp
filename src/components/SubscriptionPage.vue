@@ -49,6 +49,16 @@
         </div>
       </div>
 
+      <!-- Static intro (always rendered; captured by the SEO prerender) -->
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <p class="text-gray-600 leading-relaxed mb-4">
+          unChonk is pay-as-you-go text to speech — there's no subscription and no recurring monthly fee. You buy credits once and spend them only when you read a webpage, article, or PDF aloud. Read a lot during a busy week and nothing the next, and you only ever pay for the text you actually convert to speech.
+        </p>
+        <p class="text-gray-600 leading-relaxed">
+          Every plan includes premium neural voices and real-time word highlighting. Compare it with a subscription on our <a href="/unchonk-vs-speechify" class="text-[#2d5a3f] underline">unChonk vs Speechify</a> page, or see why people choose <a href="/text-to-speech-no-subscription" class="text-[#2d5a3f] underline">text to speech with no subscription</a>.
+        </p>
+      </div>
+
       <!-- Credit Slider Section -->
       <h2 class="sr-only">Credit Packages</h2>
       <div v-if="sliderConfig" class="max-w-4xl mx-auto mb-16">

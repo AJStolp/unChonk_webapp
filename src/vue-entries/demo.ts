@@ -23,6 +23,9 @@ let cleanupAuthSync: (() => void) | null = null
 function initializeDemoPage() {
   const container = document.getElementById('app') || document.body
 
+  // Remove the prerendered SEO snapshot before mounting (see scripts/prerender.mjs)
+  document.getElementById('seo-prerender')?.remove()
+
   // Initialize extension auth sync before mounting Vue app
   cleanupAuthSync = initializeExtensionAuthSync()
 

@@ -19,6 +19,11 @@
     { "src": "^/roadmap$", "dest": "/pages/roadmap.html" },
     { "src": "^/admin$", "dest": "/pages/admin.html" },
     { "src": "^/conversion$", "dest": "/api/conversion" },
-    { "src": "^/status$", "dest": "/pages/status.html" }
+    { "src": "^/status$", "dest": "/pages/status.html" },
+    { "src": "^/text-to-speech-no-subscription$", "dest": "/pages/text-to-speech-no-subscription.html" },
+    { "src": "^/speechify-alternative$", "dest": "/pages/speechify-alternative.html" },
+    { "src": "^/unchonk-vs-speechify$", "dest": "/pages/unchonk-vs-speechify.html" },
+    { "src": "^/text-to-speech-for-dyslexia$", "dest": "/pages/text-to-speech-for-dyslexia.html" },
+    { "src": "^/text-to-speech-for-students$", "dest": "/pages/text-to-speech-for-students.html" }
   ]
 }
