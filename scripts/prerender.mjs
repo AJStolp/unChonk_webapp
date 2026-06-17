@@ -6,27 +6,31 @@
  * answer engines) see an empty shell, so Ahrefs flags "H1 missing" / "low word
  * count" and the pages can't rank.
  *
- * This script serves the built dist/ with `vite preview`, opens each marketing
- * route in headless Chrome, waits for Vue to render, and writes the rendered
- * markup back into the built HTML as a SIBLING <div id="seo-prerender"> placed
- * before the (still empty) <div id="app">. The Vue entries remove
+ * This script serves the built dist/ with Vite's preview server, opens each
+ * marketing route in headless Chrome, waits for Vue to render, and writes the
+ * rendered markup back into the built HTML as a SIBLING <div id="seo-prerender">
+ * placed before the (still empty) <div id="app">. The Vue entries remove
  * #seo-prerender right before they mount, so users never see duplicate content
  * and there is no hydration mismatch (mount stays non-hydrating, into #app).
  *
  * /api/* requests are blocked during the snapshot so live pricing / authed UI
  * never freezes into the static HTML — crawlers get the anonymous marketing
  * copy, real users still get live client-rendered data.
+ *
+ * Browser: locally we use full `puppeteer` (its bundled Chrome). On Vercel/CI
+ * the build image lacks Chromium's system libraries (libnspr4.so, ...), so we
+ * use `puppeteer-core` + `@sparticuz/chromium`, which bundles them.
  */
 
-import { spawn } from 'node:child_process'
 import { readFile, writeFile } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import puppeteer from 'puppeteer'
+import { preview } from 'vite'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = resolve(__dirname, '..')
 const PORT = 4173
+const isServerless = !!process.env.VERCEL || !!process.env.CI
 
 // Marketing pages only. Auth-gated / live-data / noindex pages (status, report,
 // sign-in, success, email-verification, admin) are intentionally excluded and
@@ -46,29 +50,29 @@ const ROUTES = [
 
 const distFile = (name) => resolve(ROOT, 'dist', 'pages', `${name}.html`)
 
-async function waitForServer(url, attempts = 60) {
-  for (let i = 0; i < attempts; i++) {
-    try {
-      const res = await fetch(url)
-      if (res.ok || res.status === 404) return
-    } catch {
-      // not up yet
-    }
-    await new Promise((r) => setTimeout(r, 250))
+async function launchBrowser() {
+  if (isServerless) {
+    const chromium = (await import('@sparticuz/chromium')).default
+    const puppeteer = (await import('puppeteer-core')).default
+    return puppeteer.launch({
+      args: chromium.args,
+      executablePath: await chromium.executablePath(),
+      headless: true,
+    })
   }
-  throw new Error(`vite preview did not start at ${url}`)
+  const puppeteer = (await import('puppeteer')).default
+  return puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
 }
 
 async function main() {
-  const server = spawn('bunx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], {
-    cwd: ROOT,
-    stdio: 'inherit',
-  })
+  // Vite's preview server (JS API) — open:false avoids the CLI's xdg-open call,
+  // which throws on headless build machines.
+  const server = await preview({ preview: { port: PORT, strictPort: true, open: false } })
+  const origin = server.resolvedUrls?.local?.[0]?.replace(/\/$/, '') || `http://localhost:${PORT}`
 
   let browser
   try {
-    await waitForServer(`http://localhost:${PORT}/`)
-    browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] })
+    browser = await launchBrowser()
 
     for (const name of ROUTES) {
       const page = await browser.newPage()
@@ -79,8 +83,7 @@ async function main() {
         req.continue()
       })
 
-      const url = `http://localhost:${PORT}/pages/${name}.html`
-      await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 })
+      await page.goto(`${origin}/pages/${name}.html`, { waitUntil: 'networkidle0', timeout: 30000 })
       // Capture only after Vue has rendered real content (not the empty shell).
       await page.waitForSelector('#app h1', { timeout: 15000 })
 
@@ -98,7 +101,7 @@ async function main() {
     }
   } finally {
     if (browser) await browser.close()
-    server.kill()
+    await new Promise((res) => server.httpServer.close(res))
   }
 }
 
