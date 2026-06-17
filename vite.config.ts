@@ -20,6 +20,11 @@ function cleanUrlPlugin() {
           '/roadmap': '/pages/roadmap.html',
           '/admin': '/pages/admin.html',
           '/status': '/pages/status.html',
+          '/text-to-speech-no-subscription': '/pages/text-to-speech-no-subscription.html',
+          '/speechify-alternative': '/pages/speechify-alternative.html',
+          '/unchonk-vs-speechify': '/pages/unchonk-vs-speechify.html',
+          '/text-to-speech-for-dyslexia': '/pages/text-to-speech-for-dyslexia.html',
+          '/text-to-speech-for-students': '/pages/text-to-speech-for-students.html',
         }
         if (req.url && rewrites[req.url]) {
           req.url = rewrites[req.url]
@@ -52,6 +57,11 @@ export default defineConfig({
         'roadmap': resolve(__dirname, "src/pages/roadmap.html"),
         'admin': resolve(__dirname, "src/pages/admin.html"),
         'status': resolve(__dirname, "src/pages/status.html"),
+        'text-to-speech-no-subscription': resolve(__dirname, "src/pages/text-to-speech-no-subscription.html"),
+        'speechify-alternative': resolve(__dirname, "src/pages/speechify-alternative.html"),
+        'unchonk-vs-speechify': resolve(__dirname, "src/pages/unchonk-vs-speechify.html"),
+        'text-to-speech-for-dyslexia': resolve(__dirname, "src/pages/text-to-speech-for-dyslexia.html"),
+        'text-to-speech-for-students': resolve(__dirname, "src/pages/text-to-speech-for-students.html"),
       },
       output: {
         entryFileNames: '[name].js',
