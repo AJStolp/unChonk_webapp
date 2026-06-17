@@ -121,6 +121,21 @@ export function fireAttributedConversion(
     if (transactionId) params.transaction_id = transactionId
 
     window.gtag('event', 'conversion', params)
+
+    // Mirror to GA4 as a named event. This rides the same Google tag to the
+    // connected GA4 property (no separate G- config needed), so the same
+    // conversions can be marked as GA4 key events and reported per landing
+    // page. The Ads conversion above is unaffected — GA4 ignores send_to.
+    const eventName = (Object.keys(CONVERSION_LABELS) as Array<keyof typeof CONVERSION_LABELS>)
+      .find((key) => CONVERSION_LABELS[key] === conversionLabel)
+      ?.toLowerCase()
+    if (eventName) {
+      const ga4Params: Record<string, unknown> = {}
+      if (value !== undefined) ga4Params.value = value
+      if (currency) ga4Params.currency = currency
+      if (transactionId) ga4Params.transaction_id = transactionId
+      window.gtag('event', eventName, ga4Params)
+    }
   } catch {
     // Conversion tracking should never break the page
   }
