@@ -78,12 +78,20 @@ async function main() {
       const page = await browser.newPage()
       await page.setRequestInterception(true)
       page.on('request', (req) => {
-        // Never let backend data (pricing, auth) enter the static snapshot.
-        if (req.url().includes('/api/')) return req.abort()
+        const reqUrl = req.url()
+        // Snapshot only the app's own content. Block backend data (pricing,
+        // auth) AND every third-party request (Ahrefs / gtag / umami analytics):
+        // their long-lived connections kept networkidle from settling and timed
+        // out the Vercel build. Same-origin assets + data: URIs still load.
+        if (reqUrl.includes('/api/')) return req.abort()
+        if (!reqUrl.startsWith(origin) && !reqUrl.startsWith('data:')) return req.abort()
         req.continue()
       })
 
-      await page.goto(`${origin}/pages/${name}.html`, { waitUntil: 'networkidle0', timeout: 30000 })
+      // domcontentloaded, NOT networkidle0 — prerender must not depend on the
+      // network going quiet (external analytics never settle on the build host).
+      // waitForSelector('#app h1') below is the real "Vue has rendered" gate.
+      await page.goto(`${origin}/pages/${name}.html`, { waitUntil: 'domcontentloaded', timeout: 30000 })
       // Capture only after Vue has rendered real content (not the empty shell).
       await page.waitForSelector('#app h1', { timeout: 15000 })
 
