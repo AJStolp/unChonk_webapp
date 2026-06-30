@@ -5,10 +5,8 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import TtsForStudentsPage from '../components/TtsForStudentsPage.vue'
-import { loadUmamiScript } from '../shared/utils/analytics'
 import '../styles/globals.css'
 
-loadUmamiScript()
 
 const pinia = createPinia()
 

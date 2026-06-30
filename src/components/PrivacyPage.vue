@@ -112,10 +112,10 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="border border-gray-200 px-4 py-2 text-gray-700">Umami</td>
+                  <td class="border border-gray-200 px-4 py-2 text-gray-700">Ahrefs</td>
                   <td class="border border-gray-200 px-4 py-2 text-gray-700">Privacy-focused website analytics</td>
                   <td class="border border-gray-200 px-4 py-2">
-                    <a href="https://umami.is/privacy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">umami.is/privacy</a>
+                    <a href="https://ahrefs.com/privacy-policy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">ahrefs.com/privacy-policy</a>
                   </td>
                 </tr>
               </tbody>
@@ -129,7 +129,7 @@
         <section class="mb-10">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Cookies and Analytics</h2>
           <p class="text-gray-700 mb-3">
-            We use Umami for privacy-focused website analytics. Umami does not use cookies, does not track users across sites, and does not collect personally identifiable information.
+            We use Ahrefs for privacy-focused website analytics. Ahrefs Web Analytics does not use cookies, does not track users across sites, and does not collect personally identifiable information.
           </p>
           <p class="text-gray-700">
             Authentication data is stored locally in your browser using standard web storage APIs. Third-party services (such as Stripe during checkout) may set their own cookies as necessary to complete transactions.

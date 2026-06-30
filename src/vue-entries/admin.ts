@@ -5,11 +5,9 @@
 
 import { createApp } from 'vue'
 import AdminDashboardPage from '../components/AdminDashboardPage.vue'
-import { loadUmamiScript } from '../shared/utils/analytics'
 import '../styles/globals.css'
 
 // Load analytics
-loadUmamiScript()
 
 // Initialize the admin dashboard page
 function initializeAdminPage() {
