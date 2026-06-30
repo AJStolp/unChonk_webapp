@@ -25,6 +25,9 @@ function cleanUrlPlugin() {
           '/unchonk-vs-speechify': '/pages/unchonk-vs-speechify.html',
           '/text-to-speech-for-dyslexia': '/pages/text-to-speech-for-dyslexia.html',
           '/text-to-speech-for-students': '/pages/text-to-speech-for-students.html',
+          '/read-pdf-aloud': '/pages/read-pdf-aloud.html',
+          '/read-your-writing-aloud': '/pages/read-your-writing-aloud.html',
+          '/read-aloud-chrome-extension': '/pages/read-aloud-chrome-extension.html',
         }
         if (req.url && rewrites[req.url]) {
           req.url = rewrites[req.url]
@@ -62,6 +65,9 @@ export default defineConfig({
         'unchonk-vs-speechify': resolve(__dirname, "src/pages/unchonk-vs-speechify.html"),
         'text-to-speech-for-dyslexia': resolve(__dirname, "src/pages/text-to-speech-for-dyslexia.html"),
         'text-to-speech-for-students': resolve(__dirname, "src/pages/text-to-speech-for-students.html"),
+        'read-pdf-aloud': resolve(__dirname, "src/pages/read-pdf-aloud.html"),
+        'read-your-writing-aloud': resolve(__dirname, "src/pages/read-your-writing-aloud.html"),
+        'read-aloud-chrome-extension': resolve(__dirname, "src/pages/read-aloud-chrome-extension.html"),
       },
       output: {
         entryFileNames: '[name].js',

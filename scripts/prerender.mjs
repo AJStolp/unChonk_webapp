@@ -46,6 +46,9 @@ const ROUTES = [
   'unchonk-vs-speechify',
   'text-to-speech-for-dyslexia',
   'text-to-speech-for-students',
+  'read-pdf-aloud',
+  'read-your-writing-aloud',
+  'read-aloud-chrome-extension',
 ]
 
 const distFile = (name) => resolve(ROOT, 'dist', 'pages', `${name}.html`)

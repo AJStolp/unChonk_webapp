@@ -484,6 +484,29 @@ keyword that naturally fits a demo/use-cases page. "ai text reader" (1.9K) shoul
 appear in subheadings. Avoid "converter" language — the product reads text on
 webpages, it does not export or convert to audio files.
 
+### Intent Landing Pages — read-aloud use cases
+
+Each targets a distinct consumption job mined from ad/voice-of-customer data (see the extension repo's `google-ads-search-campaign-v2.md`). One primary keyword per page, no cannibalization with the homepage or each other. All prerendered, FAQPage schema, `index, follow`.
+
+```
+/read-aloud-chrome-extension
+  Title: Read Aloud Chrome Extension | Listen to Any Page | unChonk
+  H1:    Read Aloud Chrome Extension
+  Primary: read aloud chrome extension (4.4K) — owns the exact phrase the homepage only weaves in
+  Note:  Homepage keeps "text to speech app/chrome extension"; this page owns "read aloud chrome
+         extension". Homepage links to it with that exact anchor to disambiguate intent.
+
+/read-pdf-aloud
+  Title: Read PDF Aloud | Listen to Any PDF in Chrome | unChonk
+  H1:    Read Any PDF Aloud
+  Primary: read pdf aloud / read pdf out loud / listen to pdf
+
+/read-your-writing-aloud
+  Title: Read Your Writing Aloud | Proofread by Listening | unChonk
+  H1:    Hear Your Writing Read Aloud
+  Primary: hear your writing aloud / proofread by listening / read my essay out loud
+```
+
 ### Privacy Policy (`/privacy`)
 
 ```

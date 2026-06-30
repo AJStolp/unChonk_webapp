@@ -1,0 +1,88 @@
+<!-- src/pages/read-aloud-chrome-extension.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+    <!-- SEO: Title & Description -->
+    <title>Read Aloud Chrome Extension | Listen to Any Page | unChonk</title>
+    <meta name="description" content="A read aloud Chrome extension that reads any webpage out loud with natural AI voices and real-time word highlighting. No subscription, free to start with unChonk." />
+
+    <!-- SEO: Indexing & Canonical -->
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.unchonk.com/read-aloud-chrome-extension" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Read Aloud Chrome Extension | Listen to Any Page | unChonk" />
+    <meta property="og:description" content="unChonk is a read aloud Chrome extension that reads any webpage out loud with natural AI voices and word highlighting. Pay as you go, free to start." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.unchonk.com/read-aloud-chrome-extension" />
+    <meta property="og:image" content="https://www.unchonk.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="unChonk read aloud Chrome extension reading a webpage with highlighting" />
+    <meta property="og:site_name" content="unChonk" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Read Aloud Chrome Extension | Listen to Any Page | unChonk" />
+    <meta name="twitter:description" content="A read aloud Chrome extension that reads any webpage out loud with natural AI voices and word highlighting." />
+    <meta name="twitter:image" content="https://www.unchonk.com/og-image.png" />
+    <meta name="twitter:image:alt" content="unChonk read aloud Chrome extension reading a webpage with highlighting" />
+
+    <!-- Structured Data: FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the unChonk read aloud Chrome extension?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "unChonk is a Chrome extension that reads any webpage aloud with natural AI voices. It highlights each word as it reads so you can follow along, and it also reads PDFs and Google Docs. It installs in seconds and is pay as you go with a free tier."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Chrome have a built-in read aloud feature?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Chrome has no built-in read aloud for general web pages, which is why a dedicated extension is useful. unChonk adds read-aloud to Chrome with natural voices and synchronized word highlighting on any page you visit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the read aloud extension free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "unChonk is pay as you go with a free tier, so there's no subscription. Word highlighting is included on the free tier, and you can install the extension and start listening in seconds."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="DwphPRr5KXBjStFOCxpoSQ" async></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17950589439"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17950589439');
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <!-- Load Vue app -->
+    <script type="module" src="../vue-entries/read-aloud-chrome-extension.ts"></script>
+  </body>
+</html>
