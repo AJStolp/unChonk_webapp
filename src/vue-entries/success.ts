@@ -7,7 +7,6 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import SuccessPage from '../components/SuccessPage.vue'
 import { initializeExtensionAuthSync } from '../shared/composables/useExtensionAuthSync'
-import { loadUmamiScript } from '../shared/utils/analytics'
 import { captureAttribution } from '../shared/utils/attribution'
 import '../styles/globals.css'
 
@@ -15,7 +14,6 @@ import '../styles/globals.css'
 captureAttribution()
 
 // Load analytics
-loadUmamiScript()
 
 // Create Pinia store
 const pinia = createPinia()

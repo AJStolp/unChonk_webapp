@@ -1,10 +1,11 @@
 /**
- * Umami Analytics Utility
- * Self-hosted analytics tracking for unChonk
+ * Analytics utility.
+ *
+ * Umami was removed 2026-06-29 (no longer used). `trackEvent` / `trackPageView`
+ * are kept as inert no-ops so existing call sites (authStore, SubscriptionPage,
+ * SuccessPage, LandingPage) still compile without change. Remove those call
+ * sites in a follow-up to drop these entirely.
  */
-
-const UMAMI_SCRIPT_URL = 'https://analytics.logantaylorandkitties.com/script.js'
-const UMAMI_WEBSITE_ID = '867ccb2f-0c4a-4389-8082-8f8daa4b6ef0'
 
 /**
  * Console Easter egg
@@ -23,59 +24,25 @@ GG's
   `);
 };
 
-/**
- * Dynamically load the Umami analytics script
- */
-export const loadUmamiScript = () => {
-  if (typeof window === 'undefined') return
-
-  // Print Easter egg to console
+if (typeof window !== 'undefined') {
   printEasterEgg();
-
-  const script = document.createElement('script')
-  script.defer = true
-  script.src = UMAMI_SCRIPT_URL
-  script.setAttribute('data-website-id', UMAMI_WEBSITE_ID)
-  document.head.appendChild(script)
 }
 
-export interface UmamiEventData {
+export interface AnalyticsEventData {
   [key: string]: string | number | boolean;
 }
 
 /**
- * Track a custom event in Umami
- * @param eventName - The name of the event to track
- * @param eventData - Optional data to attach to the event
+ * No-op since umami was removed. Kept so existing call sites compile.
  */
-export const trackEvent = (eventName: string, eventData?: UmamiEventData) => {
-  try {
-    // Check if umami is available
-    if (typeof window !== 'undefined' && (window as any).umami) {
-      (window as any).umami.track(eventName, eventData);
-      console.log('[Analytics] Event tracked:', eventName, eventData);
-    } else {
-      console.warn('[Analytics] Umami not loaded, event not tracked:', eventName);
-    }
-  } catch (error) {
-    console.error('[Analytics] Error tracking event:', error);
-  }
-};
+export const trackEvent = (_eventName: string, _eventData?: AnalyticsEventData) => {};
 
 /**
- * Track page view (automatically handled by Umami script, but can be called manually if needed)
+ * No-op since umami was removed.
  */
-export const trackPageView = () => {
-  try {
-    if (typeof window !== 'undefined' && (window as any).umami) {
-      (window as any).umami.track();
-    }
-  } catch (error) {
-    console.error('[Analytics] Error tracking page view:', error);
-  }
-};
+export const trackPageView = () => {};
 
-// Common event names for consistency
+// Common event names for consistency (still referenced by call sites)
 export const ANALYTICS_EVENTS = {
   // Page views
   LANDING_PAGE_VIEW: 'landing_page_view',

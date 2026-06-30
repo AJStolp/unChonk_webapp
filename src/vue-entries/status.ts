@@ -6,11 +6,9 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import StatusPage from '../components/StatusPage.vue'
-import { loadUmamiScript } from '../shared/utils/analytics'
 import '../styles/globals.css'
 
 // Load analytics
-loadUmamiScript()
 
 // Create Pinia store
 const pinia = createPinia()
