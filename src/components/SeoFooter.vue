@@ -11,6 +11,9 @@
           <a href="/text-to-speech-no-subscription" class="text-gray-500 hover:text-gray-700 transition duration-300">No Subscription</a>
           <a href="/text-to-speech-for-students" class="text-gray-500 hover:text-gray-700 transition duration-300">For Students</a>
           <a href="/text-to-speech-for-dyslexia" class="text-gray-500 hover:text-gray-700 transition duration-300">For Dyslexia</a>
+          <a href="/read-aloud-chrome-extension" class="text-gray-500 hover:text-gray-700 transition duration-300">Read Aloud Extension</a>
+          <a href="/read-pdf-aloud" class="text-gray-500 hover:text-gray-700 transition duration-300">Read PDF Aloud</a>
+          <a href="/read-your-writing-aloud" class="text-gray-500 hover:text-gray-700 transition duration-300">Read Writing Aloud</a>
           <a href="/privacy" class="text-gray-500 hover:text-gray-700 transition duration-300">Privacy</a>
         </nav>
         <p class="text-gray-600">

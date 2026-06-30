@@ -24,6 +24,9 @@
     { "src": "^/speechify-alternative$", "dest": "/pages/speechify-alternative.html" },
     { "src": "^/unchonk-vs-speechify$", "dest": "/pages/unchonk-vs-speechify.html" },
     { "src": "^/text-to-speech-for-dyslexia$", "dest": "/pages/text-to-speech-for-dyslexia.html" },
-    { "src": "^/text-to-speech-for-students$", "dest": "/pages/text-to-speech-for-students.html" }
+    { "src": "^/text-to-speech-for-students$", "dest": "/pages/text-to-speech-for-students.html" },
+    { "src": "^/read-pdf-aloud$", "dest": "/pages/read-pdf-aloud.html" },
+    { "src": "^/read-your-writing-aloud$", "dest": "/pages/read-your-writing-aloud.html" },
+    { "src": "^/read-aloud-chrome-extension$", "dest": "/pages/read-aloud-chrome-extension.html" }
   ]
 }
