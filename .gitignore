@@ -36,3 +36,8 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# GCP service account keys (GSC monitor) — NEVER commit
+unchonk-f2354c17936e.json
+*-service-account*.json
+gcp-*-key.json
