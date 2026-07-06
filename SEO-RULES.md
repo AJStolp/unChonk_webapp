@@ -548,6 +548,8 @@ These pages must have the `noindex` meta tag AND be excluded from the sitemap:
 |------|--------|
 | `/success` | Transactional — no search value |
 | `/email-verification` | Transactional — no search value |
+| `/demo` | Test/demo page — no search value |
+| `/report` | Utility page — no search value |
 
 ---
 
