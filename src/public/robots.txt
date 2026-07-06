@@ -3,5 +3,7 @@ Allow: /
 Disallow: /success
 Disallow: /email-verification
 Disallow: /admin
+Disallow: /demo
+Disallow: /report
 
 Sitemap: https://www.unchonk.com/sitemap.xml
