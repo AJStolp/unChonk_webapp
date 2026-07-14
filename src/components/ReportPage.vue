@@ -30,7 +30,7 @@
     <!-- Report Page Content -->
     <main class="max-w-4xl mx-auto px-4 py-12">
       <h1 class="text-4xl font-bold text-gray-900 mb-2">Report a Bug</h1>
-      <p class="text-gray-600 mb-8">Help us improve unChonk by reporting issues or checking known bugs.</p>
+      <p class="text-gray-600 mb-8">Help us improve unChonk by reporting any issues you run into.</p>
 
       <!-- Report Bug Section -->
       <section class="mb-12">
@@ -61,52 +61,6 @@
             </svg>
             Email Bug Report
           </a>
-        </div>
-      </section>
-
-      <!-- Known Bugs Section -->
-      <section class="mb-12">
-        <h2 class="text-2xl font-bold text-gray-900 mb-6">Known Issues</h2>
-        <p class="text-gray-600 mb-6">
-          We're actively working on fixing these issues. Check back for updates!
-        </p>
-
-        <div class="space-y-4">
-          <!-- Bug Item -->
-          <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-            <div class="flex items-start justify-between">
-              <div class="flex-1">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                    In Progress
-                  </span>
-                  <span class="text-gray-500 text-sm">Extension</span>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-1">Content shift when PlayHere widget is called</h3>
-                <p class="text-gray-600 text-sm">
-                  Page content may shift when the PlayHere widget is activated. We're working on a fix to prevent layout shifts.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bug Item -->
-          <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-            <div class="flex items-start justify-between">
-              <div class="flex-1">
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                    Known Issue
-                  </span>
-                  <span class="text-gray-500 text-sm">Extension</span>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-1">Text extraction issues on non-semantic pages</h3>
-                <p class="text-gray-600 text-sm">
-                  Some websites that don't use semantic HTML (proper heading tags, paragraph elements, article structures, etc.) may cause text extraction to behave unexpectedly. Content might be read out of order, duplicated, or partially missing. This is because the extension relies on standard HTML structure to identify and extract readable content.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

@@ -10,6 +10,7 @@ function cleanUrlPlugin() {
     configureServer(server: any) {
       server.middlewares.use((req: any, _res: any, next: any) => {
         const rewrites: Record<string, string> = {
+          '/': '/pages/index.html',
           '/subscription': '/pages/subscription.html',
           '/demo': '/pages/demo.html',
           '/privacy': '/pages/privacy.html',
