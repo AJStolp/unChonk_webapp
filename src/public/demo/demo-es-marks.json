@@ -1,0 +1,420 @@
+{
+  "voice": "en-US-AvaMultilingualNeural",
+  "lang": "es",
+  "text": "Leer una página larga no debería agotarte. Resalta cualquier fragmento y unChonk lee solo esa parte en voz alta con una voz natural, iluminando cada palabra mientras habla. Para personas con dislexia, TDAH o vista cansada, seguir el texto con el oído te ayuda a concentrarte. Sin suscripción. Pagas solo por lo que lees.",
+  "marks": [
+    {
+      "time": 50,
+      "type": "word",
+      "start": 0,
+      "end": 4,
+      "value": "Leer"
+    },
+    {
+      "time": 287,
+      "type": "word",
+      "start": 5,
+      "end": 8,
+      "value": "una"
+    },
+    {
+      "time": 450,
+      "type": "word",
+      "start": 9,
+      "end": 15,
+      "value": "página"
+    },
+    {
+      "time": 862,
+      "type": "word",
+      "start": 16,
+      "end": 21,
+      "value": "larga"
+    },
+    {
+      "time": 1237,
+      "type": "word",
+      "start": 22,
+      "end": 24,
+      "value": "no"
+    },
+    {
+      "time": 1412,
+      "type": "word",
+      "start": 25,
+      "end": 32,
+      "value": "debería"
+    },
+    {
+      "time": 50,
+      "type": "sentence",
+      "start": 0,
+      "end": 42,
+      "value": "Leer una página larga no debería agotarte."
+    },
+    {
+      "time": 1812,
+      "type": "word",
+      "start": 33,
+      "end": 41,
+      "value": "agotarte"
+    },
+    {
+      "time": 2812,
+      "type": "word",
+      "start": 43,
+      "end": 50,
+      "value": "Resalta"
+    },
+    {
+      "time": 3250,
+      "type": "word",
+      "start": 51,
+      "end": 60,
+      "value": "cualquier"
+    },
+    {
+      "time": 3637,
+      "type": "word",
+      "start": 61,
+      "end": 70,
+      "value": "fragmento"
+    },
+    {
+      "time": 4200,
+      "type": "word",
+      "start": 71,
+      "end": 72,
+      "value": "y"
+    },
+    {
+      "time": 4287,
+      "type": "word",
+      "start": 73,
+      "end": 80,
+      "value": "unChonk"
+    },
+    {
+      "time": 4762,
+      "type": "word",
+      "start": 81,
+      "end": 84,
+      "value": "lee"
+    },
+    {
+      "time": 5050,
+      "type": "word",
+      "start": 85,
+      "end": 89,
+      "value": "solo"
+    },
+    {
+      "time": 5375,
+      "type": "word",
+      "start": 90,
+      "end": 93,
+      "value": "esa"
+    },
+    {
+      "time": 5562,
+      "type": "word",
+      "start": 94,
+      "end": 99,
+      "value": "parte"
+    },
+    {
+      "time": 5862,
+      "type": "word",
+      "start": 100,
+      "end": 102,
+      "value": "en"
+    },
+    {
+      "time": 5950,
+      "type": "word",
+      "start": 103,
+      "end": 106,
+      "value": "voz"
+    },
+    {
+      "time": 6162,
+      "type": "word",
+      "start": 107,
+      "end": 111,
+      "value": "alta"
+    },
+    {
+      "time": 6400,
+      "type": "word",
+      "start": 112,
+      "end": 115,
+      "value": "con"
+    },
+    {
+      "time": 6562,
+      "type": "word",
+      "start": 116,
+      "end": 119,
+      "value": "una"
+    },
+    {
+      "time": 6712,
+      "type": "word",
+      "start": 120,
+      "end": 123,
+      "value": "voz"
+    },
+    {
+      "time": 6900,
+      "type": "word",
+      "start": 124,
+      "end": 131,
+      "value": "natural"
+    },
+    {
+      "time": 7800,
+      "type": "word",
+      "start": 133,
+      "end": 143,
+      "value": "iluminando"
+    },
+    {
+      "time": 8325,
+      "type": "word",
+      "start": 144,
+      "end": 148,
+      "value": "cada"
+    },
+    {
+      "time": 8575,
+      "type": "word",
+      "start": 149,
+      "end": 156,
+      "value": "palabra"
+    },
+    {
+      "time": 9012,
+      "type": "word",
+      "start": 157,
+      "end": 165,
+      "value": "mientras"
+    },
+    {
+      "time": 2737,
+      "type": "sentence",
+      "start": 43,
+      "end": 172,
+      "value": "Resalta cualquier fragmento y unChonk lee solo esa parte en voz alta con una voz natural, iluminando cada palabra mientras habla."
+    },
+    {
+      "time": 9387,
+      "type": "word",
+      "start": 166,
+      "end": 171,
+      "value": "habla"
+    },
+    {
+      "time": 10162,
+      "type": "word",
+      "start": 173,
+      "end": 177,
+      "value": "Para"
+    },
+    {
+      "time": 10325,
+      "type": "word",
+      "start": 178,
+      "end": 186,
+      "value": "personas"
+    },
+    {
+      "time": 10800,
+      "type": "word",
+      "start": 187,
+      "end": 190,
+      "value": "con"
+    },
+    {
+      "time": 10950,
+      "type": "word",
+      "start": 191,
+      "end": 199,
+      "value": "dislexia"
+    },
+    {
+      "time": 11912,
+      "type": "word",
+      "start": 201,
+      "end": 205,
+      "value": "TDAH"
+    },
+    {
+      "time": 12125,
+      "type": "word",
+      "start": 206,
+      "end": 207,
+      "value": "o"
+    },
+    {
+      "time": 12200,
+      "type": "word",
+      "start": 208,
+      "end": 213,
+      "value": "vista"
+    },
+    {
+      "time": 12500,
+      "type": "word",
+      "start": 214,
+      "end": 221,
+      "value": "cansada"
+    },
+    {
+      "time": 13375,
+      "type": "word",
+      "start": 223,
+      "end": 229,
+      "value": "seguir"
+    },
+    {
+      "time": 13675,
+      "type": "word",
+      "start": 230,
+      "end": 232,
+      "value": "el"
+    },
+    {
+      "time": 13775,
+      "type": "word",
+      "start": 233,
+      "end": 238,
+      "value": "texto"
+    },
+    {
+      "time": 14125,
+      "type": "word",
+      "start": 239,
+      "end": 242,
+      "value": "con"
+    },
+    {
+      "time": 14287,
+      "type": "word",
+      "start": 243,
+      "end": 245,
+      "value": "el"
+    },
+    {
+      "time": 14400,
+      "type": "word",
+      "start": 246,
+      "end": 250,
+      "value": "oído"
+    },
+    {
+      "time": 14700,
+      "type": "word",
+      "start": 251,
+      "end": 253,
+      "value": "te"
+    },
+    {
+      "time": 14800,
+      "type": "word",
+      "start": 254,
+      "end": 259,
+      "value": "ayuda"
+    },
+    {
+      "time": 15162,
+      "type": "word",
+      "start": 260,
+      "end": 261,
+      "value": "a"
+    },
+    {
+      "time": 10075,
+      "type": "sentence",
+      "start": 173,
+      "end": 275,
+      "value": "Para personas con dislexia, TDAH o vista cansada, seguir el texto con el oído te ayuda a concentrarte."
+    },
+    {
+      "time": 15200,
+      "type": "word",
+      "start": 262,
+      "end": 274,
+      "value": "concentrarte"
+    },
+    {
+      "time": 16387,
+      "type": "word",
+      "start": 276,
+      "end": 279,
+      "value": "Sin"
+    },
+    {
+      "time": 16300,
+      "type": "sentence",
+      "start": 276,
+      "end": 292,
+      "value": "Sin suscripción."
+    },
+    {
+      "time": 16612,
+      "type": "word",
+      "start": 280,
+      "end": 291,
+      "value": "suscripción"
+    },
+    {
+      "time": 17850,
+      "type": "word",
+      "start": 293,
+      "end": 298,
+      "value": "Pagas"
+    },
+    {
+      "time": 18137,
+      "type": "word",
+      "start": 299,
+      "end": 303,
+      "value": "solo"
+    },
+    {
+      "time": 18400,
+      "type": "word",
+      "start": 304,
+      "end": 307,
+      "value": "por"
+    },
+    {
+      "time": 18575,
+      "type": "word",
+      "start": 308,
+      "end": 310,
+      "value": "lo"
+    },
+    {
+      "time": 18650,
+      "type": "word",
+      "start": 311,
+      "end": 314,
+      "value": "que"
+    },
+    {
+      "time": 17762,
+      "type": "sentence",
+      "start": 293,
+      "end": 320,
+      "value": "Pagas solo por lo que lees."
+    },
+    {
+      "time": 18762,
+      "type": "word",
+      "start": 315,
+      "end": 319,
+      "value": "lees"
+    }
+  ]
+}

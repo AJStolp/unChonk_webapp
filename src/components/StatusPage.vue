@@ -122,33 +122,6 @@
         </p>
       </div>
 
-      <!-- Incidents -->
-      <div v-if="incidents.length > 0" class="mb-10">
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">Recent Incidents</h2>
-        <div class="space-y-3">
-          <div
-            v-for="incident in incidents"
-            :key="incident.id"
-            class="p-4 rounded-xl border"
-            :class="incident.status === 'ongoing' ? 'border-red-200 bg-red-50' : 'border-gray-200 bg-white'"
-          >
-            <div class="flex items-center justify-between mb-1">
-              <span
-                class="text-xs font-medium px-2 py-0.5 rounded-full"
-                :class="incident.status === 'ongoing' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'"
-              >
-                {{ incident.status === 'ongoing' ? 'Ongoing' : 'Resolved' }}
-              </span>
-              <span class="text-xs text-gray-400">{{ formatIncidentDate(incident.started_at) }}</span>
-            </div>
-            <p class="text-sm text-gray-600">{{ incident.description }}</p>
-            <p v-if="incident.resolved_at" class="text-xs text-gray-400 mt-1">
-              Resolved {{ formatIncidentDate(incident.resolved_at) }}
-            </p>
-          </div>
-        </div>
-      </div>
-
       <!-- Auto-refresh note -->
       <div class="text-center mb-16">
         <p class="text-sm text-gray-400">
@@ -163,95 +136,6 @@
         </button>
       </div>
 
-      <!-- Changelog -->
-      <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Changelog</h2>
-        <div class="flex items-center gap-5 mb-6">
-          <div class="flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-[#2d5a3f]"></span>
-            <span class="text-sm text-gray-500">New feature</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-            <span class="text-sm text-gray-500">Improvement</span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-red-400"></span>
-            <span class="text-sm text-gray-500">Bug fix</span>
-          </div>
-        </div>
-        <div class="space-y-8">
-          <div
-            v-for="release in changelog"
-            :key="release.version"
-            class="relative pl-8 border-l-2"
-            :class="release.emailSent ? 'border-[#2d5a3f]' : 'border-gray-200'"
-          >
-            <!-- Dot on timeline -->
-            <div
-              class="absolute -left-[9px] top-1 w-4 h-4 rounded-full border-2 border-white"
-              :class="release.emailSent ? 'bg-[#2d5a3f]' : 'bg-gray-300'"
-            ></div>
-
-            <!-- Version header -->
-            <div class="flex flex-wrap items-center gap-3 mb-2">
-              <h3 class="text-lg font-semibold text-gray-900">
-                v{{ release.version }}
-              </h3>
-              <span class="text-sm text-gray-500">{{ release.date }}</span>
-              <span
-                v-if="release.emailSent"
-                class="inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-full bg-[#e0ece3] text-[#2d5a3f]"
-              >
-                Users notified
-              </span>
-            </div>
-
-            <!-- Changes -->
-            <ul class="space-y-1.5 mb-3">
-              <li
-                v-for="(change, i) in release.changes"
-                :key="i"
-                class="text-sm text-gray-600 flex items-start gap-2"
-              >
-                <span class="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" :class="changeTypeColor(change.type)"></span>
-                <span>{{ change.text }}</span>
-              </li>
-            </ul>
-
-            <!-- Email summary if sent -->
-            <div
-              v-if="release.emailSent && release.emailSummary"
-              class="bg-gray-50 rounded-lg p-3 text-sm text-gray-500"
-            >
-              <span class="font-medium text-gray-600">Email sent:</span> {{ release.emailSummary }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Email guidelines -->
-      <div class="mt-16 p-6 rounded-2xl bg-gray-50 border border-gray-100">
-        <h3 class="font-semibold text-gray-900 mb-3">When do we send emails?</h3>
-        <div class="grid sm:grid-cols-2 gap-4 text-sm">
-          <div>
-            <p class="font-medium text-[#2d5a3f] mb-2">We notify users about:</p>
-            <ul class="space-y-1 text-gray-600">
-              <li>Bug fixes that affected usability</li>
-              <li>New features users can try</li>
-              <li>Resolved outages or downtime</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-medium text-gray-500 mb-2">We skip emails for:</p>
-            <ul class="space-y-1 text-gray-600">
-              <li>Internal refactors and code cleanup</li>
-              <li>Analytics and tracking updates</li>
-              <li>Minor UI polish</li>
-            </ul>
-          </div>
-        </div>
-      </div>
     </main>
 
     <!-- Footer -->
@@ -288,34 +172,11 @@ interface Service {
   key: string
 }
 
-interface ChangeEntry {
-  type: 'fix' | 'feature' | 'improvement'
-  text: string
-}
-
-interface Release {
-  version: string
-  date: string
-  emailSent: boolean
-  emailSummary?: string
-  changes: ChangeEntry[]
-}
-
-interface Incident {
-  id: number
-  started_at: string
-  resolved_at: string | null
-  status: string
-  affected_services: string[]
-  description: string
-}
-
 const isLoading = ref(false)
 const lastChecked = ref<Date | null>(null)
 const uptimeLoaded = ref(false)
 const uptime = ref<Record<string, number>>({ '24h': 100, '7d': 100, '30d': 100 })
 const avgResponseMs = ref(0)
-const incidents = ref<Incident[]>([])
 let refreshInterval: ReturnType<typeof setInterval> | null = null
 
 const services = ref<Service[]>([
@@ -353,151 +214,6 @@ const services = ref<Service[]>([
     icon: '🌐',
     status: 'operational',
     key: 'website',
-  },
-])
-
-const changelog = ref<Release[]>([
-  {
-    version: '3.1.9',
-    date: 'May 5, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'fix', text: 'Translation audio now auto-plays the moment the side panel opens' },
-      { type: 'fix', text: 'Word and sentence highlighting now track translated playback' },
-      { type: 'feature', text: 'Translation highlight respects the colors picked in the widget' },
-      { type: 'improvement', text: 'Highlight color preferences persist across reloads' },
-      { type: 'fix', text: 'Side panel header now reads TRANSLATION or SUMMARIZE based on mode' },
-      { type: 'fix', text: 'Stale prior translations no longer auto-replay when opening Summarize' },
-    ],
-  },
-  {
-    version: '3.1.8',
-    date: 'May 4, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'feature', text: 'AI page summaries powered by Grok with 4 formats and 5 tones' },
-      { type: 'feature', text: 'Translation credits dashboard with read-time estimate' },
-      { type: 'fix', text: 'Stripe checkout webhook reliability hotfix (silent credit drop bug)' },
-      { type: 'improvement', text: 'Format and tone selection deferred to explicit regenerate so you don\'t double-charge' },
-    ],
-  },
-  {
-    version: '3.1.7',
-    date: 'May 2, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'feature', text: 'Translation credits visible on the dashboard alongside listening time' },
-      { type: 'fix', text: 'Widget timer now counts down from your remaining time, not up from zero' },
-      { type: 'feature', text: 'Translation-only credit purchase flow for users who already have TTS credits' },
-    ],
-  },
-  {
-    version: '3.1.6',
-    date: 'April 30, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'feature', text: 'Translate any web page into your language and listen with word-by-word highlighting' },
-      { type: 'feature', text: '30+ languages supported natively; foreign articles read aloud in your chosen language' },
-      { type: 'feature', text: 'Per-paragraph translate via the Play Here button when translation toggle is on' },
-    ],
-  },
-  {
-    version: '3.1.5',
-    date: 'April 29, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'improvement', text: 'Widget styles fully isolated from host pages via Shadow DOM' },
-      { type: 'feature', text: 'First-run walkthrough introduces the widget on initial install' },
-      { type: 'fix', text: 'Highlighting algo cleanup: scoring-based candidate gate, less drift on complex pages' },
-      { type: 'fix', text: 'Play Here anchor and stuck-pause edge cases resolved' },
-    ],
-  },
-  {
-    version: '3.1.4',
-    date: 'April 26, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'feature', text: 'Migrated to Azure Speech Service for natural-sounding voices across 140+ languages' },
-      { type: 'feature', text: 'Voice picker now shows the full neural voice library; every voice sounds natural from the first word' },
-      { type: 'improvement', text: 'Sentence highlighting via Azure native sentence boundaries' },
-    ],
-  },
-  {
-    version: '3.1.1',
-    date: 'April 16, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'feature', text: 'Sentence-level highlighting toggle' },
-      { type: 'fix', text: 'Conversion tracking pixel reliability fix' },
-      { type: 'improvement', text: 'Sentence highlighting algorithm rewritten for accuracy on complex layouts' },
-    ],
-  },
-  {
-    version: '3.0.7',
-    date: 'April 10, 2026',
-    emailSent: true,
-    emailSummary: 'Notified all users that we\'re back from outage and shipped Google Ads conversion tracking fixes.',
-    changes: [
-      { type: 'fix', text: 'Google Ads conversion tracking rebuild (basic + enhanced conversions)' },
-      { type: 'feature', text: 'New user attribution for first-purchase signal' },
-    ],
-  },
-  {
-    version: '3.0.5',
-    date: 'April 9, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'fix', text: 'Highlighting algorithm overhaul for cleaner sentence boundaries' },
-      { type: 'fix', text: 'Pause / resume / stop reliability fixed' },
-      { type: 'fix', text: 'Offscreen audio race condition that caused fallback to Web Speech is gone' },
-      { type: 'improvement', text: 'CSS bleed onto host pages eliminated' },
-    ],
-  },
-  {
-    version: '3.0.2',
-    date: 'March 18, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'improvement', text: 'Updated brand color to forest green across extension and webapp' },
-      { type: 'improvement', text: 'Redesigned dashboard with clean white theme' },
-      { type: 'feature', text: 'Added free tier usage tracking for analytics' },
-      { type: 'improvement', text: 'Enhanced Google Ads conversion tracking with hashed email' },
-      { type: 'improvement', text: 'Added TM branding to unChonk across all pages' },
-    ],
-  },
-  {
-    version: '3.0.1',
-    date: 'March 18, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'feature', text: 'Added email/password login alongside Google OAuth' },
-      { type: 'improvement', text: 'Server side GA4 event tracking for sign ups, purchases, and first usage' },
-      { type: 'fix', text: 'Fixed Google Ads conversion tracking (switched from unreliable client side to server side)' },
-    ],
-  },
-  {
-    version: '2.2.9',
-    date: 'March 16, 2026',
-    emailSent: true,
-    emailSummary: 'Notified all users about resolved service issues and that verification emails were working again.',
-    changes: [
-      { type: 'fix', text: 'Resolved AWS account suspension that caused service downtime' },
-      { type: 'fix', text: 'Replaced dead Resend API key; verification emails working again' },
-      { type: 'fix', text: 'Resent verification emails to stuck unverified users' },
-    ],
-  },
-  {
-    version: '2.2.0',
-    date: 'February 10, 2026',
-    emailSent: false,
-    changes: [
-      { type: 'fix', text: 'Fixed highlighting drift caused by AWS Polly byte offset mismatch' },
-      { type: 'fix', text: 'Removed optimizeTextForTts that was causing text alignment issues' },
-      { type: 'fix', text: 'Fixed cross element sentence highlighting with proper clipping' },
-      { type: 'fix', text: 'Filtered out zero width rects that caused visual glitches' },
-      { type: 'fix', text: 'Fixed content scoring false positives on header class names' },
-      { type: 'fix', text: 'Fixed billing portal 500 error' },
-    ],
   },
 ])
 
@@ -592,24 +308,10 @@ function statusLabel(status: ServiceStatus): string {
   }
 }
 
-function changeTypeColor(type: ChangeEntry['type']): string {
-  switch (type) {
-    case 'fix': return 'bg-red-400'
-    case 'feature': return 'bg-[#2d5a3f]'
-    case 'improvement': return 'bg-amber-400'
-  }
-}
-
 function uptimeColor(pct: number): string {
   if (pct >= 99.5) return 'text-green-600'
   if (pct >= 95) return 'text-amber-600'
   return 'text-red-600'
-}
-
-function formatIncidentDate(iso: string): string {
-  const d = new Date(iso)
-  return d.toLocaleDateString([], { month: 'short', day: 'numeric' }) +
-    ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
 
 function updateService(key: string, status: ServiceStatus) {
@@ -682,7 +384,6 @@ async function fetchUptimeHistory() {
       const data = await resp.json()
       uptime.value = data.uptime
       avgResponseMs.value = data.avg_response_ms_24h || 0
-      incidents.value = data.incidents || []
       uptimeLoaded.value = true
     }
   } catch {

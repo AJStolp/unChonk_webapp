@@ -31,49 +31,8 @@
     </nav>
 
     <main>
-    <!-- Hero Section -->
-    <div class="relative bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <!-- Left Side -->
-          <div class="text-left">
-            <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Text to Speech App for Your Browser
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-700 mb-8">
-              No subscription. Pay only for what you read.
-            </p>
-            <p class="text-lg text-gray-600 mb-12 leading-relaxed">
-              Read any webpage aloud with premium voices, real-time word highlighting, and customizable playback — right in your browser. unChonk is pay-as-you-go text to speech, so there's no monthly fee and no plan to cancel.
-            </p>
-
-            <!-- CTA Buttons -->
-            <div class="flex gap-4">
-              <a
-                href="/subscription"
-                class="px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl"
-              >
-                Get Started
-              </a>
-            </div>
-          </div>
-
-          <!-- Right Side - Visual Element -->
-          <div class="text-left lg:text-right relative">
-            <div class="inline-block">
-              <!-- Placeholder for illustration or product demo -->
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Custom Wave Divider -->
-      <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-        <svg class="block w-full h-40 md:h-48 lg:h-56" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" style="display: block;">
-          <path d="M0,120 L0,80 Q600,-20 1200,80 L1200,120 Z" fill="#f9fafb"></path>
-        </svg>
-      </div>
-    </div>
+    <!-- Hero: interactive read-aloud demo (real Azure voice + Paint-API highlighter) -->
+    <ReaderHero />
 
     <!-- Features Section -->
     <div class="relative z-10 bg-gray-50 py-24">
@@ -309,6 +268,7 @@
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
 import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
+import ReaderHero from './ReaderHero.vue'
 
 const currentYear = computed(() => new Date().getFullYear())
 
