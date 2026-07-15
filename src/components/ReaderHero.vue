@@ -2,7 +2,7 @@
   <section class="reader-hero">
     <div class="inner">
       <div class="col-text">
-      <div class="eyebrow"><span class="dot"></span> Live demo · real voice · cached</div>
+      <div class="eyebrow"><span class="dot"></span> Live demo · real voice</div>
       <h1>Text to speech that highlights every word.</h1>
       <p class="sub">
         Highlight any passage on a page and unChonk reads just that part aloud,
