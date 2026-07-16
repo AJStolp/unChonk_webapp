@@ -45,7 +45,7 @@
               </p>
               <a
                 href="chrome-extension://ofnbgiiljbejpfnmjjnnbmpoiepkmkao/pages/login.html"
-                class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
+                class="inline-block px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
               >
                 Open Extension Sign In
               </a>
@@ -78,7 +78,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)"
-                class="inline-block px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition duration-300"
+                class="inline-block px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded hover:bg-gray-200 transition duration-300"
               >
                 Get the Chrome Extension
               </a>

@@ -21,7 +21,7 @@
             </a>
             <a
               href="/subscription"
-              class="px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
+              class="px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
             >
               View Plans
             </a>
@@ -160,7 +160,7 @@
               </p>
               <a
                 href="/subscription?translation=on"
-                class="inline-block px-7 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
+                class="inline-block px-7 py-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg"
               >
                 Add cross-language reading
               </a>
@@ -227,7 +227,7 @@
           </p>
           <a
             href="/subscription"
-            class="inline-block px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl"
+            class="inline-block px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl"
           >
             Get Started Now
           </a>

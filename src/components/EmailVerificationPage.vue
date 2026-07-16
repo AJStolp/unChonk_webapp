@@ -60,7 +60,7 @@
               <button
                 @click="handleResend"
                 :disabled="resending || !resendEmail"
-                class="px-4 py-2 bg-[#2d5a3f] text-white text-sm font-medium rounded-lg hover:bg-[#1e3d2a] disabled:bg-gray-300 transition-colors"
+                class="px-4 py-2 bg-[#2d5a3f] text-white text-sm font-medium rounded hover:bg-[#1e3d2a] disabled:bg-gray-300 transition-colors"
               >
                 {{ resending ? 'Sending...' : 'Resend' }}
               </button>

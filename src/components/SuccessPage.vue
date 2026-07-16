@@ -46,7 +46,7 @@
         <div class="space-y-4">
           <button
             @click="openExtensionDashboard"
-            class="w-full px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 text-center shadow-md hover:shadow-lg"
+            class="w-full px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition duration-300 text-center shadow-md hover:shadow-lg"
           >
             Open Dashboard
           </button>
