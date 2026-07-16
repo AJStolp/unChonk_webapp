@@ -70,7 +70,7 @@
             <button
               type="submit"
               :disabled="loginLoading"
-              class="w-full py-2.5 bg-[#2d5a3f] text-white font-semibold rounded-lg hover:bg-[#1e4530] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+              class="w-full py-2.5 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition disabled:opacity-50 disabled:cursor-not-allowed text-sm"
             >
               {{ loginLoading ? 'Signing in...' : 'Sign In' }}
             </button>
@@ -96,7 +96,7 @@
           <p class="text-red-600 mb-4">{{ error }}</p>
           <button
             @click="fetchAllData"
-            class="px-6 py-2 text-gray-700 font-medium border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+            class="px-6 py-2 text-gray-700 font-medium border border-gray-200 rounded hover:bg-gray-50 transition"
           >
             Try Again
           </button>
@@ -110,7 +110,7 @@
           <h1 class="text-2xl font-bold text-gray-900">Analytics Overview</h1>
           <button
             @click="fetchAllData"
-            class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition"
+            class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded hover:bg-gray-50 transition"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />

@@ -113,7 +113,7 @@
               @click="selectedCredits = pkg.credits"
               :disabled="isTtsSkipped"
               :class="[
-                'p-3 rounded-lg border-2 transition disabled:cursor-not-allowed',
+                'p-3 rounded border-2 transition disabled:cursor-not-allowed',
                 selectedCredits === pkg.credits
                   ? 'border-[#2d5a3f] bg-[#e0ece3]'
                   : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white'
@@ -202,7 +202,7 @@
               :key="pkg.credits"
               @click="selectedTranslationCredits = pkg.credits"
               :class="[
-                'p-2 rounded-lg border-2 transition text-xs',
+                'p-2 rounded border-2 transition text-xs',
                 selectedTranslationCredits === pkg.credits
                   ? 'border-[#2d5a3f] bg-white'
                   : 'border-gray-200 hover:border-[#2d5a3f]/50 bg-white',
@@ -266,7 +266,7 @@
           <button
             @click="handlePurchase"
             :disabled="loading"
-            class="px-8 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg"
+            class="px-8 py-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition shadow-md hover:shadow-lg"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -287,7 +287,7 @@
           <p class="text-red-600">{{ error }}</p>
           <button
             @click="fetchCreditPackages"
-            class="mt-4 px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded-lg hover:bg-[#1e4530] transition"
+            class="mt-4 px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition"
           >
             Try Again
           </button>
@@ -329,7 +329,7 @@
           </ul>
 
           <button
-            class="w-full p-3 bg-gray-100 text-gray-500 rounded-xl mt-auto cursor-not-allowed"
+            class="w-full p-3 bg-gray-100 text-gray-500 rounded mt-auto cursor-not-allowed"
             disabled
           >
             Current Plan
@@ -387,7 +387,7 @@
             v-if="!isLightDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -450,7 +450,7 @@
             v-if="!isPremiumDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -513,7 +513,7 @@
             v-if="!isProDisabled"
             @click="handlePurchase"
             :disabled="loading"
-            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition shadow-md hover:shadow-lg mt-auto"
             :class="loading ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="loading">Processing...</span>
@@ -547,13 +547,13 @@
             target="_blank"
             rel="noopener noreferrer"
             @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)"
-            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition text-center shadow-md"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition text-center shadow-md"
           >
             Get the Chrome Extension
           </a>
           <button
             @click="showAuthPrompt = false"
-            class="w-full p-3 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition"
+            class="w-full p-3 bg-gray-100 text-gray-700 font-medium rounded hover:bg-gray-200 transition"
           >
             Close
           </button>
@@ -579,7 +579,7 @@
           <button
             @click="resendVerificationEmail"
             :disabled="resendingEmail"
-            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition shadow-md hover:shadow-lg"
+            class="w-full p-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition shadow-md hover:shadow-lg"
             :class="resendingEmail ? 'opacity-50 cursor-not-allowed' : ''"
           >
             <span v-if="resendingEmail">Sending...</span>
@@ -588,7 +588,7 @@
           </button>
           <button
             @click="showEmailVerification = false"
-            class="w-full p-3 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition"
+            class="w-full p-3 bg-gray-100 text-gray-700 font-medium rounded hover:bg-gray-200 transition"
           >
             Close
           </button>

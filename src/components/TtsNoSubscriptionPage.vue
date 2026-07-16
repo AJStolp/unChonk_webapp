@@ -7,7 +7,7 @@
           <a href="/" class="text-xl font-bold text-gray-900">unChonk™</a>
           <div class="flex items-center gap-4">
             <a href="/subscription" class="text-gray-700 hover:text-gray-900 font-medium transition duration-300">Pricing</a>
-            <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg">Add to Chrome</a>
+            <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="px-6 py-2 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg">Add to Chrome</a>
           </div>
         </div>
       </div>
@@ -27,8 +27,8 @@
           unChonk is the pay-as-you-go text-to-speech reader for your browser. Buy credits once, use them whenever you read, and skip the auto-renewing subscriptions that every other TTS app forces on you.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl">Add to Chrome — Free</a>
-          <a href="/subscription" class="px-8 py-4 bg-white text-[#2d5a3f] text-lg font-semibold rounded-xl border border-[#2d5a3f]/30 hover:border-[#2d5a3f] transition duration-300">See pay-as-you-go pricing</a>
+          <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl">Add to Chrome — Free</a>
+          <a href="/subscription" class="px-8 py-4 bg-white text-[#2d5a3f] text-lg font-semibold rounded border border-[#2d5a3f]/30 hover:border-[#2d5a3f] transition duration-300">See pay-as-you-go pricing</a>
         </div>
       </section>
 
@@ -117,7 +117,7 @@
       <section class="max-w-4xl mx-auto px-4 py-16 text-center">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Start reading aloud — no subscription required</h2>
         <p class="text-lg text-gray-600 mb-8">Install unChonk and only ever pay for what you read.</p>
-        <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="inline-block px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl">Add unChonk to Chrome</a>
+        <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="inline-block px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl">Add unChonk to Chrome</a>
       </section>
     </main>
 

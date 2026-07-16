@@ -34,7 +34,7 @@
             <button
               type="submit"
               :disabled="loading"
-              class="px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded-xl hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              class="px-6 py-3 bg-[#2d5a3f] text-white font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {{ loading ? 'Saving...' : 'Notify Me' }}
             </button>

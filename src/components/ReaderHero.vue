@@ -386,7 +386,7 @@ h1 { font-size: clamp(1.9rem, 3.4vw, 2.9rem); line-height: 1.06; letter-spacing:
 .time { font-variant-numeric: tabular-nums; letter-spacing: .02em; }
 
 .cta { display: flex; align-items: center; justify-content: flex-start; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
-.cta a { display: inline-flex; align-items: center; text-decoration: none; font-weight: 600; color: #fff; background: #2d5a3f; padding: 12px 24px; border-radius: 999px; transition: background .15s; }
+.cta a { display: inline-flex; align-items: center; text-decoration: none; font-weight: 600; color: #fff; background: #2d5a3f; padding: 12px 24px; border-radius: 4px; transition: background .15s; }
 .cta a:hover { background: #1e4530; }
 .cta .note { color: #566159; font-size: .88rem; }
 
