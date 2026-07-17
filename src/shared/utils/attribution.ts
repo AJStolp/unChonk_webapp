@@ -103,15 +103,30 @@ export function getClickId(): string | null {
 
 /**
  * Fire a Google Ads conversion via gtag with proper attribution.
+ *
+ * When `email` is provided, it is passed to Google's enhanced conversions via
+ * `gtag('set', 'user_data', …)` before the conversion event. The Google tag
+ * normalizes and SHA-256 hashes it client-side before it leaves the browser —
+ * we never send a raw email. This recovers conversions lost to cookie
+ * restrictions and improves Smart Bidding signal. Only pass an email on pages
+ * where the signed-in/verified user's own address is legitimately available.
  */
 export function fireAttributedConversion(
   conversionLabel: string,
   value?: number,
   currency?: string,
   transactionId?: string,
+  email?: string,
 ): void {
   try {
     if (typeof window.gtag !== 'function') return
+
+    // Enhanced conversions: hand the user's own email to the Google tag, which
+    // hashes it locally. Normalize (trim + lowercase) per Google's guidance.
+    const normalizedEmail = email?.trim().toLowerCase()
+    if (normalizedEmail) {
+      window.gtag('set', 'user_data', { email: normalizedEmail })
+    }
 
     const params: Record<string, unknown> = {
       send_to: `AW-17950589439/${conversionLabel}`,

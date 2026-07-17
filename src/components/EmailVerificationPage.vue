@@ -127,8 +127,9 @@ const verifyEmail = async () => {
     loading.value = false
     success.value = true
 
-    // Fire Google Ads "Email Verified" conversion (gtag on unchonk.com has the _gcl_aw cookie)
-    fireAttributedConversion(CONVERSION_LABELS.EMAIL_VERIFIED)
+    // Fire Google Ads "Email Verified" conversion (gtag on unchonk.com has the _gcl_aw cookie).
+    // Pass the verified email for enhanced conversions (hashed client-side by the Google tag).
+    fireAttributedConversion(CONVERSION_LABELS.EMAIL_VERIFIED, undefined, undefined, undefined, data.email)
   } catch (err) {
     loading.value = false
     error.value = true
