@@ -91,6 +91,20 @@ const token = localStorage.getItem('access_token')
 // Extension ID for unChonk
 const EXTENSION_ID = 'ofnbgiiljbejpfnmjjnnbmpoiepkmkao'
 
+// Read the buyer's own email from the auth JWT so the purchase conversion can
+// use Google's enhanced conversions (the Google tag hashes it client-side).
+// Returns undefined if no token / no email claim — the conversion still fires.
+const getUserEmail = (): string | undefined => {
+  try {
+    const jwt = localStorage.getItem('auth_token')
+    if (!jwt) return undefined
+    const payload = JSON.parse(atob(jwt.split('.')[1]))
+    return typeof payload.email === 'string' && payload.email ? payload.email : undefined
+  } catch {
+    return undefined
+  }
+}
+
 // Try to open the extension dashboard
 const openExtensionDashboard = () => {
   // Try to open the extension's dashboard page
@@ -129,7 +143,7 @@ const firePurchaseConversion = async (sessionId: string) => {
       // Stripe returns amounts in the smallest currency unit (cents for USD).
       const value = typeof amount_total === 'number' ? amount_total / 100 : undefined
       const currencyCode = typeof currency === 'string' ? currency.toUpperCase() : undefined
-      fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, value, currencyCode, sessionId)
+      fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, value, currencyCode, sessionId, getUserEmail())
       return
     }
   } catch (error) {
@@ -137,7 +151,7 @@ const firePurchaseConversion = async (sessionId: string) => {
   }
   // Fallback: fire without value so attribution still lands. Skipping the
   // event entirely would silently drop conversion data from Google Ads.
-  fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, undefined, undefined, sessionId)
+  fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, undefined, undefined, sessionId, getUserEmail())
 }
 
 onMounted(() => {
@@ -157,7 +171,7 @@ onMounted(() => {
   } else {
     // No session_id (shouldn't happen on a real Stripe redirect) — still
     // fire attribution so the conversion isn't lost entirely.
-    fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, undefined, undefined, '')
+    fireAttributedConversion(CONVERSION_LABELS.FIRST_PURCHASE, undefined, undefined, '', getUserEmail())
   }
 
   handlePostSubscriptionTasks()

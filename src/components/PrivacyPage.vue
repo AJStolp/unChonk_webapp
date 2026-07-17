@@ -118,11 +118,18 @@
                     <a href="https://ahrefs.com/privacy-policy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">ahrefs.com/privacy-policy</a>
                   </td>
                 </tr>
+                <tr>
+                  <td class="border border-gray-200 px-4 py-2 text-gray-700">Google Ads</td>
+                  <td class="border border-gray-200 px-4 py-2 text-gray-700">Measuring ad conversions (including a hashed version of your email)</td>
+                  <td class="border border-gray-200 px-4 py-2">
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">policies.google.com/privacy</a>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
 
-          <p class="text-gray-700 font-medium">We do not sell or share your personal information with third parties.</p>
+          <p class="text-gray-700 font-medium">We do not sell your personal information. We share only the limited data described above with these services — including, with Google, a version of your email that is hashed in your browser before it is sent, used solely to measure ad conversions.</p>
         </section>
 
         <!-- Cookies and Analytics -->
@@ -131,8 +138,11 @@
           <p class="text-gray-700 mb-3">
             We use Ahrefs for privacy-focused website analytics. Ahrefs Web Analytics does not use cookies, does not track users across sites, and does not collect personally identifiable information.
           </p>
-          <p class="text-gray-700">
+          <p class="text-gray-700 mb-3">
             Authentication data is stored locally in your browser using standard web storage APIs. Third-party services (such as Stripe during checkout) may set their own cookies as necessary to complete transactions.
+          </p>
+          <p class="text-gray-700">
+            We use Google Ads conversion tracking to measure the effectiveness of our advertising. When you complete certain actions (such as verifying your email or purchasing), Google's enhanced conversions feature may include a hashed (SHA-256) version of your email address. The hashing happens in your browser before the data is sent, so Google does not receive your raw email. This data is used only to attribute and measure ad conversions. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-[#2d5a3f] hover:underline">Google's Privacy Policy</a>.
           </p>
         </section>
 
