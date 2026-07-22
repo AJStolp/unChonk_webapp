@@ -1,5 +1,12 @@
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="relative min-h-screen bg-white">
+    <!-- Scroll-depth sentinels (analytics only) -->
+    <div ref="scrollSentinels" aria-hidden="true" class="absolute inset-0 pointer-events-none">
+      <span class="absolute top-1/4" data-depth="25"></span>
+      <span class="absolute top-1/2" data-depth="50"></span>
+      <span class="absolute top-3/4" data-depth="75"></span>
+    </div>
+
     <!-- Navigation Bar -->
     <nav class="bg-white/95 backdrop-blur-sm border-b border-gray-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,8 +35,13 @@
         </p>
         <div class="flex flex-wrap justify-center gap-4">
           <a :href="installUrl" target="_blank" rel="noopener noreferrer" @click="fireAttributedConversion(CONVERSION_LABELS.WEBSTORE_CLICK)" class="px-8 py-4 bg-[#2d5a3f] text-white text-lg font-semibold rounded hover:bg-[#1e4530] transition duration-300 shadow-lg hover:shadow-xl">Add to Chrome — Free</a>
-          <a href="/demo" class="px-8 py-4 bg-white text-[#2d5a3f] text-lg font-semibold rounded border border-[#2d5a3f]/30 hover:border-[#2d5a3f] transition duration-300">See it in action</a>
+          <a href="#demo" class="px-8 py-4 bg-white text-[#2d5a3f] text-lg font-semibold rounded border border-[#2d5a3f]/30 hover:border-[#2d5a3f] transition duration-300">See it in action</a>
         </div>
+      </section>
+
+      <!-- Interactive demo (real voice + word highlighting) -->
+      <section id="demo" @play.capture="onDemoPlay">
+        <ReaderHero />
       </section>
 
       <!-- The gap it fills -->
@@ -105,10 +117,50 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import SeoFooter from './SeoFooter.vue'
+import ReaderHero from './ReaderHero.vue'
 import { fireAttributedConversion, CONVERSION_LABELS } from '@shared/utils/attribution'
 
 const currentYear = computed(() => new Date().getFullYear())
 const installUrl = 'https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao'
+
+// GA4 engagement events ride the existing Google tag on this page (see the
+// gtag.js snippet in read-aloud-chrome-extension.html). trackEvent in
+// @shared/utils/analytics is a no-op stub, so fire gtag directly.
+function gtagEvent(name: string) {
+  if (typeof window.gtag === 'function') window.gtag('event', name)
+}
+
+// demo_play: first time the on-page demo's audio starts (capture-phase listener
+// on the #demo section catches the non-bubbling `play` event from ReaderHero).
+let demoPlayed = false
+function onDemoPlay() {
+  if (demoPlayed) return
+  demoPlayed = true
+  gtagEvent('demo_play')
+}
+
+const scrollSentinels = ref<HTMLElement | null>(null)
+let depthObserver: IntersectionObserver | null = null
+
+onMounted(() => {
+  gtagEvent('landing_page_view')
+
+  // Scroll depth: fire once per sentinel (25/50/75% of page height).
+  const targets = scrollSentinels.value?.querySelectorAll('[data-depth]')
+  if (!targets?.length) return
+  depthObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue
+      gtagEvent(`scroll_depth_${(entry.target as HTMLElement).dataset.depth}`)
+      depthObserver?.unobserve(entry.target)
+    }
+  })
+  targets.forEach((t) => depthObserver!.observe(t))
+})
+
+onUnmounted(() => {
+  depthObserver?.disconnect()
+})
 </script>

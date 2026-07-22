@@ -28,68 +28,8 @@
     </nav>
 
     <main>
-      <!-- Header -->
-      <div class="max-w-4xl mx-auto px-4 pt-16 pb-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Text to Speech Online
-        </h1>
-        <p class="text-xl text-gray-600">
-          See how unChonk helps real people read any webpage aloud
-        </p>
-      </div>
-
-      <!-- Real People, Real Benefits Section -->
-      <section class="max-w-4xl mx-auto px-4 py-12">
-        <h2 class="text-3xl font-bold text-gray-900 mb-10">
-          Real People, Real Benefits
-        </h2>
-
-        <div class="space-y-10">
-          <!-- For Accessibility -->
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-              <span class="w-1 h-6 bg-green-500 rounded-full"></span>
-              For Accessibility
-            </h3>
-            <p class="text-gray-600 leading-relaxed pl-4">
-              Visual impairments shouldn't limit access to information. Dyslexia doesn't have to slow you down. Eye strain and fatigue are no longer roadblocks. The web should be accessible to everyone, and text-to-speech technology is a powerful equalizer. We're committed to making content consumption effortless for all.
-            </p>
-          </div>
-
-          <!-- For Language Learners -->
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-              <span class="w-1 h-6 bg-orange-500 rounded-full"></span>
-              For Language Learners
-            </h3>
-            <p class="text-gray-600 leading-relaxed pl-4">
-              Hear correct pronunciation in multiple languages. Follow along with the highlighting to connect written and spoken words. Adjust the speed to match your comprehension level. Language learning is all about input—and we're providing high-quality, controllable audio input whenever you need it.
-            </p>
-          </div>
-
-          <!-- For Students -->
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-              <span class="w-1 h-6 bg-purple-500 rounded-full"></span>
-              For Students
-            </h3>
-            <p class="text-gray-600 leading-relaxed pl-4">
-              Long textbooks and research papers can feel impossible when reading is a struggle. Sentence and word highlighting guides your eyes across the page while the reader speaks, keeping you focused and on track. Hearing the words as you see them reinforces comprehension and makes dense material easier to absorb. Stop losing your place or re-reading the same paragraph—let unChonk help you get through it.
-            </p>
-          </div>
-
-          <!-- For Professionals -->
-          <div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-              <span class="w-1 h-6 bg-blue-500 rounded-full"></span>
-              For Professionals
-            </h3>
-            <p class="text-gray-600 leading-relaxed pl-4">
-              Reports, documentation, and long emails don't get easier when reading feels like a chore. unChonk highlights each sentence as it reads, so you can follow along without losing focus. Get through the material you need to without the fatigue of struggling through walls of text on your own. Reading at work shouldn't be the hardest part of your job.
-            </p>
-          </div>
-        </div>
-      </section>
+      <!-- Interactive read-aloud demo (real voice + word highlighting) -->
+      <ReaderHero />
     </main>
 
     <!-- Footer -->
@@ -114,6 +54,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import ReaderHero from './ReaderHero.vue'
 
 const currentYear = computed(() => new Date().getFullYear())
 </script>

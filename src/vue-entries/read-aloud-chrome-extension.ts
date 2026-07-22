@@ -5,8 +5,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import ReadAloudChromeExtensionPage from '../components/ReadAloudChromeExtensionPage.vue'
+import { captureAttribution } from '../shared/utils/attribution'
 import '../styles/globals.css'
 
+// Capture ad attribution params (gclid, UTMs) from URL
+captureAttribution()
 
 const pinia = createPinia()
 
