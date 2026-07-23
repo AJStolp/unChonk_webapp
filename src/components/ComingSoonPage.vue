@@ -71,6 +71,11 @@ const error = ref('')
 const currentYear = computed(() => new Date().getFullYear())
 
 const handleSubmit = async () => {
+  if (!supabase) {
+    error.value = 'Something went wrong. Please try again.'
+    return
+  }
+
   loading.value = true
   error.value = ''
 

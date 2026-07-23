@@ -24,6 +24,7 @@
     "@sparticuz/chromium": "^149.0.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/vite": "^4.1.11",
+    "@types/chrome": "^0.2.2",
     "@types/node": "^24.0.13",
     "autoprefixer": "^10.4.21",
     "googleapis": "^173.0.0",
