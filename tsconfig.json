@@ -19,7 +19,7 @@
       "@shared/*": ["./src/shared/*"],
       "@components/*": ["./src/components/*"]
     },
-    "types": ["node"]
+    "types": ["node", "chrome"]
   },
   "include": [
     "src/**/*.ts",
