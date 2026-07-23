@@ -1,0 +1,35 @@
+name: Trigger prod E2E funnel
+
+# Vercel deploys this repo automatically on push to main. Deploy completion
+# isn't observable without Vercel API integration, so this waits a grace
+# period and polls prod before dispatching the funnel suite in the
+# extension repo (AJStolp/unchonk).
+on:
+  push:
+    branches: [main]
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for Vercel deploy
+        run: |
+          sleep 90
+          for i in $(seq 1 20); do
+            if curl -fsS --max-time 10 https://www.unchonk.com/read-aloud-chrome-extension > /dev/null; then
+              echo "Prod responding"
+              exit 0
+            fi
+            echo "Waiting for prod... ($i/20)"
+            sleep 15
+          done
+          echo "Prod never responded after deploy"
+          exit 1
+
+      - name: Dispatch funnel workflow
+        run: |
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${{ secrets.E2E_TRIGGER_PAT }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/AJStolp/unchonk/dispatches \
+            -d '{"event_type":"prod-e2e","client_payload":{"source":"webapp-deploy"}}'
