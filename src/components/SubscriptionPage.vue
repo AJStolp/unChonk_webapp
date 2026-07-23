@@ -623,8 +623,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
-import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
+import { ref, computed, onMounted } from 'vue'
 import { useAuthStore } from '@shared/stores/authStore'
 import { getApiUrl } from '@shared/config/environment'
 import { fireAttributedConversion, CONVERSION_LABELS } from '@shared/utils/attribution'
@@ -929,15 +928,6 @@ const handlePurchase = async () => {
   loading.value = true
   error.value = null
 
-  trackEvent(ANALYTICS_EVENTS.CREDIT_PURCHASE_INITIATED, {
-    credits: selectedCredits.value,
-    tier: currentTier.value,
-    price: calculatedPrice.value,
-    translationCredits: translationToggleEnabled.value ? selectedTranslationCredits.value : 0,
-    skipTts: translationToggleEnabled.value && skipTtsForTranslation.value,
-    totalPrice: totalPrice.value,
-  })
-
   // Route the checkout based on what the user is buying:
   //   - translation toggle off → TTS only (existing flow)
   //   - translation toggle on, skip-TTS unchecked → combined session
@@ -1001,13 +991,6 @@ const handlePurchase = async () => {
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'Failed to create checkout'
     console.error('[Subscription Page] Error creating checkout:', err)
-
-    // Track purchase failure
-    trackEvent(ANALYTICS_EVENTS.CREDIT_PURCHASE_FAILED, {
-      credits: selectedCredits.value,
-      tier: currentTier.value,
-      error: error.value,
-    })
   } finally {
     loading.value = false
   }
@@ -1063,17 +1046,6 @@ const resendVerificationEmail = async () => {
   }
 }
 
-// Track tier changes when user adjusts slider
-watch(currentTier, (newTier, oldTier) => {
-  if (oldTier && newTier !== oldTier) {
-    trackEvent(ANALYTICS_EVENTS.TIER_SELECTED, {
-      tier: newTier,
-      credits: selectedCredits.value,
-      price: calculatedPrice.value,
-    })
-  }
-})
-
 // Initialize on mount
 onMounted(async () => {
   // Check for token in URL (passed from Chrome extension)
@@ -1100,9 +1072,6 @@ onMounted(async () => {
 
   // Initialize auth (loads tokens from storage)
   await authStore.initializeAuth()
-
-  // Track subscription page view
-  trackEvent(ANALYTICS_EVENTS.SUBSCRIPTION_VIEW)
 
   fetchCreditPackages()
 })
