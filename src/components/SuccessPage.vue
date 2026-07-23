@@ -80,7 +80,6 @@
 
 <script setup lang="ts">
 import { onMounted, computed } from 'vue'
-import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
 import { fireAttributedConversion, CONVERSION_LABELS } from '@shared/utils/attribution'
 import { getApiUrl } from '@shared/config/environment'
 
@@ -159,12 +158,6 @@ onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search)
   const sessionId = urlParams.get('session_id')
   const paymentIntent = urlParams.get('payment_intent')
-
-  // Track successful purchase
-  trackEvent(ANALYTICS_EVENTS.CREDIT_PURCHASE_SUCCESS, {
-    session_id: sessionId || 'unknown',
-    payment_intent: paymentIntent || 'unknown',
-  })
 
   if (sessionId) {
     firePurchaseConversion(sessionId)

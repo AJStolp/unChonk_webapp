@@ -266,14 +266,8 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue'
-import { trackEvent, ANALYTICS_EVENTS } from '@shared/utils/analytics'
+import { computed } from 'vue'
 import ReaderHero from './ReaderHero.vue'
 
 const currentYear = computed(() => new Date().getFullYear())
-
-onMounted(() => {
-  // Track landing page view
-  trackEvent(ANALYTICS_EVENTS.LANDING_PAGE_VIEW)
-})
 </script>

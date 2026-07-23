@@ -4,7 +4,6 @@ import { useAuthStorage } from "../composables/useStorage";
 import { sendAuthToExtension } from "../composables/useExtensionAuthSync";
 import { getApiUrl } from "../config/environment";
 import { TIER_LIMITS } from "../constants";
-import { trackEvent, ANALYTICS_EVENTS } from "../utils/analytics";
 import { supabase } from "../utils/supabase";
 
 export interface UserProfile {
@@ -225,21 +224,9 @@ export const useAuthStore = defineStore("auth", () => {
       await storeTokens(data.access_token, data.refresh_token);
       await storeUserData(user.value);
 
-      // Track successful login
-      trackEvent(ANALYTICS_EVENTS.LOGIN_SUCCESS, {
-        username: username,
-        tier: user.value.tier,
-      });
-
       return true;
     } catch (error) {
       console.error("[Auth Store] ❌ Login failed:", error);
-
-      // Track failed login
-      trackEvent(ANALYTICS_EVENTS.LOGIN_FAILED, {
-        username: username,
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
 
       return false;
     } finally {
@@ -270,10 +257,6 @@ export const useAuthStore = defineStore("auth", () => {
       return true;
     } catch (error) {
       console.error("[Auth Store] Google login failed:", error);
-      trackEvent(ANALYTICS_EVENTS.LOGIN_FAILED, {
-        method: "google",
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
       return false;
     } finally {
       isLoading.value = false;
@@ -354,11 +337,6 @@ export const useAuthStore = defineStore("auth", () => {
       // Sync tokens to Chrome extension (if installed and content script is active)
       sendAuthToExtension(data.access_token, data.refresh_token);
 
-      trackEvent(ANALYTICS_EVENTS.LOGIN_SUCCESS, {
-        method: "google",
-        tier: user.value.tier,
-      });
-
       // Clean up URL hash from OAuth redirect
       if (window.location.hash) {
         history.replaceState(null, "", window.location.pathname);
@@ -367,10 +345,6 @@ export const useAuthStore = defineStore("auth", () => {
       return true;
     } catch (error) {
       console.error("[Auth Store] OAuth callback failed:", error);
-      trackEvent(ANALYTICS_EVENTS.LOGIN_FAILED, {
-        method: "google",
-        error: error instanceof Error ? error.message : "Unknown error",
-      });
       return false;
     } finally {
       isLoading.value = false;
@@ -397,9 +371,6 @@ export const useAuthStore = defineStore("auth", () => {
     }
 
     // Track logout before clearing state
-    trackEvent(ANALYTICS_EVENTS.LOGOUT, {
-      username: user.value?.username || "unknown",
-    });
 
     // Clear state
     isAuthenticated.value = false;

@@ -126,8 +126,7 @@ const currentYear = computed(() => new Date().getFullYear())
 const installUrl = 'https://chromewebstore.google.com/detail/unchonk-text-to-speech/ofnbgiiljbejpfnmjjnnbmpoiepkmkao'
 
 // GA4 engagement events ride the existing Google tag on this page (see the
-// gtag.js snippet in read-aloud-chrome-extension.html). trackEvent in
-// @shared/utils/analytics is a no-op stub, so fire gtag directly.
+// gtag.js snippet in read-aloud-chrome-extension.html).
 function gtagEvent(name: string) {
   if (typeof window.gtag === 'function') window.gtag('event', name)
 }
